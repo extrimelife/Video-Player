@@ -9,8 +9,8 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-     let mainVC = MainViewController()
-     let secondVC = SecondViewController()
+    let mainVC = MainViewController()
+    let secondVC = SecondViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
