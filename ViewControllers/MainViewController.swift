@@ -14,7 +14,6 @@ final class MainViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(MainlCollectionViewCell.self, forCellWithReuseIdentifier: MainlCollectionViewCell.identifier)
-        collectionView.backgroundColor = .systemMint
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -23,6 +22,29 @@ final class MainViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupNavigationBar()
+    }
+    
+    
+    private func setupNavigationBar() {
+        title = "MeTube"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+        let navBarAppearance = UINavigationBarAppearance()
+        navBarAppearance.backgroundColor = UIColor(
+            red: 21/255,
+            green: 101/255,
+            blue: 192/255,
+            alpha: 194/255
+        )
+        
+        navBarAppearance.titleTextAttributes = [.foregroundColor: UIColor.white]
+        navBarAppearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
+        
+        navigationController?.navigationBar.standardAppearance = navBarAppearance
+        navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+        
+        navigationController?.navigationBar.tintColor = .white
     }
     
     private func setupLayout() {

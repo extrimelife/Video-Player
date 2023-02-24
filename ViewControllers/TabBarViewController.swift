@@ -14,15 +14,14 @@ class TabBarViewController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabBar()
+        setupNavigation()
     }
     
-    private func setupTabBar() {
+    private func setupNavigation() {
         let mainVC = UINavigationController(rootViewController: mainViewController)
-        mainVC.tabBarItem.title = "Video"
+        mainVC.tabBarItem.title = "Home"
         mainVC.tabBarItem.image = UIImage(systemName: "house")
-        mainVC.navigationItem.title = "Video"
-        
+         
         let secondVC = UINavigationController(rootViewController: secondVC)
         secondVC.tabBarItem.title = "Favorite"
         secondVC.navigationItem.title = "feffef"
