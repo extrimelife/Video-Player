@@ -9,7 +9,7 @@ import UIKit
 
 class TabBarViewController: UITabBarController {
     
-    let mainVC = MainViewController()
+    let mainViewController = MainViewController()
     let secondVC = SecondViewController()
     
     override func viewDidLoad() {
@@ -18,9 +18,9 @@ class TabBarViewController: UITabBarController {
     }
     
     private func setupTabBar() {
-        let mainVC = UINavigationController(rootViewController: mainVC)
+        let mainVC = UINavigationController(rootViewController: mainViewController)
         mainVC.tabBarItem.title = "Video"
-        mainVC.tabBarItem.image = UIImage(systemName: "play.circle")
+        mainVC.tabBarItem.image = UIImage(systemName: "house")
         mainVC.navigationItem.title = "Video"
         
         let secondVC = UINavigationController(rootViewController: secondVC)
