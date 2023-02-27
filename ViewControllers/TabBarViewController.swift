@@ -17,14 +17,15 @@ final class TabBarViewController: UITabBarController {
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
         navigationLabel.text = "MeTube"
-        navigationLabel.font = UIFont.systemFont(ofSize: 25, weight: .bold)
+        navigationLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         navigationLabel.textColor = .white
+        navigationLabel.textAlignment = .left
         return navigationLabel
     }()
     
     private let navigationImageView: UIImageView = {
-        let naviImageView = UIImageView(image: UIImage(named: "MeTube"))
-        naviImageView.frame = CGRect(x: 0, y: 0, width: 10, height: 10)
+        let naviImageView = UIImageView()
+        naviImageView.image = UIImage(named: "MeTube")
         naviImageView.contentMode = .scaleAspectFit
         return naviImageView
     }()
@@ -33,10 +34,7 @@ final class TabBarViewController: UITabBarController {
         let stackView = UIStackView(arrangedSubviews: [navigationImageView, navigationLabel])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = -60
-        stackView.frame.size = CGSize(
-            width: navigationImageView.frame.size.width + navigationLabel.frame.size.width,
-            height: max(navigationImageView.frame.size.height, navigationLabel.frame.size.height))
+        stackView.spacing = -40
         return stackView
     }()
     
@@ -46,6 +44,7 @@ final class TabBarViewController: UITabBarController {
         super.viewDidLoad()
         setupNavigation()
         setupNavigationBar()
+        setupLayout()
     }
     
     // MARK: - Private Methods
@@ -70,6 +69,13 @@ final class TabBarViewController: UITabBarController {
         mainViewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
         mainViewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         mainViewController.navigationController?.navigationBar.tintColor = .white
+    }
+    
+    private func setupLayout() {
+        NSLayoutConstraint.activate([
+            navigationStackView.heightAnchor.constraint(equalToConstant: 20),
+            navigationStackView.widthAnchor.constraint(equalToConstant: 200),
+        ])
     }
 }
 
