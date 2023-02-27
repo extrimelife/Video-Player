@@ -30,11 +30,19 @@ final class TabBarViewController: UITabBarController {
         return naviImageView
     }()
     
-    private lazy var navigationStackView: UIStackView = {
+    private lazy var naviHorizontalStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [navigationImageView, navigationLabel])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = -40
+        stackView.spacing = -195
+        return stackView
+    }()
+    
+    private lazy var naviVerticalStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .leading
+        stackView.addArrangedSubview(naviHorizontalStackView)
         return stackView
     }()
     
@@ -62,10 +70,9 @@ final class TabBarViewController: UITabBarController {
     }
     
     private func setupNavigationBar() {
-        
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundColor = UIColor(hexString: "#2e0142")
-        mainViewController.navigationItem.titleView = navigationStackView
+        mainViewController.navigationItem.titleView = naviVerticalStackView
         mainViewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
         mainViewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         mainViewController.navigationController?.navigationBar.tintColor = .white
@@ -73,8 +80,9 @@ final class TabBarViewController: UITabBarController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            navigationStackView.heightAnchor.constraint(equalToConstant: 20),
-            navigationStackView.widthAnchor.constraint(equalToConstant: 200),
+            naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 20),
+            naviHorizontalStackView.widthAnchor.constraint(equalToConstant: 190),
+            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 350)
         ])
     }
 }
