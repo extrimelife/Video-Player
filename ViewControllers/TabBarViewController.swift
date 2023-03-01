@@ -11,8 +11,8 @@ final class TabBarViewController: UITabBarController {
     
     // MARK: - Private Properties
     
-    private let mainViewController = HomeViewController()
-    private let secondVC = SecondViewController()
+    private let homeViewController = HomeViewController()
+    private let favoriteViewController = FavoriteViewController()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
@@ -58,24 +58,27 @@ final class TabBarViewController: UITabBarController {
     // MARK: - Private Methods
     
     private func setupNavigation() {
-        let mainVC = UINavigationController(rootViewController: mainViewController)
-        mainVC.tabBarItem.title = "Home"
-        mainVC.tabBarItem.image = UIImage(systemName: "house")
+        let homeVC = UINavigationController(rootViewController: homeViewController)
+        homeVC.tabBarItem.title = "Home"
+        homeVC.tabBarItem.image = UIImage(systemName: "house")
         
-        let secondVC = UINavigationController(rootViewController: secondVC)
-        secondVC.tabBarItem.title = "Favorite"
-        secondVC.tabBarItem.image = UIImage(systemName: "heart")
+        let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
+        favoriteVc.tabBarItem.title = "Favorite"
+        favoriteVc.tabBarItem.image = UIImage(systemName: "heart")
         
-        viewControllers = [mainVC, secondVC]
+        viewControllers = [homeVC, favoriteVc]
     }
     
     private func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
-        mainViewController.navigationItem.titleView = naviVerticalStackView
-        mainViewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
-        mainViewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-        mainViewController.navigationController?.navigationBar.tintColor = .white
+        let navigationBars = [homeViewController, favoriteViewController]
+        navigationBars .forEach { navigationBar in
+            navigationBar.navigationItem.titleView = naviVerticalStackView
+            navigationBar.navigationController?.navigationBar.standardAppearance = navBarAppearance
+            navigationBar.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
+            navigationBar.navigationController?.navigationBar.tintColor = .white
+        }
     }
     
     private func setupLayout() {
