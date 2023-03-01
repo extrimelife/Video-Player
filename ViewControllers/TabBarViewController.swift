@@ -60,11 +60,11 @@ final class TabBarViewController: UITabBarController {
     private func setupNavigation() {
         let homeVC = UINavigationController(rootViewController: homeViewController)
         homeVC.tabBarItem.title = "Home"
-        homeVC.tabBarItem.image = UIImage(systemName: "house")
+        homeVC.tabBarItem.image = UIImage(named: "home2")
         
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
-        favoriteVc.tabBarItem.image = UIImage(systemName: "heart")
+        favoriteVc.tabBarItem.image = UIImage(named: "heart")
         
         viewControllers = [homeVC, favoriteVc]
     }
