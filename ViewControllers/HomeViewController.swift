@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class MainViewController: UIViewController {
+final class HomeViewController: UIViewController {
     
     private lazy var collectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(MainlCollectionViewCell.self, forCellWithReuseIdentifier: MainlCollectionViewCell.identifier)
-        collectionView.backgroundColor = UIColor(hexString: "#2e0142")
+        collectionView.backgroundColor = UIColor(hexString: "#f7f0f0")
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView
@@ -39,7 +39,7 @@ final class MainViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDataSource {
+extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         200
     }
@@ -53,7 +53,7 @@ extension MainViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegateFlowLayout
 
-extension MainViewController: UICollectionViewDelegateFlowLayout {
+extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     private var sizeInset: CGFloat { return 8 }
     

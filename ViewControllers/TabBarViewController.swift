@@ -11,14 +11,14 @@ final class TabBarViewController: UITabBarController {
     
     // MARK: - Private Properties
     
-    private let mainViewController = MainViewController()
+    private let mainViewController = HomeViewController()
     private let secondVC = SecondViewController()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
         navigationLabel.text = "MeTube"
         navigationLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
-        navigationLabel.textColor = .white
+        navigationLabel.textColor = .black
         navigationLabel.textAlignment = .left
         return navigationLabel
     }()
@@ -71,7 +71,7 @@ final class TabBarViewController: UITabBarController {
     
     private func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.backgroundColor = UIColor(hexString: "#2e0142")
+        navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
         mainViewController.navigationItem.titleView = naviVerticalStackView
         mainViewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
         mainViewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
