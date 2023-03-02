@@ -27,7 +27,7 @@ final class HomeViewController: UIViewController {
     
     private func setupLayout() {
         view.addSubview(collectionView)
-        
+        view.backgroundColor = UIColor(hexString: "#f7f0f0")
         NSLayoutConstraint.activate([
             collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
