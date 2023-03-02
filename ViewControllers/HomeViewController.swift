@@ -13,8 +13,8 @@ final class HomeViewController: UIViewController {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(MainlCollectionViewCell.self, forCellWithReuseIdentifier: MainlCollectionViewCell.identifier)
         collectionView.backgroundColor = UIColor(hexString: "#f7f0f0")
+        collectionView.register(MainlCollectionViewCell.self, forCellWithReuseIdentifier: MainlCollectionViewCell.identifier)
         collectionView.dataSource = self
         collectionView.delegate = self
         return collectionView

@@ -13,6 +13,7 @@ final class TabBarViewController: UITabBarController {
     
     private let homeViewController = HomeViewController()
     private let favoriteViewController = FavoriteViewController()
+    private let thirdVC = ThirdViewController()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
@@ -66,13 +67,17 @@ final class TabBarViewController: UITabBarController {
         favoriteVc.tabBarItem.title = "Favorite"
         favoriteVc.tabBarItem.image = UIImage(named: "heart")
         
-        viewControllers = [homeVC, favoriteVc]
+        let thirdVC = UINavigationController(rootViewController: thirdVC)
+        thirdVC.tabBarItem.title = "Info"
+        thirdVC.tabBarItem.image = UIImage(named: "info")
+        
+        viewControllers = [homeVC, favoriteVc, thirdVC]
     }
     
     private func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
-        let navigationBars = [homeViewController, favoriteViewController]
+        let navigationBars = [homeViewController, favoriteViewController, thirdVC]
         navigationBars .forEach { navigationBar in
             navigationBar.navigationItem.titleView = naviVerticalStackView
             navigationBar.navigationController?.navigationBar.standardAppearance = navBarAppearance
