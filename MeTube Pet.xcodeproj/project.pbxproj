@@ -16,8 +16,9 @@
 		B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */; };
 		B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */; };
 		B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77840E829AB325500899D3D /* UIColor + Extention.swift */; };
-		B77B2E5029A73969002B807E /* MainlCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E4F29A73969002B807E /* MainlCollectionViewCell.swift */; };
+		B77B2E5029A73969002B807E /* HomelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */; };
 		B77B2E5229A73B52002B807E /* UIView + cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E5129A73B52002B807E /* UIView + cell.swift */; };
+		B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,8 +33,9 @@
 		B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
 		B77840E829AB325500899D3D /* UIColor + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extention.swift"; sourceTree = "<group>"; };
-		B77B2E4F29A73969002B807E /* MainlCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainlCollectionViewCell.swift; sourceTree = "<group>"; };
+		B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B77B2E5129A73B52002B807E /* UIView + cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + cell.swift"; sourceTree = "<group>"; };
+		B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,7 +103,8 @@
 		B77B2E4E29A73922002B807E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				B77B2E4F29A73969002B807E /* MainlCollectionViewCell.swift */,
+				B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */,
+				B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -179,12 +182,13 @@
 				B77B2E5229A73B52002B807E /* UIView + cell.swift in Sources */,
 				B73ED2C129A5FFDF00DA2B37 /* ThirdViewController.swift in Sources */,
 				B73ED2BD29A5FFDF00DA2B37 /* AppDelegate.swift in Sources */,
-				B77B2E5029A73969002B807E /* MainlCollectionViewCell.swift in Sources */,
+				B77B2E5029A73969002B807E /* HomelCollectionViewCell.swift in Sources */,
 				B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */,
 				B73ED2BF29A5FFDF00DA2B37 /* SceneDelegate.swift in Sources */,
 				B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */,
 				B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */,
 				B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */,
+				B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

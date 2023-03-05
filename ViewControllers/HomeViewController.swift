@@ -9,15 +9,15 @@ import UIKit
 
 final class HomeViewController: UIViewController {
     
-    private lazy var collectionView: UICollectionView = {
+    private lazy var homeCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
-        collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.backgroundColor = UIColor(hexString: "#f7f0f0")
-        collectionView.register(MainlCollectionViewCell.self, forCellWithReuseIdentifier: MainlCollectionViewCell.identifier)
-        collectionView.dataSource = self
-        collectionView.delegate = self
-        return collectionView
+        let homeVollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
+        homeVollectionView.translatesAutoresizingMaskIntoConstraints = false
+        homeVollectionView.backgroundColor = UIColor(hexString: "#f7f0f0")
+        homeVollectionView.register(HomelCollectionViewCell.self, forCellWithReuseIdentifier: HomelCollectionViewCell.identifier)
+        homeVollectionView.dataSource = self
+        homeVollectionView.delegate = self
+        return homeVollectionView
     }()
     
     override func viewDidLoad() {
@@ -26,13 +26,13 @@ final class HomeViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(collectionView)
+        view.addSubview(homeCollectionView)
         view.backgroundColor = UIColor(hexString: "#f7f0f0")
         NSLayoutConstraint.activate([
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            homeCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            homeCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            homeCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            homeCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         ])
     }
 }
@@ -45,7 +45,7 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: MainlCollectionViewCell.identifier, for: indexPath) as? MainlCollectionViewCell else { return MainlCollectionViewCell() }
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell()}
         cell.cell()
         return cell
     }
