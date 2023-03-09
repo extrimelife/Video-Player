@@ -29,7 +29,7 @@ class FavoriteViewController: UIViewController {
             favoriteListTableView.topAnchor.constraint(equalTo: view.topAnchor),
             favoriteListTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoriteListTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            favoriteListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            favoriteListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
         ])
     }
 }

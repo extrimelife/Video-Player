@@ -13,7 +13,7 @@ final class TabBarViewController: UITabBarController {
     
     private let homeViewController = HomeViewController()
     private let favoriteViewController = FavoriteViewController()
-    private let thirdVC = ThirdViewController()
+    private let thirdVC = InfoViewController()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
