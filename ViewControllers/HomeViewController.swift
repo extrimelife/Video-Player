@@ -10,6 +10,10 @@ import AVKit
 
 final class HomeViewController: UIViewController {
     
+    var data = [Category]()
+    private let avPlayerCintroller = AVPlayerViewController()
+    private var playerView: AVPlayer?
+    
     private lazy var homeCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
         let homeVollectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout)
@@ -24,6 +28,16 @@ final class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        fetchData()
+    }
+    
+    private func fetchData() {
+        NetworkManager.share.fetchingJsonData { [unowned self] result in
+            data = result
+            DispatchQueue.main.async {
+                self.homeCollectionView.reloadData()
+            }
+        }
     }
     
     private func setupLayout() {
@@ -31,23 +45,35 @@ final class HomeViewController: UIViewController {
         view.backgroundColor = UIColor(hexString: "#f7f0f0")
         NSLayoutConstraint.activate([
             homeCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            homeCollectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            homeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             homeCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            homeCollectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
+            homeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
+
+    func videoUrl(url:String){
+        guard let url = URL(string: url) else {return}
+        self.playerView = AVPlayer(url: url)
+        playerView?.play()
+        avPlayerCintroller.player = playerView
+        present(avPlayerCintroller, animated: true)
+                
+    }
 }
+
 
 // MARK: - UICollectionViewDataSource
 
 extension HomeViewController: UICollectionViewDataSource {
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        200
+        data.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell()}
-        cell.cell()
+        let videoModel = data[indexPath.section].video[indexPath.row]
+        cell.configure(categories: videoModel)
         return cell
     }
 }
@@ -73,5 +99,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         sizeInset
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let videoModel = data[indexPath.row].video[indexPath.row]
+        videoUrl(url: videoModel.sources)
     }
 }

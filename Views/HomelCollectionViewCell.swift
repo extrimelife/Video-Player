@@ -9,33 +9,41 @@ import UIKit
 
 final class HomelCollectionViewCell: UICollectionViewCell {
     
-    private let collectionImageView: UIView = {
-        let view = UIView()
-        view.translatesAutoresizingMaskIntoConstraints = false
-        view.backgroundColor = .yellow
-        return view
+     private let imageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .yellow
+        return imageView
     }()
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupLayout()
+    
+    
+    private var imageUrl: URL? {
+        didSet {
+            imageView.image = nil
+        }
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
+    override func awakeFromNib() {
+        super.awakeFromNib()
+       setupLayout()
     }
     
-    func cell() {
+    func configure(categories: Video) {
+        NetworkManager.share.fetchImage(from: categories.thumb) { data in
+            self.imageView.image = UIImage(data: data)
+        }
         
     }
-    
+            
     private func setupLayout() {
-        contentView.addSubview(collectionImageView)
+        contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
-            collectionImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            collectionImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            collectionImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            collectionImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 }
+

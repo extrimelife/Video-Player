@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B7133C5229C03F0300D700A6 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B7133C5129C03F0300D700A6 /* simple.json */; };
 		B73ED2BD29A5FFDF00DA2B37 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2BC29A5FFDF00DA2B37 /* AppDelegate.swift */; };
 		B73ED2BF29A5FFDF00DA2B37 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2BE29A5FFDF00DA2B37 /* SceneDelegate.swift */; };
 		B73ED2C129A5FFDF00DA2B37 /* InfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2C029A5FFDF00DA2B37 /* InfoViewController.swift */; };
@@ -18,12 +19,13 @@
 		B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77840E829AB325500899D3D /* UIColor + Extention.swift */; };
 		B77B2E5029A73969002B807E /* HomelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */; };
 		B77B2E5229A73B52002B807E /* UIView + cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E5129A73B52002B807E /* UIView + cell.swift */; };
-		B7BABEBE29BED72800E4B7F8 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B7BABEBD29BED72800E4B7F8 /* simple.json */; };
+		B7BABEC329BEDB3C00E4B7F8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */; };
 		B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */; };
 		B7DFF31029BD9B9E00EAE036 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFF30F29BD9B9E00EAE036 /* Models.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		B7133C5129C03F0300D700A6 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = SOURCE_ROOT; };
 		B73ED2B929A5FFDF00DA2B37 /* MeTube Pet.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MeTube Pet.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B73ED2BC29A5FFDF00DA2B37 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B73ED2BE29A5FFDF00DA2B37 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -37,8 +39,7 @@
 		B77840E829AB325500899D3D /* UIColor + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extention.swift"; sourceTree = "<group>"; };
 		B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B77B2E5129A73B52002B807E /* UIView + cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + cell.swift"; sourceTree = "<group>"; };
-		B7BABEBD29BED72800E4B7F8 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = simple.json; path = "../../../Desktop/AVVideoPlayInCollectionViewCell-main/PlayVideoInCollectionViewcell/PlayVideoInCollectionViewcellUITests/simple.json"; sourceTree = "<group>"; };
-		B7BABEBF29BED73D00E4B7F8 /* simple.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
+		B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B7DFF30F29BD9B9E00EAE036 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -60,9 +61,9 @@
 				B77B2E4C29A7279A002B807E /* ViewControllers */,
 				B77B2E4E29A73922002B807E /* Views */,
 				B7DFF30E29BD9B7200EAE036 /* Models */,
+				B7BABEC129BEDB0300E4B7F8 /* Services */,
 				B77840EA29AB325F00899D3D /* Extentions */,
 				B77B2E4D29A727E8002B807E /* App */,
-				B7BABEC029BED74800E4B7F8 /* JsonLocal */,
 				B73ED2BA29A5FFDF00DA2B37 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -103,7 +104,7 @@
 				B73ED2C729A5FFE100DA2B37 /* LaunchScreen.storyboard */,
 				B73ED2C529A5FFE100DA2B37 /* Assets.xcassets */,
 				B73ED2CA29A5FFE100DA2B37 /* Info.plist */,
-				B7BABEBD29BED72800E4B7F8 /* simple.json */,
+				B7133C5129C03F0300D700A6 /* simple.json */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -117,12 +118,12 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		B7BABEC029BED74800E4B7F8 /* JsonLocal */ = {
+		B7BABEC129BEDB0300E4B7F8 /* Services */ = {
 			isa = PBXGroup;
 			children = (
-				B7BABEBF29BED73D00E4B7F8 /* simple.json */,
+				B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */,
 			);
-			path = JsonLocal;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		B7DFF30E29BD9B7200EAE036 /* Models */ = {
@@ -193,7 +194,7 @@
 			files = (
 				B73ED2C929A5FFE100DA2B37 /* LaunchScreen.storyboard in Resources */,
 				B73ED2C629A5FFE100DA2B37 /* Assets.xcassets in Resources */,
-				B7BABEBE29BED72800E4B7F8 /* simple.json in Resources */,
+				B7133C5229C03F0300D700A6 /* simple.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -204,6 +205,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7BABEC329BEDB3C00E4B7F8 /* NetworkManager.swift in Sources */,
 				B77B2E5229A73B52002B807E /* UIView + cell.swift in Sources */,
 				B73ED2C129A5FFDF00DA2B37 /* InfoViewController.swift in Sources */,
 				B7DFF31029BD9B9E00EAE036 /* Models.swift in Sources */,
