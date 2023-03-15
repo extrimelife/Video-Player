@@ -7,16 +7,16 @@
 
 import Foundation
 
-struct Json: Decodable {
+struct JsonModel: Codable {
     let categories: [Category]
 }
 
-struct Category: Decodable {
-    let title: String
-    let video: [Video]
+struct Category: Codable {
+    let name: String
+    let videos: [Video]
 }
 
-struct Video: Decodable {
+struct Video: Codable {
     let description: String
     let sources: String
     let subtitle: String

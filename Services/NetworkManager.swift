@@ -11,6 +11,7 @@ enum NetworkError: Error {
 case invalidURL
 case noData
 case decodingError
+    
 }
 
 
@@ -27,7 +28,7 @@ final class NetworkManager {
             let data = try Data(contentsOf: fileLocation)
             let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
             print(json)
-            let decode = try JSONDecoder().decode(Json.self, from: data)
+            let decode = try JSONDecoder().decode(JsonModel.self, from: data)
             
             handler(decode.categories)
             

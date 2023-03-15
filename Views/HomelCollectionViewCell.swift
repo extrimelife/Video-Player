@@ -9,10 +9,9 @@ import UIKit
 
 final class HomelCollectionViewCell: UICollectionViewCell {
     
-     private let imageView: UIImageView = {
+     var imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.backgroundColor = .yellow
         return imageView
     }()
     
@@ -24,17 +23,22 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    override func awakeFromNib() {
-        super.awakeFromNib()
-       setupLayout()
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupLayout()
     }
     
-    func configure(categories: Video) {
-        NetworkManager.share.fetchImage(from: categories.thumb) { data in
-            self.imageView.image = UIImage(data: data)
-        }
-        
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
+    
+    
+//    func configure(categories: Video) {
+//        NetworkManager.share.fetchImage(from: categories.thumb) { data in
+//            self.imageView.image = UIImage(data: data)
+//        }
+//
+//    }
             
     private func setupLayout() {
         contentView.addSubview(imageView)

@@ -67,13 +67,13 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        data.count
+        data[section].videos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell()}
-        let videoModel = data[indexPath.section].video[indexPath.row]
-        cell.configure(categories: videoModel)
+        let videoModel = data[indexPath.section].videos[indexPath.row]
+        cell.imageView.downloaded(from: videoModel.thumb, contentMode: .scaleToFill)
         return cell
     }
 }
@@ -102,7 +102,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let videoModel = data[indexPath.row].video[indexPath.row]
+        let videoModel = data[indexPath.row].videos[indexPath.row]
         videoUrl(url: videoModel.sources)
     }
 }
