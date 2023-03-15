@@ -8,12 +8,11 @@
 import Foundation
 
 enum NetworkError: Error {
-case invalidURL
-case noData
-case decodingError
+    case invalidURL
+    case noData
+    case decodingError
     
 }
-
 
 final class NetworkManager {
     
@@ -21,30 +20,30 @@ final class NetworkManager {
     
     private init () {}
     
-    func fetchingJsonData(handler: @escaping (_ result: [Category]) -> (Void)) {
+    func fetchData(completion: @escaping (_ result: [Category]) -> (Void)) {
         guard let fileLocation = Bundle.main.url(forResource: "simple", withExtension: "json") else {return}
         
         do {
             let data = try Data(contentsOf: fileLocation)
             let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
             print(json)
-            let decode = try JSONDecoder().decode(JsonModel.self, from: data)
-            
-            handler(decode.categories)
-            
+            let jsonModel = try JSONDecoder().decode(JsonModel.self, from: data)
+            completion(jsonModel.categories)
         } catch {
             print("Parsing Error")
         }
-        
     }
     
-    func fetchImage(from url: String?, completion: @escaping(Data) -> Void) {
-        guard let url = URL(string: url ?? "") else { return }
-        DispatchQueue.global().async {
-            guard let imageUrl = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async {
-                completion(imageUrl)
+    func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
+        URLSession.shared.dataTask(with: url) { data, _, error in
+            guard let data = data else {
+                completion(.failure(.noData))
+                print(error?.localizedDescription ?? "No error description")
+                return
             }
-        }
-    } 
+            DispatchQueue.main.async {
+                completion(.success(data))
+            }
+        } .resume()
+    }
 }

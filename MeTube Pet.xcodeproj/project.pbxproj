@@ -15,8 +15,8 @@
 		B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */; };
 		B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */; };
 		B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */; };
-		B767A39829C14A9E003ADAC7 /* ImageCatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767A39729C14A9E003ADAC7 /* ImageCatchManager.swift */; };
 		B767A39A29C14AB5003ADAC7 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B767A39929C14AB5003ADAC7 /* simple.json */; };
+		B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */; };
 		B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77840E829AB325500899D3D /* UIColor + Extention.swift */; };
 		B77B2E5029A73969002B807E /* HomelCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */; };
 		B77B2E5229A73B52002B807E /* UIView + cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77B2E5129A73B52002B807E /* UIView + cell.swift */; };
@@ -36,8 +36,8 @@
 		B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
-		B767A39729C14A9E003ADAC7 /* ImageCatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCatchManager.swift; sourceTree = "<group>"; };
 		B767A39929C14AB5003ADAC7 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
+		B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCatchManager.swift; sourceTree = "<group>"; };
 		B77840E829AB325500899D3D /* UIColor + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extention.swift"; sourceTree = "<group>"; };
 		B77B2E4F29A73969002B807E /* HomelCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomelCollectionViewCell.swift; sourceTree = "<group>"; };
 		B77B2E5129A73B52002B807E /* UIView + cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + cell.swift"; sourceTree = "<group>"; };
@@ -66,6 +66,7 @@
 				B7BABEC129BEDB0300E4B7F8 /* Services */,
 				B77840EA29AB325F00899D3D /* Extentions */,
 				B77B2E4D29A727E8002B807E /* App */,
+				B767A39B29C17117003ADAC7 /* LocalJson */,
 				B73ED2BA29A5FFDF00DA2B37 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -76,6 +77,14 @@
 				B73ED2B929A5FFDF00DA2B37 /* MeTube Pet.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B767A39B29C17117003ADAC7 /* LocalJson */ = {
+			isa = PBXGroup;
+			children = (
+				B767A39929C14AB5003ADAC7 /* simple.json */,
+			);
+			path = LocalJson;
 			sourceTree = "<group>";
 		};
 		B77840EA29AB325F00899D3D /* Extentions */ = {
@@ -106,7 +115,6 @@
 				B73ED2C729A5FFE100DA2B37 /* LaunchScreen.storyboard */,
 				B73ED2C529A5FFE100DA2B37 /* Assets.xcassets */,
 				B73ED2CA29A5FFE100DA2B37 /* Info.plist */,
-				B767A39929C14AB5003ADAC7 /* simple.json */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -124,7 +132,7 @@
 			isa = PBXGroup;
 			children = (
 				B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */,
-				B767A39729C14A9E003ADAC7 /* ImageCatchManager.swift */,
+				B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -220,7 +228,7 @@
 				B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */,
 				B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */,
 				B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */,
-				B767A39829C14A9E003ADAC7 /* ImageCatchManager.swift in Sources */,
+				B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

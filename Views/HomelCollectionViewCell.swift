@@ -9,13 +9,11 @@ import UIKit
 
 final class HomelCollectionViewCell: UICollectionViewCell {
     
-     var imageView: UIImageView = {
+    private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-    
-    
     
     private var imageUrl: URL? {
         didSet {
@@ -33,13 +31,21 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     
-//    func configure(categories: Video) {
-//        NetworkManager.share.fetchImage(from: categories.thumb) { data in
-//            self.imageView.image = UIImage(data: data)
-//        }
-//
-//    }
-            
+    func configure(categories: Video) {
+        imageUrl = URL(string: categories.thumb)
+        guard let imageUrl = imageUrl else { return }
+        NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in
+            if imageUrl == self.imageUrl {
+                switch result {
+                case .success(let image):
+                    imageView.image = UIImage(data: image)
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
+    }
+    
     private func setupLayout() {
         contentView.addSubview(imageView)
         NSLayoutConstraint.activate([
