@@ -20,7 +20,7 @@ final class NetworkManager {
     
     private init () {}
     
-    func fetchData(completion: @escaping (_ result: [Category]) -> (Void)) {
+    func fetchData(completion: @escaping (_ result: [Category]) -> Void) {
         guard let fileLocation = Bundle.main.url(forResource: "simple", withExtension: "json") else {return}
         
         do {

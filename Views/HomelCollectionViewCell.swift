@@ -9,17 +9,21 @@ import UIKit
 
 final class HomelCollectionViewCell: UICollectionViewCell {
     
-    private let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
+    // MARK: - Private Properties
+    
+    private let homeImageview: UIImageView = {
+        let homeImageView = UIImageView()
+        homeImageView.translatesAutoresizingMaskIntoConstraints = false
+        return homeImageView
     }()
     
     private var imageUrl: URL? {
         didSet {
-            imageView.image = nil
+            homeImageview.image = nil
         }
     }
+    
+    // MARK: - Override Methods
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -30,6 +34,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // MARK: - Public Methods
     
     func configure(categories: Video) {
         imageUrl = URL(string: categories.thumb)
@@ -38,7 +43,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             if imageUrl == self.imageUrl {
                 switch result {
                 case .success(let image):
-                    imageView.image = UIImage(data: image)
+                    homeImageview.image = UIImage(data: image)
                 case .failure(let error):
                     print(error)
                 }
@@ -46,13 +51,15 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    // MARK: - Private Methods
+    
     private func setupLayout() {
-        contentView.addSubview(imageView)
+        contentView.addSubview(homeImageview)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            imageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            homeImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
+            homeImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            homeImageview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            homeImageview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
         ])
     }
 }
