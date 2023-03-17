@@ -14,7 +14,19 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     private let homeImageview: UIImageView = {
         let homeImageView = UIImageView()
         homeImageView.translatesAutoresizingMaskIntoConstraints = false
+        homeImageView.contentMode = .scaleAspectFill
+        homeImageView.layer.cornerRadius = 10
+        homeImageView.clipsToBounds = true
         return homeImageView
+    }()
+    
+    private let homeLabel: UILabel = {
+        let homeLabel = UILabel()
+        homeLabel.translatesAutoresizingMaskIntoConstraints = false
+        homeLabel.numberOfLines = 0
+        homeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        homeLabel.textColor = .black
+        return homeLabel
     }()
     
     private var imageUrl: URL? {
@@ -37,6 +49,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
     
     func configure(categories: Video) {
+        homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
         NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in
@@ -54,12 +67,16 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     private func setupLayout() {
-        contentView.addSubview(homeImageview)
+        [homeImageview, homeLabel] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             homeImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
             homeImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             homeImageview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             homeImageview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            homeLabel.topAnchor.constraint(equalTo: homeImageview.bottomAnchor, constant: 5),
+            homeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
+            homeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }

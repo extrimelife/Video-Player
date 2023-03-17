@@ -73,15 +73,18 @@ extension HomeViewController: UICollectionViewDataSource {
 
 extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
-    private var sizeInset: CGFloat { return 8 }
+    private var sizeInset: CGFloat { return 16 }
+    private var height: CGFloat { return 100}
+    private var minimumLineSpacingForSectionAt: CGFloat { return 50}
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let width = (collectionView.bounds.width - sizeInset * 4) / 3
-        return CGSize(width: width, height: width)
+        let width = (collectionView.bounds.width - sizeInset * 3) / 2
+        return CGSize(width: width, height: height)
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        sizeInset
+       minimumLineSpacingForSectionAt
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
