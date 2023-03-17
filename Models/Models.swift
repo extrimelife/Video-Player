@@ -24,6 +24,11 @@ struct Video: Codable {
     let title: String
 }
 
+struct UserAction {
+    var likes: Int
+    var views: Int 
+}
+
 
 
 
