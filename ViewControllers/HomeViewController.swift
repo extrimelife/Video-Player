@@ -10,7 +10,7 @@ import AVKit
 
 final class HomeViewController: UIViewController {
     
-// MARK: - Private properties
+    // MARK: - Private properties
     
     private var categoryModel = [Category]()
     
@@ -24,15 +24,15 @@ final class HomeViewController: UIViewController {
         return homeVollectionView
     }()
     
-// MARK: - Override Methods
+    // MARK: - Override Methods
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         fetchData()
     }
- 
-// MARK: - Private Methods
+    
+    // MARK: - Private Methods
     
     private func fetchData() {
         NetworkManager.share.fetchData { [unowned self] result in
@@ -63,8 +63,8 @@ extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell()}
-        let videoModel = categoryModel[indexPath.section].videos[indexPath.row]
-        cell.configure(categories: videoModel)
+        let categoryModel = categoryModel[indexPath.section].videos[indexPath.row]
+        cell.configure(categories: categoryModel)
         return cell
     }
 }
