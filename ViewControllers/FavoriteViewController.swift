@@ -7,7 +7,15 @@
 
 import UIKit
 
-class FavoriteViewController: UIViewController {
+protocol HomeCollectionViewDelegate {
+    func addVideo(video: Category)
+}
+
+final class FavoriteViewController: UIViewController {
+    
+    // MARK: - Private Properties
+    
+    private var favoriteVideo: [Category] = []
     
     private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView()
@@ -18,10 +26,14 @@ class FavoriteViewController: UIViewController {
         return favoriteListTableView
     }()
     
+    // MARK: - Override Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
     }
+    
+    // MARK: - Private Methods
     
     private func setupLayout() {
         view.addSubview(favoriteListTableView)
@@ -34,18 +46,31 @@ class FavoriteViewController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        20
+        favoriteVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        cell.cell()
+        let favoriteVideo = favoriteVideo[indexPath.row].videos[indexPath.row]
+        cell.configurateCell(categories: favoriteVideo)
         return cell
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension FavoriteViewController: UITableViewDelegate {
+    
+}
+
+extension FavoriteViewController: HomeCollectionViewDelegate {
+    func addVideo(video: Category) {
+        favoriteVideo.append(video)
+        favoriteListTableView.reloadData()
+    }
     
 }

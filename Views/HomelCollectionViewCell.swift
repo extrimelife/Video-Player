@@ -7,11 +7,16 @@
 
 import UIKit
 
+
 final class HomelCollectionViewCell: UICollectionViewCell {
+    
+    // MARK: - Public Properties
+    
+    var delegate: HomeCollectionViewDelegate?
     
     // MARK: - Private Properties
     
-    private var action: UserAction!
+    private var userActionModel: UserAction!
     private var favoriteStatus = false
     
     private let homeImageview: UIImageView = {
@@ -81,7 +86,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
-        
+       
     }
     
     private func setupLayout() {
