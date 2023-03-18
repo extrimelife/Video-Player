@@ -36,7 +36,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = favoriteStatus ? .systemRed : .systemGray2
+        favoriteButton.tintColor = .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -80,7 +80,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
-        sender.tintColor = favoriteStatus ? .systemRed : .systemGray2
+        sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
         
     }
     
