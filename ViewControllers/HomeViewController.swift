@@ -62,8 +62,8 @@ extension HomeViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell()}
-        let categoryModel = categoryModel[indexPath.section].videos[indexPath.row]
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
+        let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         return cell
     }

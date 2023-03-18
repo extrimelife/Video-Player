@@ -11,6 +11,9 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
+    private var action: UserAction!
+    private var favoriteStatus = false
+    
     private let homeImageview: UIImageView = {
         let homeImageView = UIImageView()
         homeImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -27,6 +30,15 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         homeLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         homeLabel.textColor = .black
         return homeLabel
+    }()
+    
+    private lazy var favoriteButton: UIButton = {
+        let favoriteButton = UIButton(type: .custom)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        favoriteButton.tintColor = favoriteStatus ? .systemRed : .systemGray2
+        favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
+        return favoriteButton
     }()
     
     private var imageUrl: URL? {
@@ -66,8 +78,14 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
     
+    @objc private func tapGesture(sender: UIButton) {
+        favoriteStatus.toggle()
+        sender.tintColor = favoriteStatus ? .systemRed : .systemGray2
+        
+    }
+    
     private func setupLayout() {
-        [homeImageview, homeLabel] .forEach { contentView.addSubview($0) }
+        [homeImageview, homeLabel, favoriteButton] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             homeImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
             homeImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -76,7 +94,10 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             
             homeLabel.topAnchor.constraint(equalTo: homeImageview.bottomAnchor, constant: 5),
             homeLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 5),
-            homeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            homeLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
+            
+            favoriteButton.topAnchor.constraint(equalTo: homeImageview.topAnchor, constant: 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: homeImageview.trailingAnchor, constant: -5),
         ])
     }
 }
