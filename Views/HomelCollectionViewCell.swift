@@ -81,10 +81,8 @@ import UIKit
     
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
-        sender.getAnimation()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
-           
-        
+        sender.getAnimation()
     }
     
     
