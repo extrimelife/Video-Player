@@ -8,11 +8,7 @@
 import UIKit
 
 
-final class HomelCollectionViewCell: UICollectionViewCell {
-    
-    // MARK: - Public Properties
-    
-    var delegate: HomeCollectionViewDelegate?
+ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
@@ -85,9 +81,12 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
+        sender.getAnimation()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
-       
+           
+        
     }
+    
     
     private func setupLayout() {
         [homeImageview, homeLabel, favoriteButton] .forEach { contentView.addSubview($0) }

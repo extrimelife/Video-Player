@@ -29,11 +29,18 @@ final class FavoriteTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        NotificationCenter.default.addObserver(self, selector: #selector(tap), name: Notification.Name("Add File"), object: nil)
+    
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
+
+@objc func tap() {
+    contentView.backgroundColor = .blue
+}
     
     // MARK: - Public Methods
     

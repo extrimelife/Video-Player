@@ -30,6 +30,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         fetchData()
+
     }
     
     // MARK: - Private Methods
