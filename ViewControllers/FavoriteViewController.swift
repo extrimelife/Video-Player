@@ -11,7 +11,7 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var favoriteVideo: [Video] = []
+    private var favoriteVideo: [Category] = []
     
     private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView()
@@ -27,12 +27,11 @@ final class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        
     }
+    
     
     // MARK: - Private Methods
     
-   
     private func setupLayout() {
         view.addSubview(favoriteListTableView)
         NSLayoutConstraint.activate([
@@ -53,7 +52,7 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        let favoriteVideo = favoriteVideo[indexPath.row]
+        let favoriteVideo = favoriteVideo[indexPath.section].videos[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         return cell
     }

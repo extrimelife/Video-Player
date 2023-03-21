@@ -7,11 +7,10 @@
 
 import UIKit
 
-
- class HomelCollectionViewCell: UICollectionViewCell {
+class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
-    
+     
     private var userActionModel: UserAction!
     private var favoriteStatus = false
     
