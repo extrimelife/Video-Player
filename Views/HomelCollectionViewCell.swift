@@ -41,6 +41,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return favoriteButton
     }()
     
+    private var activityIndicator: UIActivityIndicatorView = {
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.translatesAutoresizingMaskIntoConstraints = false
+        activityIndicator.startAnimating()
+        return activityIndicator
+    }()
+    
     private var imageUrl: URL? {
         didSet {
             homeImageview.image = nil
@@ -69,6 +76,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
                 switch result {
                 case .success(let image):
                     homeImageview.image = UIImage(data: image)
+                    activityIndicator.stopAnimating()
                 case .failure(let error):
                     print(error)
                 }
@@ -86,7 +94,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     
     private func setupLayout() {
-        [homeImageview, homeLabel, favoriteButton] .forEach { contentView.addSubview($0) }
+        [homeImageview, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             homeImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
             homeImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -99,6 +107,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
             
             favoriteButton.topAnchor.constraint(equalTo: homeImageview.topAnchor, constant: 5),
             favoriteButton.trailingAnchor.constraint(equalTo: homeImageview.trailingAnchor, constant: -5),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: homeImageview.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: homeImageview.centerYAnchor)
         ])
     }
 }
