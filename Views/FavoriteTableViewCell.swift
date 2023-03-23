@@ -18,6 +18,13 @@ final class FavoriteTableViewCell: UITableViewCell {
         return favoriteImage
     }()
     
+    private let favoriteLabel: UILabel = {
+        let favoriteLabel = UILabel()
+        favoriteLabel.translatesAutoresizingMaskIntoConstraints = false
+        favoriteLabel.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        return favoriteLabel
+    }()
+    
     private var imageUrl: URL? {
         didSet {
             favoriteImageView.image = nil
@@ -34,11 +41,11 @@ final class FavoriteTableViewCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
-
-@objc func tap() {
-    contentView.backgroundColor = .blue
-}
+    
+    
+    @objc func tap() {
+        contentView.backgroundColor = .blue
+    }
     
     // MARK: - Public Methods
     
@@ -60,12 +67,16 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     private func setupLayout() {
-        [favoriteImageView] .forEach { contentView.addSubview($0) }
+        [favoriteImageView, favoriteLabel] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
             favoriteImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            
+            favoriteLabel.topAnchor.constraint(equalTo: favoriteLabel.bottomAnchor, constant: 5),
+            favoriteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            favoriteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }
