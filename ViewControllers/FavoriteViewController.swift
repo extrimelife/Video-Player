@@ -13,7 +13,7 @@ final class FavoriteViewController: UIViewController {
     
     var favoriteVideo: [Category] = []
     
-    private lazy var favoriteListTableView: UITableView = {
+    lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView()
         favoriteListTableView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListTableView.dataSource = self
@@ -27,10 +27,8 @@ final class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        
+        favoriteListTableView.rowHeight = 300
     }
-    
-    
     
     // MARK: - Private Methods
     
@@ -49,7 +47,7 @@ final class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoriteVideo[section].videos.count
+        favoriteVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

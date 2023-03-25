@@ -7,9 +7,15 @@
 
 import UIKit
 
+protocol HomeViewControllerDelegate: AnyObject {
+    func favoriteButtonTap()
+}
+
 class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
+    
+    weak var delegate: HomeViewControllerDelegate!
     
     private var userActionModel: UserAction!
     private var favoriteStatus = false
@@ -67,8 +73,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video) {
+    func configure(categories: Video, cellIndex: Int) {
         homeLabel.text = categories.title
+        favoriteButton.tag = cellIndex
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
         NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in
@@ -87,13 +94,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture(sender: UIButton) {
-        favoriteStatus.toggle()
-        sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
-        
+            favoriteStatus.toggle()
+            sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
+        if favoriteStatus {
+            delegate.favoriteButtonTap()
+        }
     }
-    
-    
-    
+
     
     private func setupLayout() {
         [homeImageview, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }

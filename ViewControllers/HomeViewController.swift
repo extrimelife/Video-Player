@@ -64,7 +64,8 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel)
+        cell.configure(categories: categoryModel, cellIndex: indexPath.row)
+        cell.delegate = self
         return cell
     }
 }
@@ -103,6 +104,20 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         playerViewController.player = player
         present(playerViewController, animated: true) {
             player.play()
+        }
+    }
+}
+
+extension HomeViewController: HomeViewControllerDelegate {
+    func favoriteButtonTap() {
+        tabBarController?.selectedIndex = 1
+        guard let navigationVC = tabBarController!.viewControllers![1] as? UINavigationController else {return}
+        guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
+        NetworkManager.share.fetchData { result in
+            result .forEach { result in
+                favoriteVC.favoriteVideo.append(result)
+                favoriteVC.favoriteListTableView.reloadData()
+            }
         }
     }
 }
