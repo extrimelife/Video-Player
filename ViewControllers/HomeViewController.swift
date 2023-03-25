@@ -38,7 +38,6 @@ final class HomeViewController: UIViewController {
     private func fetchData() {
         NetworkManager.share.fetchData { [unowned self] result in
             categoryModel = result
-            homeCollectionView.reloadData()
         }
     }
     

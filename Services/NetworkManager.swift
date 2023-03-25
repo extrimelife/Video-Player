@@ -34,6 +34,20 @@ final class NetworkManager {
         }
     }
     
+    func fetchData(completion: @escaping (_ result: Video) -> Void) {
+        guard let fileLocation = Bundle.main.url(forResource: "simple", withExtension: "json") else {return}
+        
+        do {
+            let data = try Data(contentsOf: fileLocation)
+            let json = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
+            print(json)
+            let jsonModel = try JSONDecoder().decode(Video.self, from: data)
+            completion(jsonModel)
+        } catch {
+            print("Parsing Error")
+        }
+    }
+    
     func fetchImage(from url: URL, completion: @escaping(Result<Data, NetworkError>) -> Void) {
         URLSession.shared.dataTask(with: url) { data, _, error in
             guard let data = data else {

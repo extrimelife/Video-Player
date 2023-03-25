@@ -15,6 +15,8 @@
 		B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */; };
 		B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */; };
 		B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */; };
+		B75B18EC29CE911A0041F48B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75B18EB29CE911A0041F48B /* StorageManager.swift */; };
+		B75B18EF29CE92CB0041F48B /* MeTube.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B75B18ED29CE92CB0041F48B /* MeTube.xcdatamodeld */; };
 		B767A39A29C14AB5003ADAC7 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B767A39929C14AB5003ADAC7 /* simple.json */; };
 		B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */; };
 		B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77840E829AB325500899D3D /* UIColor + Extention.swift */; };
@@ -37,6 +39,8 @@
 		B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B75B18EB29CE911A0041F48B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		B75B18EE29CE92CB0041F48B /* MeTube.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MeTube.xcdatamodel; sourceTree = "<group>"; };
 		B767A39929C14AB5003ADAC7 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
 		B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCatchManager.swift; sourceTree = "<group>"; };
 		B77840E829AB325500899D3D /* UIColor + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extention.swift"; sourceTree = "<group>"; };
@@ -66,9 +70,11 @@
 				B77B2E4E29A73922002B807E /* Views */,
 				B7DFF30E29BD9B7200EAE036 /* Models */,
 				B7BABEC129BEDB0300E4B7F8 /* Services */,
+				B75B18EA29CE90D70041F48B /* Storage Mahager */,
 				B77840EA29AB325F00899D3D /* Extentions */,
 				B77B2E4D29A727E8002B807E /* App */,
 				B767A39B29C17117003ADAC7 /* LocalJson */,
+				B75B18ED29CE92CB0041F48B /* MeTube.xcdatamodeld */,
 				B73ED2BA29A5FFDF00DA2B37 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -79,6 +85,14 @@
 				B73ED2B929A5FFDF00DA2B37 /* MeTube Pet.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B75B18EA29CE90D70041F48B /* Storage Mahager */ = {
+			isa = PBXGroup;
+			children = (
+				B75B18EB29CE911A0041F48B /* StorageManager.swift */,
+			);
+			path = "Storage Mahager";
 			sourceTree = "<group>";
 		};
 		B767A39B29C17117003ADAC7 /* LocalJson */ = {
@@ -231,6 +245,8 @@
 				B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */,
 				B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */,
 				B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */,
+				B75B18EC29CE911A0041F48B /* StorageManager.swift in Sources */,
+				B75B18EF29CE92CB0041F48B /* MeTube.xcdatamodeld in Sources */,
 				B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */,
 				B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */,
 			);
@@ -438,6 +454,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		B75B18ED29CE92CB0041F48B /* MeTube.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				B75B18EE29CE92CB0041F48B /* MeTube.xcdatamodel */,
+			);
+			currentVersion = B75B18EE29CE92CB0041F48B /* MeTube.xcdatamodel */;
+			path = MeTube.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = B73ED2B129A5FFDF00DA2B37 /* Project object */;
 }

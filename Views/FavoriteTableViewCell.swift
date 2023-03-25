@@ -42,14 +42,10 @@ final class FavoriteTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    @objc func tap() {
-        contentView.backgroundColor = .blue
-    }
-    
     // MARK: - Public Methods
     
     func configurateCell(categories: Video) {
+        favoriteLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
         NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in

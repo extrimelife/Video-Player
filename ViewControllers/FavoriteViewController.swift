@@ -11,7 +11,7 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var favoriteVideo: [Category] = []
+    var favoriteVideo: [Category] = []
     
     private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView()
@@ -27,7 +27,9 @@ final class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        
     }
+    
     
     
     // MARK: - Private Methods
@@ -47,7 +49,7 @@ final class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoriteVideo.count
+        favoriteVideo[section].videos.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

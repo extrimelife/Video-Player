@@ -10,7 +10,7 @@ import UIKit
 class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
-     
+    
     private var userActionModel: UserAction!
     private var favoriteStatus = false
     
@@ -89,7 +89,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
+       
     }
+    
     
     
     private func setupLayout() {
