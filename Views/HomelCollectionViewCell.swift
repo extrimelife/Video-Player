@@ -89,8 +89,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
-       
+        
     }
+    
     
     
     
