@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol HomeViewControllerDelegate: AnyObject {
+protocol HomeCollectionViewCellDelegate: AnyObject {
     func favoriteButtonTap()
 }
 
@@ -15,7 +15,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    weak var delegate: HomeViewControllerDelegate!
+    weak var delegate: HomeCollectionViewCellDelegate!
     
     private var userActionModel: UserAction!
     private var favoriteStatus = false
