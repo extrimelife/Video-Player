@@ -8,7 +8,15 @@
 import UIKit
 import AVKit
 
+protocol HomeCollectionViewCellDelegate: AnyObject {
+    func favoriteButtonGesture()
+}
+
 final class HomeViewController: UIViewController {
+    
+    // MARK: - Public Properties
+    
+    weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
     // MARK: - Private properties
     
@@ -65,7 +73,7 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel, cellIndex: indexPath.item)
-        cell.delegate = self
+        cell.delegateFBGesture = self
         return cell
     }
 }
@@ -109,13 +117,13 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonTap() {
+    func favoriteButtonGesture() {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        NetworkManager.shared.fetchData { result in
+        NetworkManager.shared.fetchData { [unowned self] result in
             favoriteVC.favoriteVideo.append(contentsOf: result)
-            favoriteVC.favoriteListTableView.reloadData()
+            delegateFTVReloadData?.reloadFavoriteTableView()
         }
     }
 }

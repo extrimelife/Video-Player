@@ -7,13 +7,17 @@
 
 import UIKit
 
+protocol HomeViewControllerDelegate: AnyObject {
+    func reloadFavoriteTableView()
+}
+
 final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
     var favoriteVideo: [Category] = []
     
-    lazy var favoriteListTableView: UITableView = {
+    private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
         favoriteListTableView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListTableView.dataSource = self
@@ -27,8 +31,14 @@ final class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        setupNavigation()
     }
     
+    private func setupNavigation() {
+        guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
+        guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
+        homeVC.delegateFTVReloadData = self
+    }
     
     // MARK: - Private Methods
     
@@ -71,3 +81,8 @@ extension FavoriteViewController: UITableViewDelegate {
     }
 }
 
+extension FavoriteViewController: HomeViewControllerDelegate {
+    func reloadFavoriteTableView() {
+        favoriteListTableView.reloadData()
+    }
+}

@@ -7,15 +7,13 @@
 
 import UIKit
 
-protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonTap()
-}
-
 class HomelCollectionViewCell: UICollectionViewCell {
     
-    // MARK: - Private Properties
+    // MARK: - Public Properties
     
-    weak var delegate: HomeCollectionViewCellDelegate!
+    weak var delegateFBGesture: HomeCollectionViewCellDelegate!
+    
+    // MARK: - Private Properties
     
     private var userActionModel: UserAction!
     private var favoriteStatus = false
@@ -94,13 +92,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture(sender: UIButton) {
-            favoriteStatus.toggle()
-            sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
+        favoriteStatus.toggle()
+        sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
         if favoriteStatus {
-            delegate.favoriteButtonTap()
+            delegateFBGesture.favoriteButtonGesture()
         }
     }
-
+    
     
     private func setupLayout() {
         [homeImageview, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }
