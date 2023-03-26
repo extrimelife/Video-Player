@@ -78,7 +78,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         favoriteButton.tag = cellIndex
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
-        NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in
+        NetworkManager.shared.fetchImage(from: imageUrl) { [unowned self] result in
             if imageUrl == self.imageUrl {
                 switch result {
                 case .success(let image):

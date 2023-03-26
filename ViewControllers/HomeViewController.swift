@@ -30,13 +30,13 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         fetchData()
-
+        
     }
     
     // MARK: - Private Methods
     
     private func fetchData() {
-        NetworkManager.share.fetchData { [unowned self] result in
+        NetworkManager.shared.fetchData { [unowned self] result in
             categoryModel = result
         }
     }
@@ -85,7 +85,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-       minimumLineSpacingForSectionAt
+        minimumLineSpacingForSectionAt
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -113,7 +113,7 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        NetworkManager.share.fetchData { result in
+        NetworkManager.shared.fetchData { result in
             favoriteVC.favoriteVideo.append(contentsOf: result)
             favoriteVC.favoriteListTableView.reloadData()
         }

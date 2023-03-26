@@ -16,7 +16,7 @@ enum NetworkError: Error {
 
 final class NetworkManager {
     
-    static let share = NetworkManager()
+    static let shared = NetworkManager()
     
     private init () {}
     

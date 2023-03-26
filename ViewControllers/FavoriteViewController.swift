@@ -54,6 +54,7 @@ extension FavoriteViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
         let favoriteVideo = favoriteVideo[indexPath.section].videos[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
+        cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
     }
 }
@@ -62,7 +63,11 @@ extension FavoriteViewController: UITableViewDataSource {
 
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        300
+        200
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

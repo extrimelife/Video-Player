@@ -15,6 +15,8 @@ final class FavoriteTableViewCell: UITableViewCell {
         let favoriteImage = UIImageView()
         favoriteImage.translatesAutoresizingMaskIntoConstraints = false
         favoriteImage.contentMode = .scaleAspectFill
+        favoriteImage.layer.cornerRadius = 10
+        favoriteImage.clipsToBounds = true
         return favoriteImage
     }()
     
@@ -48,7 +50,7 @@ final class FavoriteTableViewCell: UITableViewCell {
         favoriteLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
-        NetworkManager.share.fetchImage(from: imageUrl) { [unowned self] result in
+        NetworkManager.shared.fetchImage(from: imageUrl) { [unowned self] result in
             if imageUrl == self.imageUrl {
                 switch result {
                 case .success(let image):
@@ -65,14 +67,14 @@ final class FavoriteTableViewCell: UITableViewCell {
     private func setupLayout() {
         [favoriteImageView, favoriteLabel] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
-            favoriteImageView.topAnchor.constraint(equalTo: contentView.topAnchor),
-            favoriteImageView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
+            favoriteImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            favoriteImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
+            favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
+            favoriteImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             
-            favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor, constant: 5),
-            favoriteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            favoriteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
+            favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
+            //favoriteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
+            //favoriteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }
