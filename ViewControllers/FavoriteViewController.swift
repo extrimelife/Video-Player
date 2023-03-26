@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import AVKit
 
 protocol HomeViewControllerDelegate: AnyObject {
     func reloadFavoriteTableView()
@@ -67,6 +68,17 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let video = favoriteVideo[indexPath.row]
+        guard let videoURL = URL(string: video.videos[indexPath.row].sources) else { return }
+        let player = AVPlayer(url: videoURL)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true)
+        player.play()
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
 }
 
 // MARK: - UITableViewDelegate
@@ -76,9 +88,6 @@ extension FavoriteViewController: UITableViewDelegate {
         200
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-    }
 }
 
 extension FavoriteViewController: HomeViewControllerDelegate {

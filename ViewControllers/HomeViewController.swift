@@ -14,7 +14,7 @@ protocol HomeCollectionViewCellDelegate: AnyObject {
 
 final class HomeViewController: UIViewController {
     
-    // MARK: - Public Properties
+// MARK: - Public Properties
     
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
@@ -118,7 +118,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
     func favoriteButtonGesture() {
-        tabBarController?.selectedIndex = 1
+        //tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         NetworkManager.shared.fetchData { [unowned self] result in
