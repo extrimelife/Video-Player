@@ -15,7 +15,6 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-   // private var userActionModel: UserAction!
     private var favoriteStatus = false
     
     private let homeImageview: UIImageView = {
