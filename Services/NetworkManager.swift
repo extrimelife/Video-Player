@@ -11,7 +11,6 @@ enum NetworkError: Error {
     case invalidURL
     case noData
     case decodingError
-    
 }
 
 final class NetworkManager {
@@ -30,7 +29,7 @@ final class NetworkManager {
             let jsonModel = try JSONDecoder().decode(JsonModel.self, from: data)
             completion(jsonModel.categories)
         } catch {
-            print("Parsing Error")
+            print(error.localizedDescription)
         }
     }
     

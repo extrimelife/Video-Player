@@ -25,7 +25,6 @@ struct Video: Codable {
 }
 
 struct UserAction {
-    var likes: Int
     var views: Int
 }
 

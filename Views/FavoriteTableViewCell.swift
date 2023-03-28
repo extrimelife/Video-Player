@@ -73,8 +73,6 @@ final class FavoriteTableViewCell: UITableViewCell {
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             
             favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
-            //favoriteLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16),
-            //favoriteLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16)
         ])
     }
 }

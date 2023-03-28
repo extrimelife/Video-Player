@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeViewControllerDelegate: AnyObject {
-    func reloadFavoriteTableView()
+    func favoriteTableViewReloadData()
 }
 
 final class FavoriteViewController: UIViewController {
@@ -91,7 +91,7 @@ extension FavoriteViewController: UITableViewDelegate {
 }
 
 extension FavoriteViewController: HomeViewControllerDelegate {
-    func reloadFavoriteTableView() {
+    func favoriteTableViewReloadData() {
         favoriteListTableView.reloadData()
     }
 }
