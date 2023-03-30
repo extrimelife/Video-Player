@@ -51,12 +51,6 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return activityIndicator
     }()
     
-    private var imageUrl: URL? {
-        didSet {
-            homeImageview.image = nil
-        }
-    }
-    
     // MARK: - Override Methods
     
     override init(frame: CGRect) {
@@ -73,18 +67,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
     func configure(categories: Video, cellIndex: Int) {
         homeLabel.text = categories.title
         favoriteButton.tag = cellIndex
-        imageUrl = URL(string: categories.thumb)
-        guard let imageUrl = imageUrl else { return }
-        NetworkManager.shared.fetchImage(from: imageUrl) { [unowned self] result in
-            if imageUrl == self.imageUrl {
-                switch result {
-                case .success(let image):
-                    homeImageview.image = UIImage(data: image)
-                    activityIndicator.stopAnimating()
-                case .failure(let error):
-                    print(error)
-                }
-            }
+        NetworkManager.shared.fetchImage(from: categories.thumb) { [unowned self] data in
+            homeImageview.image = UIImage(data: data)
+            activityIndicator.stopAnimating()
         }
     }
     
@@ -94,7 +79,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
         favoriteStatus.toggle()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
         if favoriteStatus {
-            delegateFBGesture.favoriteButtonGesture()
+            guard let text = homeLabel.text else {return}
+            delegateFBGesture.favoriteButtonGesture(text: text)
         }
     }
     

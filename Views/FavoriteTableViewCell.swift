@@ -46,20 +46,9 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Public Methods
     
-    func configurateCell(categories: Video) {
-        favoriteLabel.text = categories.title
-        imageUrl = URL(string: categories.thumb)
-        guard let imageUrl = imageUrl else { return }
-        NetworkManager.shared.fetchImage(from: imageUrl) { [unowned self] result in
-            if imageUrl == self.imageUrl {
-                switch result {
-                case .success(let image):
-                    favoriteImageView.image = UIImage(data: image)
-                case .failure(let error):
-                    print(error)
-                }
-            }
-        }
+    func configurateCell(categories: Mask) {
+        favoriteLabel.text = categories.text
+       
     }
     
     // MARK: - Private Methods

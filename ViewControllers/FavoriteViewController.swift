@@ -16,7 +16,7 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    var favoriteVideo: [Category] = []
+    var favoriteVideo: [Mask] = []
     
     private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -33,6 +33,18 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupNavigation()
+        fetchData()
+    }
+    
+    func fetchData() {
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                favoriteVideo = data
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     private func setupNavigation() {
@@ -63,21 +75,21 @@ extension FavoriteViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        let favoriteVideo = favoriteVideo[indexPath.section].videos[indexPath.row]
+        let favoriteVideo = favoriteVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let video = favoriteVideo[indexPath.row]
-        guard let videoURL = URL(string: video.videos[indexPath.row].sources) else { return }
-        let player = AVPlayer(url: videoURL)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        present(playerViewController, animated: true)
-        player.play()
-        tableView.deselectRow(at: indexPath, animated: true)
+//        let video = favoriteVideo[indexPath.row]
+//        guard let videoURL = URL(string: video.videos[indexPath.row].sources) else { return }
+//        let player = AVPlayer(url: videoURL)
+//        let playerViewController = AVPlayerViewController()
+//        playerViewController.player = player
+//        present(playerViewController, animated: true)
+//        player.play()
+//        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 

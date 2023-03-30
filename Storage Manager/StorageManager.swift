@@ -29,14 +29,9 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
-    func create(_ descriptn: String,_ sources: String,
-                _ subtitle: String,_ thumb: String,_
-                title: String, completion: (Mask) -> Void) {
+    func create(_ text: String, completion: (Mask) -> Void) {
         let task = Mask(context: viewContext)
-        task.descriptn = descriptn
-        task.sources = sources
-        task.subtitle = subtitle
-        task.thumb = thumb
+        task.text = text
         completion(task)
         saveContext()
     }

@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonGesture()
+    func favoriteButtonGesture(text: String)
 }
 
 final class HomeViewController: UIViewController {
@@ -116,12 +116,14 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonGesture() {
+    func favoriteButtonGesture(text: String) {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        favoriteVC.favoriteVideo.append(contentsOf: categoryModel)
-        delegateFTVReloadData?.reloadFavoriteTableView()
+        StorageManager.shared.create(text) { mask in
+            favoriteVC.favoriteVideo.append(mask)
+            delegateFTVReloadData?.reloadFavoriteTableView()
+        }
     }
 }
 
