@@ -79,8 +79,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
         favoriteStatus.toggle()
         sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
         if favoriteStatus {
+            guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
-            delegateFBGesture.favoriteButtonGesture(text: text)
+            delegateFBGesture.favoriteButtonGesture(image: imageData, text: text)
         }
     }
     

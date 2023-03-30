@@ -47,7 +47,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Public Methods
     
     func configurateCell(categories: Mask) {
-        favoriteLabel.text = categories.text
+        favoriteLabel.text = categories.title
+        favoriteImageView.image = UIImage(data: categories.image ?? Data())
        
     }
     

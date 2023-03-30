@@ -74,6 +74,7 @@
 				B77840EA29AB325F00899D3D /* Extentions */,
 				B77B2E4D29A727E8002B807E /* App */,
 				B767A39B29C17117003ADAC7 /* LocalJson */,
+				B759959729D52BB300BB7C96 /* MeTubePet.xcdatamodeld */,
 				B73ED2BA29A5FFDF00DA2B37 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,7 +99,6 @@
 			isa = PBXGroup;
 			children = (
 				B767A39929C14AB5003ADAC7 /* simple.json */,
-				B759959729D52BB300BB7C96 /* MeTubePet.xcdatamodeld */,
 			);
 			path = LocalJson;
 			sourceTree = "<group>";
@@ -462,7 +462,8 @@
 				B759959829D52BB300BB7C96 /* MeTubePet.xcdatamodel */,
 			);
 			currentVersion = B759959829D52BB300BB7C96 /* MeTubePet.xcdatamodel */;
-			path = MeTubePet.xcdatamodeld;
+			name = MeTubePet.xcdatamodeld;
+			path = LocalJson/MeTubePet.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
