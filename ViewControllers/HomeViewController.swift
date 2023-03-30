@@ -121,7 +121,7 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         StorageManager.shared.create(image, text) { mask in
-            favoriteVC.favoriteVideo.append(mask)
+            favoriteVC.favoritesVideo.append(mask)
             delegateFTVReloadData?.reloadFavoriteTableView()
         }
     }

@@ -16,7 +16,8 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    var favoriteVideo: [Mask] = []
+    var favoritesVideo: [Mask] = []
+    private var videoPlayerData = [Category]()
     
     private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -34,16 +35,23 @@ final class FavoriteViewController: UIViewController {
         setupLayout()
         setupNavigation()
         fetchData()
+        fetchVideoData()
     }
     
     func fetchData() {
         StorageManager.shared.fetchData { result in
             switch result {
             case .success(let data):
-                favoriteVideo = data
+                favoritesVideo = data
             case .failure(let error):
                 print(error)
             }
+        }
+    }
+    
+    func fetchVideoData() {
+        NetworkManager.shared.fetchData { [unowned self] result in
+            videoPlayerData = result
         }
     }
     
@@ -70,36 +78,43 @@ final class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoriteVideo.count
+        favoritesVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        let favoriteVideo = favoriteVideo[indexPath.row]
+        let favoriteVideo = favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let video = favoriteVideo[indexPath.row]
-//        guard let videoURL = URL(string: video.videos[indexPath.row].sources) else { return }
-//        let player = AVPlayer(url: videoURL)
-//        let playerViewController = AVPlayerViewController()
-//        playerViewController.player = player
-//        present(playerViewController, animated: true)
-//        player.play()
-//        tableView.deselectRow(at: indexPath, animated: true)
+        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
+        guard let videoURL = URL(string: video.sources) else { return }
+        let player = AVPlayer(url: videoURL)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true)
+        player.play()
+        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
 // MARK: - UITableViewDelegate
 
 extension FavoriteViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete {
+            let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+            StorageManager.shared.delete(favoriteVideo)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         200
     }
-    
 }
 
 extension FavoriteViewController: HomeViewControllerDelegate {
