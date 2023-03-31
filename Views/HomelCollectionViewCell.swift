@@ -64,9 +64,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video, cellIndex: Int) {
+    func configure(categories: Video) {
         homeLabel.text = categories.title
-        favoriteButton.tag = cellIndex
         NetworkManager.shared.fetchImage(from: categories.thumb) { [unowned self] data in
             homeImageview.image = UIImage(data: data)
             activityIndicator.stopAnimating()
@@ -81,10 +80,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
         if favoriteStatus {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
-            delegateFBGesture.favoriteButtonGesture(image: imageData, text: text)
+            delegateFBGesture.favoriteButtonGesture(image: imageData, title: text)
         }
     }
-    
     
     private func setupLayout() {
         [homeImageview, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }

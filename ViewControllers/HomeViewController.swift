@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonGesture(image: Data, text: String)
+    func favoriteButtonGesture(image: Data, title: String)
 }
 
 final class HomeViewController: UIViewController {
@@ -71,7 +71,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel, cellIndex: indexPath.item)
+        cell.configure(categories: categoryModel)
         cell.delegateFBGesture = self
         return cell
     }
@@ -116,11 +116,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonGesture(image: Data, text: String) {
+    func favoriteButtonGesture(image: Data, title: String) {
         tabBarController?.selectedIndex = 1
-        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else {return}
+        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        StorageManager.shared.create(image, text) { mask in
+        StorageManager.shared.create(image, title) { mask in
             favoriteVC.favoritesVideo.append(mask)
             delegateFTVReloadData?.reloadFavoriteTableView()
         }

@@ -27,11 +27,6 @@ final class FavoriteTableViewCell: UITableViewCell {
         return favoriteLabel
     }()
     
-    private var imageUrl: URL? {
-        didSet {
-            favoriteImageView.image = nil
-        }
-    }
     
     // MARK: - Override Methods
     
