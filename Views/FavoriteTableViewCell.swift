@@ -9,7 +9,11 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
     
+    var delegateButton: FavoriteTableViewCellDelegate!
+    
     // MARK: - Private Properties
+    
+    private var favoriteStatus = false
     
     private let favoriteImageView: UIImageView = {
         let favoriteImage = UIImageView()
@@ -27,6 +31,14 @@ final class FavoriteTableViewCell: UITableViewCell {
         return favoriteLabel
     }()
     
+    private lazy var favoriteButton: UIButton = {
+        let favoriteButton = UIButton(type: .custom)
+        favoriteButton.translatesAutoresizingMaskIntoConstraints = false
+        favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+        favoriteButton.tintColor = .systemGray4
+        favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
+        return favoriteButton
+    }()
     
     // MARK: - Override Methods
     
@@ -44,20 +56,28 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
-       
+        
     }
     
     // MARK: - Private Methods
     
+    @objc private func tapGesture(sender: UIButton) {
+        delegateButton.passedColor(sender: favoriteButton)
+    }
+    
     private func setupLayout() {
-        [favoriteImageView, favoriteLabel] .forEach { contentView.addSubview($0) }
+        [favoriteImageView, favoriteLabel, favoriteButton] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             favoriteImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             favoriteImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
             favoriteImageView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
             favoriteImageView.trailingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.trailingAnchor),
             
+            favoriteButton.topAnchor.constraint(equalTo: favoriteImageView.topAnchor, constant: 5),
+            favoriteButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: -5),
+            
             favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
         ])
     }
 }
+

@@ -122,3 +122,4 @@ extension FavoriteViewController: HomeViewControllerDelegate {
         favoriteListTableView.reloadData()
     }
 }
+
