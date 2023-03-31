@@ -104,3 +104,4 @@ class HomelCollectionViewCell: UICollectionViewCell {
         ])
     }
 }
+

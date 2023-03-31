@@ -25,7 +25,7 @@ struct Video: Codable {
 }
 
 struct UserAction {
-    var views: Int
+    var view: Int
 }
 
 
