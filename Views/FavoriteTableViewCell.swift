@@ -9,7 +9,6 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
     
-    
     // MARK: - Private Properties
     
     private var favoriteStatus = false
@@ -61,7 +60,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture(sender: UIButton) {
-       
+        
     }
     
     private func setupLayout() {

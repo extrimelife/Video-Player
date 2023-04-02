@@ -53,7 +53,7 @@ class StorageManager {
         viewContext.delete(task)
         saveContext()
     }
-
+    
     // MARK: - Core Data Saving support
     
     func saveContext() {

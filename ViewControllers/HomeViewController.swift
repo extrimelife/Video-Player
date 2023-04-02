@@ -14,7 +14,7 @@ protocol HomeCollectionViewCellDelegate: AnyObject {
 
 final class HomeViewController: UIViewController {
     
-// MARK: - Public Properties
+    // MARK: - Public Properties
     
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
@@ -126,3 +126,4 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
         }
     }
 }
+
