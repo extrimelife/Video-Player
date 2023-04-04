@@ -79,6 +79,7 @@ extension HomeViewController: UICollectionViewDataSource {
         let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         cell.delegateFBGesture = self
+        cell.delegateFBDelete = self
         return cell
     }
 }

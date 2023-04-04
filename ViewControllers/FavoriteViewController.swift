@@ -63,7 +63,7 @@ final class FavoriteViewController: UIViewController {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
         guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
         homeVC.delegateFTVReloadData = self
-      //  homeVC.delegateDeleteRow = self
+        homeVC.delegateDeleteRow = self
     }
     
     // MARK: - Private Methods
@@ -112,7 +112,7 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(favoriteVideo)
         }
     }
@@ -130,10 +130,9 @@ extension FavoriteViewController: HomeViewControllerDelegate {
 
 extension FavoriteViewController: HomeViewControllerFBDelegate {
     func deleteButtonPressed() {
-        guard let indexPath = favoriteListTableView.indexPathForSelectedRow else { return }
+        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
         let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
         favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
         StorageManager.shared.delete(favoriteVideo)
-        favoriteListTableView.reloadData()
     }
 }
