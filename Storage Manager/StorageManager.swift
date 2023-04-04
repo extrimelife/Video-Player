@@ -33,6 +33,7 @@ class StorageManager {
         let task = Mask(context: viewContext)
         task.image = image
         task.title = title
+        completion(task)
         saveContext()
     }
     

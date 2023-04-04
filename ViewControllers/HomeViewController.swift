@@ -8,13 +8,19 @@
 import UIKit
 import AVKit
 
+protocol HomeCollectionViewCellFBDelegate: AnyObject {
+    func favoriteButtonNotPressed()
+}
+
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonGesture(image: Data, title: String)
+    func favoriteButtonPressed(image: Data, title: String)
 }
 
 final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
+    
+    weak var delegateDeleteRow: HomeViewControllerFBDelegate!
     
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
@@ -116,7 +122,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonGesture(image: Data, title: String) {
+    func favoriteButtonPressed(image: Data, title: String) {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
@@ -127,3 +133,8 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
     }
 }
 
+extension HomeViewController: HomeCollectionViewCellFBDelegate {
+    func favoriteButtonNotPressed() {
+        delegateDeleteRow.deleteButtonPressed()
+    }
+}

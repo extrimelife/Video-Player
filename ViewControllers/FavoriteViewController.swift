@@ -8,6 +8,10 @@
 import UIKit
 import AVKit
 
+protocol HomeViewControllerFBDelegate: AnyObject {
+    func deleteButtonPressed()
+}
+
 protocol HomeViewControllerDelegate: AnyObject {
     func reloadFavoriteTableView()
 }
@@ -19,7 +23,7 @@ final class FavoriteViewController: UIViewController {
     var favoritesVideo: [Mask] = []
     private var videoPlayerData = [Category]()
     
-    private lazy var favoriteListTableView: UITableView = {
+     lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
         favoriteListTableView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListTableView.dataSource = self
@@ -59,6 +63,7 @@ final class FavoriteViewController: UIViewController {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
         guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
         homeVC.delegateFTVReloadData = self
+      //  homeVC.delegateDeleteRow = self
     }
     
     // MARK: - Private Methods
@@ -123,3 +128,12 @@ extension FavoriteViewController: HomeViewControllerDelegate {
     }
 }
 
+extension FavoriteViewController: HomeViewControllerFBDelegate {
+    func deleteButtonPressed() {
+        guard let indexPath = favoriteListTableView.indexPathForSelectedRow else { return }
+        let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
+        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
+        StorageManager.shared.delete(favoriteVideo)
+        favoriteListTableView.reloadData()
+    }
+}
