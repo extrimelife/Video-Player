@@ -8,8 +8,8 @@
 import UIKit
 import AVKit
 
-protocol HomeViewControllerFBDelegate: AnyObject {
-    func deleteButtonPressed()
+protocol HomeViewControllerFBDeselectDelegate: AnyObject {
+    func favoriteButtonDeselect()
 }
 
 protocol HomeViewControllerDelegate: AnyObject {
@@ -63,7 +63,7 @@ final class FavoriteViewController: UIViewController {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
         guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
         homeVC.delegateFTVReloadData = self
-        homeVC.delegateDeleteRow = self
+        homeVC.delegateDeselectButton = self
     }
     
     // MARK: - Private Methods
@@ -128,8 +128,8 @@ extension FavoriteViewController: HomeViewControllerDelegate {
     }
 }
 
-extension FavoriteViewController: HomeViewControllerFBDelegate {
-    func deleteButtonPressed() {
+extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
+    func favoriteButtonDeselect() {
         let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
         let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
         favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)

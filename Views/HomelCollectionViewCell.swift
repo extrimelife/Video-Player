@@ -11,7 +11,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
     
-    weak var delegateFBDelete: HomeCollectionViewCellFBDelegate!
+    var favoriteButtonDeselect: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
     
     // MARK: - Private Properties
@@ -82,8 +82,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             delegateFBGesture.favoriteButtonPressed(image: imageData, title: text)
-        } else if !favoriteStatus {
-            delegateFBDelete?.favoriteButtonNotPressed()
+        } else {
+           favoriteButtonDeselect()
         }
     }
     

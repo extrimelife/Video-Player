@@ -8,10 +8,6 @@
 import UIKit
 import AVKit
 
-protocol HomeCollectionViewCellFBDelegate: AnyObject {
-    func favoriteButtonNotPressed()
-}
-
 protocol HomeCollectionViewCellDelegate: AnyObject {
     func favoriteButtonPressed(image: Data, title: String)
 }
@@ -20,8 +16,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    weak var delegateDeleteRow: HomeViewControllerFBDelegate!
-    
+    weak var delegateDeselectButton: HomeViewControllerFBDeselectDelegate!
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
     // MARK: - Private properties
@@ -79,7 +74,9 @@ extension HomeViewController: UICollectionViewDataSource {
         let categoryModel = categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         cell.delegateFBGesture = self
-        cell.delegateFBDelete = self
+        cell.favoriteButtonDeselect = {
+            self.delegateDeselectButton.favoriteButtonDeselect()
+        }
         return cell
     }
 }
@@ -134,8 +131,3 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
     }
 }
 
-extension HomeViewController: HomeCollectionViewCellFBDelegate {
-    func favoriteButtonNotPressed() {
-        delegateDeleteRow.deleteButtonPressed()
-    }
-}
