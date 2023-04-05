@@ -77,13 +77,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
-        sender.tintColor = favoriteStatus ? .systemRed : .systemGray4
+        favoriteButton.tintColor = favoriteStatus ? .systemRed : .systemGray4
         if favoriteStatus {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             delegateFBGesture.favoriteButtonPressed(image: imageData, title: text)
         } else {
-           favoriteButtonDeselect()
+            favoriteButtonDeselect()
         }
     }
     
@@ -107,4 +107,3 @@ class HomelCollectionViewCell: UICollectionViewCell {
         ])
     }
 }
-

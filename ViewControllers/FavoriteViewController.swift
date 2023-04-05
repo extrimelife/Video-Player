@@ -18,6 +18,8 @@ protocol HomeViewControllerDelegate: AnyObject {
 
 final class FavoriteViewController: UIViewController {
     
+    var delegateFV: FVDelegate!
+    
     // MARK: - Private Properties
     
     var favoritesVideo: [Mask] = []
@@ -113,6 +115,7 @@ extension FavoriteViewController: UITableViewDelegate {
         if editingStyle == .delete {
             let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
             favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
+            delegateFV?.delete()
             StorageManager.shared.delete(favoriteVideo)
         }
     }
