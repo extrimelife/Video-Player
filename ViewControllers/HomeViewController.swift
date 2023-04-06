@@ -8,8 +8,8 @@
 import UIKit
 import AVKit
 
-protocol FVDelegate {
-    func delete()
+protocol FavoriteViewControllerDelegate: AnyObject {
+    func colorTransferedToButton(_ color: UIColor)
 }
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
@@ -130,14 +130,14 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         StorageManager.shared.create(image, title) { mask in
             favoriteVC.favoritesVideo.append(mask)
-            favoriteVC.delegateFV = self
+            favoriteVC.delegateColor = self
             delegateFTVReloadData?.reloadFavoriteTableView()
         }
     }
 }
 
-extension HomeViewController: FVDelegate {
-    func delete() {
+extension HomeViewController: FavoriteViewControllerDelegate {
+    func colorTransferedToButton(_ color: UIColor) {
         
     }
 }

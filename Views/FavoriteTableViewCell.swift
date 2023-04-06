@@ -9,6 +9,10 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
     
+    //MARK: - Public Properties
+    
+    weak var deleagteActionFB: FavoriteTabvleViewCellDelegate!
+    
     // MARK: - Private Properties
     
     private var favoriteStatus = false
@@ -60,7 +64,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture(sender: UIButton) {
-        
+        deleagteActionFB.favoriteButtonColorTransfer(sender.tintColor)
     }
     
     private func setupLayout() {
