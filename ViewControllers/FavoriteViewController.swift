@@ -8,8 +8,8 @@
 import UIKit
 import AVKit
 
-protocol FavoriteTabvleViewCellDelegate: AnyObject {
-    func favoriteButtonColorTransfer(_ color: UIColor)
+protocol DeselectStatusDelegate: AnyObject {
+    func favoriteStatusDelete()
 }
 
 protocol HomeViewControllerFBDeselectDelegate: AnyObject {
@@ -22,9 +22,6 @@ protocol HomeViewControllerDelegate: AnyObject {
 
 final class FavoriteViewController: UIViewController {
     
-    //MARK: - Public Properties
-    
-    weak var delegateColor: FavoriteViewControllerDelegate!
     
     // MARK: - Private Properties
     
@@ -99,7 +96,7 @@ extension FavoriteViewController: UITableViewDataSource {
         let favoriteVideo = favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
-        cell.deleagteActionFB = self
+        cell.delegateFBDeselect = self
         return cell
     }
     
@@ -152,8 +149,8 @@ extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
     }
 }
 
-extension FavoriteViewController: FavoriteTabvleViewCellDelegate {
-    func favoriteButtonColorTransfer(_ color: UIColor) {
-        delegateColor.colorTransferedToButton(color)
+extension FavoriteViewController: DeselectStatusDelegate {
+    func favoriteStatusDelete() {
+        getDeleteOfRow()
     }
 }

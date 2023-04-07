@@ -8,10 +8,6 @@
 import UIKit
 import AVKit
 
-protocol FavoriteViewControllerDelegate: AnyObject {
-    func colorTransferedToButton(_ color: UIColor)
-}
-
 protocol HomeCollectionViewCellDelegate: AnyObject {
     func favoriteButtonPressed(image: Data, title: String)
 }
@@ -130,14 +126,7 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         StorageManager.shared.create(image, title) { mask in
             favoriteVC.favoritesVideo.append(mask)
-            favoriteVC.delegateColor = self
             delegateFTVReloadData?.reloadFavoriteTableView()
         }
-    }
-}
-
-extension HomeViewController: FavoriteViewControllerDelegate {
-    func colorTransferedToButton(_ color: UIColor) {
-        
     }
 }
