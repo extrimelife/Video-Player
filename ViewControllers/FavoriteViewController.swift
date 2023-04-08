@@ -23,9 +23,12 @@ protocol HomeViewControllerDelegate: AnyObject {
 final class FavoriteViewController: UIViewController {
     
     
+    //MARK: - Public Properties
+
+    var favoritesVideo: [Mask] = []
+    
     // MARK: - Private Properties
     
-    var favoritesVideo: [Mask] = []
     private var videoPlayerData = [Category]()
     
     lazy var favoriteListTableView: UITableView = {
@@ -44,10 +47,6 @@ final class FavoriteViewController: UIViewController {
         setupLayout()
         setupNavigation()
         fetchVideoData()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
         fetchData()
     }
     
