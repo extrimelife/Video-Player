@@ -43,8 +43,12 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupNavigation()
-        fetchData()
         fetchVideoData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
     }
     
     func fetchData() {

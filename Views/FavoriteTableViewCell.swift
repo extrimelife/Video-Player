@@ -67,7 +67,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     @objc private func tapGesture(sender: UIButton) {
         favoriteStatus.toggle()
-        favoriteButton.tintColor = favoriteStatus ? .systemGray4 : .red
         if favoriteStatus {
             delegateFBDeselect.favoriteStatusDelete()
         }
