@@ -82,15 +82,20 @@ final class TabBarViewController: UITabBarController {
             navigationBar.navigationItem.titleView = naviVerticalStackView
             navigationBar.navigationController?.navigationBar.standardAppearance = navBarAppearance
             navigationBar.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-            navigationBar.navigationController?.navigationBar.tintColor = .white
+            navigationBar.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+            navigationBar.navigationItem.rightBarButtonItem?.tintColor = .black
         }
+    }
+    
+    @objc private func searchButtonPressed() {
+        print("show tabbar")
     }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
             naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 20),
             naviHorizontalStackView.widthAnchor.constraint(equalToConstant: 190),
-            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 350)
+            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 310)
         ])
     }
 }

@@ -9,10 +9,6 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
     
-    //MARK: - Public Properties
-    
-    weak var delegateFBDeselect: DeselectStatusDelegate!
-    
     // MARK: - Private Properties
     
     private var favoriteStatus = false
@@ -36,7 +32,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     private lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.tintColor = .red
+        favoriteButton.tintColor = .systemGray4
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
@@ -65,11 +61,9 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Private Methods
     
-    @objc private func tapGesture(sender: UIButton) {
-        favoriteStatus.toggle()
-        if favoriteStatus {
-            delegateFBDeselect.favoriteStatusDelete()
-        }
+    @objc private func tapGesture() {
+       
+        
     }
     
     private func setupLayout() {

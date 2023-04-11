@@ -8,10 +8,6 @@
 import UIKit
 import AVKit
 
-protocol DeselectStatusDelegate: AnyObject {
-    func favoriteStatusDelete()
-}
-
 protocol HomeViewControllerFBDeselectDelegate: AnyObject {
     func favoriteButtonDeselect()
 }
@@ -99,7 +95,6 @@ extension FavoriteViewController: UITableViewDataSource {
         let favoriteVideo = favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
-        cell.delegateFBDeselect = self
         return cell
     }
     
@@ -131,15 +126,6 @@ extension FavoriteViewController: UITableViewDelegate {
     }
 }
 
-extension FavoriteViewController {
-    func getDeleteOfRow() {
-        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
-        let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
-        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
-        StorageManager.shared.delete(favoriteVideo)
-    }
-}
-
 extension FavoriteViewController: HomeViewControllerDelegate {
     func reloadFavoriteTableView() {
         favoriteListTableView.reloadData()
@@ -148,12 +134,11 @@ extension FavoriteViewController: HomeViewControllerDelegate {
 
 extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
     func favoriteButtonDeselect() {
-        getDeleteOfRow()
+        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
+        let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
+        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
+        StorageManager.shared.delete(favoriteVideo)
     }
 }
 
-extension FavoriteViewController: DeselectStatusDelegate {
-    func favoriteStatusDelete() {
-        getDeleteOfRow()
-    }
-}
+

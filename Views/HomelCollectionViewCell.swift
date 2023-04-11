@@ -40,7 +40,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = .systemGray4
+        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -75,10 +75,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
     
-    @objc private func tapGesture(sender: UIButton) {
-        favoriteStatus.toggle()
-        favoriteButton.tintColor = favoriteStatus ? .systemRed : .systemGray4
-        if favoriteStatus {
+    @objc private func tapGesture() {
+        favoriteButton.isSelected.toggle()
+        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
+        if favoriteButton.isSelected {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             delegateFBGesture.favoriteButtonPressed(image: imageData, title: text)
