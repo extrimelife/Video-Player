@@ -15,6 +15,16 @@ final class TabBarViewController: UITabBarController {
     private let favoriteViewController = FavoriteViewController()
     private let thirdVC = InfoViewController()
     
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        searchBar.showsCancelButton = true
+        searchBar.tintColor = .black
+        return searchBar
+    }()
+    
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
         navigationLabel.text = "MeTube"
@@ -54,6 +64,7 @@ final class TabBarViewController: UITabBarController {
         setupNavigation()
         setupNavigationBar()
         setupLayout()
+        searchBar.sizeToFit()
     }
     
     // MARK: - Private Methods
@@ -62,6 +73,8 @@ final class TabBarViewController: UITabBarController {
         let homeVC = UINavigationController(rootViewController: homeViewController)
         homeVC.tabBarItem.title = "Home"
         homeVC.tabBarItem.image = UIImage(named: "home2")
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
         
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
@@ -82,13 +95,14 @@ final class TabBarViewController: UITabBarController {
             navigationBar.navigationItem.titleView = naviVerticalStackView
             navigationBar.navigationController?.navigationBar.standardAppearance = navBarAppearance
             navigationBar.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
-            navigationBar.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
-            navigationBar.navigationItem.rightBarButtonItem?.tintColor = .black
         }
     }
     
-    @objc private func searchButtonPressed() {
-        print("show tabbar")
+    @objc private func searchButtonPressed(sender: UIButton) {
+        homeViewController.navigationItem.titleView = searchBar
+        homeViewController.navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+        
     }
     
     private func setupLayout() {
@@ -99,3 +113,11 @@ final class TabBarViewController: UITabBarController {
         ])
     }
 }
+
+extension TabBarViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        homeViewController.navigationItem.titleView = naviVerticalStackView
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+    }
+}
+
