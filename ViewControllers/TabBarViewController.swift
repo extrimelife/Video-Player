@@ -64,7 +64,6 @@ final class TabBarViewController: UITabBarController {
         setupNavigation()
         setupNavigationBar()
         setupLayout()
-        searchBar.sizeToFit()
     }
     
     // MARK: - Private Methods
@@ -98,7 +97,7 @@ final class TabBarViewController: UITabBarController {
         }
     }
     
-    @objc private func searchButtonPressed(sender: UIButton) {
+    @objc private func searchButtonPressed() {
         homeViewController.navigationItem.titleView = searchBar
         homeViewController.navigationItem.rightBarButtonItem = nil
         searchBar.becomeFirstResponder()
@@ -118,6 +117,7 @@ extension TabBarViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         homeViewController.navigationItem.titleView = naviVerticalStackView
         homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
     }
 }
 
