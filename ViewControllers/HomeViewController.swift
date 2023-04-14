@@ -26,16 +26,8 @@ final class HomeViewController: UIViewController {
     // MARK: - Private properties
     
     private var categoryModel = [Category]()
-    private let searchBar = UISearchBar()
-    private var filteredCharacters: [Category] = []
-    private var searchBarIsEmpty: Bool {
-        guard let text = searchBar.text else { return false }
-        return text.isEmpty
-    }
-    private var isFiltering: Bool {
-        return !searchBarIsEmpty
-    }
-    
+    private var filteredCharacters: [Video] = []
+    private var isFiltering = false
     
     private lazy var homeCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -88,12 +80,12 @@ final class HomeViewController: UIViewController {
 extension HomeViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        isFiltering ? filteredCharacters[section].videos.count : categoryModel[section].videos.count
+        isFiltering ? filteredCharacters.count : categoryModel[section].videos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
-        let categoryModel = isFiltering ? filteredCharacters[indexPath.section].videos[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
+        let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = {
@@ -130,7 +122,7 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let video = isFiltering ? filteredCharacters[indexPath.section].videos[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.row]
+        let video = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.row]
         guard let videoURL = URL(string: video.sources) else {return}
         let player = AVPlayer(url: videoURL)
         let playerViewController = AVPlayerViewController()
@@ -155,14 +147,16 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
 
 
 extension HomeViewController: SearchBarDelegate {
-    
+
     func getSearchBar(searchText: String) {
-        filteredCharacters = categoryModel.filter { category in
-            category.videos.contains { video in
-                video.title.lowercased().contains(searchText.lowercased())
+        let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
+        if searchText.isEmpty {
+            filteredCharacters = categoryModel[indexPath.item].videos.filter { category in
+                category.title.lowercased().contains(searchText.lowercased())
             }
         }
         homeCollectionView.reloadData()
     }
 }
+
 

@@ -124,6 +124,7 @@ extension TabBarViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         deleagteSearchBar.getSearchBar(searchText: searchText)
+        
     }
 }
 
