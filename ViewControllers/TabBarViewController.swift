@@ -9,6 +9,8 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
     
+    var deleagteSearchBar: SearchBarDelegate!
+    
     // MARK: - Private Properties
     
     private let homeViewController = HomeViewController()
@@ -118,6 +120,10 @@ extension TabBarViewController: UISearchBarDelegate {
         homeViewController.navigationItem.titleView = naviVerticalStackView
         homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
         homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        deleagteSearchBar.getSearchBar(searchText: searchText)
     }
 }
 
