@@ -26,8 +26,15 @@ final class HomeViewController: UIViewController {
     // MARK: - Private properties
     
     private var categoryModel = [Category]()
+    private let searchBar = UISearchBar()
     private var filteredCharacters: [Video] = []
-    private var isFiltering = false
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return !searchBarIsEmpty
+    }
     
     private lazy var homeCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -147,13 +154,12 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
 
 
 extension HomeViewController: SearchBarDelegate {
-
+    
     func getSearchBar(searchText: String) {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
-        if searchText.isEmpty {
-            filteredCharacters = categoryModel[indexPath.item].videos.filter { category in
-                category.title.lowercased().contains(searchText.lowercased())
-            }
+        searchBar.text = searchText
+        filteredCharacters = categoryModel[indexPath.item].videos.filter { category in
+            category.title.lowercased().contains(searchText.lowercased())
         }
         homeCollectionView.reloadData()
     }
