@@ -9,7 +9,9 @@ import UIKit
 
 final class TabBarViewController: UITabBarController {
     
-    var deleagteSearchBar: SearchBarDelegate!
+    // MARK: - Public Properties
+    
+    weak var deleagteSearchBar: SearchBarDelegate!
     
     // MARK: - Private Properties
     
@@ -17,13 +19,12 @@ final class TabBarViewController: UITabBarController {
     private let favoriteViewController = FavoriteViewController()
     private let thirdVC = InfoViewController()
     
-    
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.sizeToFit()
-        searchBar.delegate = self
         searchBar.showsCancelButton = true
         searchBar.tintColor = .black
+        searchBar.sizeToFit()
+        searchBar.delegate = self
         return searchBar
     }()
     
@@ -115,6 +116,8 @@ final class TabBarViewController: UITabBarController {
     }
 }
 
+// MARK: - UISearchBarDelegate
+
 extension TabBarViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         homeViewController.navigationItem.titleView = naviVerticalStackView
@@ -123,8 +126,7 @@ extension TabBarViewController: UISearchBarDelegate {
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        deleagteSearchBar.getSearchBar(searchText: searchText)
-        
+        deleagteSearchBar.getSearchBar(searchText)
     }
 }
 

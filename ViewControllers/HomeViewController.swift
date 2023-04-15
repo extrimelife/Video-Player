@@ -8,8 +8,8 @@
 import UIKit
 import AVKit
 
-protocol SearchBarDelegate {
-    func getSearchBar(searchText: String)
+protocol SearchBarDelegate: AnyObject {
+    func getSearchBar(_ searchText: String)
 }
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
@@ -26,8 +26,8 @@ final class HomeViewController: UIViewController {
     // MARK: - Private properties
     
     private var categoryModel = [Category]()
-    private let searchBar = UISearchBar()
     private var filteredCharacters: [Video] = []
+    private let searchBar = UISearchBar()
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -140,6 +140,8 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     }
 }
 
+// MARK: - HomeCollectionViewCellDelegate
+
 extension HomeViewController: HomeCollectionViewCellDelegate {
     func favoriteButtonPressed(image: Data, title: String) {
         tabBarController?.selectedIndex = 1
@@ -152,10 +154,10 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
     }
 }
 
+// MARK: - SearchBarDelegate
 
 extension HomeViewController: SearchBarDelegate {
-    
-    func getSearchBar(searchText: String) {
+    func getSearchBar(_ searchText: String) {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
         searchBar.text = searchText
         filteredCharacters = categoryModel[indexPath.item].videos.filter { category in
