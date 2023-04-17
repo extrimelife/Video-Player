@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 
-protocol SearchBarDelegate: AnyObject {
+protocol SearchBarHomeVCDelegate: AnyObject {
     func getSearchBar(_ searchText: String)
 }
 
@@ -156,7 +156,7 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
 
 // MARK: - SearchBarDelegate
 
-extension HomeViewController: SearchBarDelegate {
+extension HomeViewController: SearchBarHomeVCDelegate {
     func getSearchBar(_ searchText: String) {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
         searchBar.text = searchText
