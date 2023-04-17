@@ -101,13 +101,11 @@ final class TabBarViewController: UITabBarController {
     }
     
     @objc private func searchButtonPressed() {
-        let viewControllers = [homeViewController, favoriteViewController, thirdVC]
-        viewControllers .forEach { viewController in
-            viewController.navigationItem.titleView = self.searchBar
-            viewController.navigationItem.rightBarButtonItem = nil
-                self.searchBar.becomeFirstResponder()
-        }
+        homeViewController.navigationItem.titleView = searchBar
+        homeViewController.navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
     }
+    
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -122,13 +120,11 @@ final class TabBarViewController: UITabBarController {
 
 extension TabBarViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        let viewControllers = [homeViewController, favoriteViewController, thirdVC]
-        viewControllers .forEach { viewController in
-            viewController.navigationItem.titleView = naviVerticalStackView
-            viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
-            viewController.navigationItem.rightBarButtonItem?.tintColor = .black
-        }
+        homeViewController.navigationItem.titleView = naviVerticalStackView
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
     }
+    
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         deleagteSearchBar.getSearchBar(searchText)
