@@ -75,6 +75,8 @@ final class TabBarViewController: UITabBarController {
         let homeVC = UINavigationController(rootViewController: homeViewController)
         homeVC.tabBarItem.title = "Home"
         homeVC.tabBarItem.image = UIImage(named: "home2")
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
         
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
@@ -93,8 +95,6 @@ final class TabBarViewController: UITabBarController {
         let viewControllers = [homeViewController, favoriteViewController, thirdVC]
         viewControllers .forEach { viewController in
             viewController.navigationItem.titleView = naviVerticalStackView
-            viewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
-            viewController.navigationItem.rightBarButtonItem?.tintColor = .black
             viewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
             viewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         }

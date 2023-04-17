@@ -160,10 +160,11 @@ extension HomeViewController: SearchBarHomeVCDelegate {
     func getSearchBar(_ searchText: String) {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
         searchBar.text = searchText
-        filteredCharacters = categoryModel[indexPath.item].videos.filter { category in
-            category.title.lowercased().contains(searchText.lowercased())
+        filteredCharacters = categoryModel[indexPath.item].videos.filter { video in
+            video.title.lowercased().contains(searchText.lowercased())
         }
         homeCollectionView.reloadData()
+        
     }
 }
 
