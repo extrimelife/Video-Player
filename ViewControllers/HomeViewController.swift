@@ -8,10 +8,6 @@
 import UIKit
 import AVKit
 
-protocol SearchBarHomeVCDelegate: AnyObject {
-    func getSearchBar(_ searchText: String)
-}
-
 protocol HomeCollectionViewCellDelegate: AnyObject {
     func favoriteButtonPressed(image: Data, title: String)
 }
@@ -20,6 +16,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
     
+    var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateDeselectButton: HomeViewControllerFBDeselectDelegate!
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
@@ -27,7 +24,6 @@ final class HomeViewController: UIViewController {
     
     private var categoryModel = [Category]()
     private var filteredCharacters: [Video] = []
-    private let searchBar = UISearchBar()
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -35,6 +31,15 @@ final class HomeViewController: UIViewController {
     private var isFiltering: Bool {
         return !searchBarIsEmpty
     }
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
+        searchBar.tintColor = .black
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        return searchBar
+    }()
     
     private lazy var homeCollectionView: UICollectionView = {
         let collectionViewFlowLayout = UICollectionViewFlowLayout()
@@ -52,13 +57,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         fetchData()
-        setupNavigation()
-    }
-    
-    func setupNavigation() {
-        guard let navigationBar = tabBarController?.viewControllers?.first as? UINavigationController else { return }
-        guard let tabBar = navigationBar.tabBarController as? TabBarViewController else { return }
-        tabBar.deleagteSearchBarHomeVC = self
+        setupNavigationButton()
     }
     
     // MARK: - Private Methods
@@ -67,6 +66,17 @@ final class HomeViewController: UIViewController {
         NetworkManager.shared.fetchData { [unowned self] result in
             categoryModel = result
         }
+    }
+    
+    private func setupNavigationButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+    
+    @objc private func searchButtonHVCPressed() {
+        navigationItem.titleView = searchBar
+        navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
     }
     
     private func setupLayout() {
@@ -79,7 +89,6 @@ final class HomeViewController: UIViewController {
             homeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
 }
 
 // MARK: - UICollectionViewDataSource
@@ -154,17 +163,23 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
     }
 }
 
-// MARK: - SearchBarDelegate
 
-extension HomeViewController: SearchBarHomeVCDelegate {
-    func getSearchBar(_ searchText: String) {
+// MARK: - UISearchBarDelegate
+
+extension HomeViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        delegateNavigationItem.getTitleView()
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+        
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
-        searchBar.text = searchText
-        filteredCharacters = categoryModel[indexPath.item].videos.filter { video in
-            video.title.lowercased().contains(searchText.lowercased())
+        filteredCharacters = categoryModel[indexPath.row].videos.filter { Video in
+            Video.title.lowercased().contains(searchText.lowercased())
         }
         homeCollectionView.reloadData()
-        
     }
 }
 

@@ -7,27 +7,17 @@
 
 import UIKit
 
+protocol NavigationItemDelegate {
+    func getTitleView()
+}
+
 final class TabBarViewController: UITabBarController {
-    
-    // MARK: - Public Properties
-    
-    weak var deleagteSearchBarHomeVC: SearchBarHomeVCDelegate!
-    weak var delegateSearchBarFavoriteVC: SearchBarFavoriteVCDelegate!
-    
+
     // MARK: - Private Properties
     
     private let homeViewController = HomeViewController()
     private let favoriteViewController = FavoriteViewController()
     private let thirdVC = InfoViewController()
-    
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.showsCancelButton = true
-        searchBar.tintColor = .black
-        searchBar.sizeToFit()
-        searchBar.delegate = self
-        return searchBar
-    }()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
@@ -76,15 +66,12 @@ final class TabBarViewController: UITabBarController {
         let homeVC = UINavigationController(rootViewController: homeViewController)
         homeVC.tabBarItem.title = "Home"
         homeVC.tabBarItem.image = UIImage(named: "home2")
-        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
-        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
+        homeViewController.delegateNavigationItem = self
         
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
         favoriteVc.tabBarItem.image = UIImage(named: "heart")
-        favoriteViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonFVCPressed))
-        favoriteViewController.navigationItem.rightBarButtonItem?.tintColor = .black
-        
+    
         let thirdVC = UINavigationController(rootViewController: thirdVC)
         thirdVC.tabBarItem.title = "Info"
         thirdVC.tabBarItem.image = UIImage(named: "info")
@@ -103,14 +90,6 @@ final class TabBarViewController: UITabBarController {
         }
     }
     
-    @objc private func searchButtonHVCPressed() {
-        setupNavigationVC(controller: homeViewController)
-    }
-    
-    @objc private func searchButtonFVCPressed() {
-        setupNavigationVC(controller: favoriteViewController)
-    }
-    
     private func setupLayout() {
         NSLayoutConstraint.activate([
             naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 20),
@@ -120,31 +99,11 @@ final class TabBarViewController: UITabBarController {
     }
 }
 
-// MARK: - UISearchBarDelegate
-
-extension TabBarViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        homeViewController.navigationItem.titleView = naviVerticalStackView
-        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
-        homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
-        favoriteViewController.navigationItem.titleView = naviVerticalStackView
-        favoriteViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonFVCPressed))
-        favoriteViewController.navigationItem.rightBarButtonItem?.tintColor = .black
-    }
-    
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        deleagteSearchBarHomeVC.getSearchBar(searchText)
-        delegateSearchBarFavoriteVC.getSearchBarFVC(searchText)
-    }
-}
-
-// MARK: - TabBarViewController
-
-extension TabBarViewController {
-    private func setupNavigationVC(controller: UIViewController) {
-        controller.navigationItem.titleView = searchBar
-        controller.navigationItem.rightBarButtonItem = nil
-        searchBar.becomeFirstResponder()
+extension TabBarViewController: NavigationItemDelegate {
+    func getTitleView() {
+        let viewControllers = [homeViewController, favoriteViewController, thirdVC]
+        viewControllers .forEach { viewController in
+            viewController.navigationItem.titleView = naviVerticalStackView
+        }
     }
 }
