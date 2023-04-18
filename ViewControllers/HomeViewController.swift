@@ -167,7 +167,7 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        delegateNavigationItem.getTitleView()
+        delegateNavigationItem.getTitleView(self)
         setupSearchButton()
     }
     

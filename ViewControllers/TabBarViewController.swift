@@ -8,7 +8,7 @@
 import UIKit
 
 protocol NavigationItemDelegate: AnyObject {
-    func getTitleView()
+    func getTitleView(_ view: UIViewController)
 }
 
 final class TabBarViewController: UITabBarController {
@@ -101,10 +101,9 @@ final class TabBarViewController: UITabBarController {
 }
 
 extension TabBarViewController: NavigationItemDelegate {
-    func getTitleView() {
-        let viewControllers = [homeViewController, favoriteViewController]
-        viewControllers .forEach { viewController in
-            viewController.navigationItem.titleView = naviVerticalStackView
-        }
+    func getTitleView(_ view: UIViewController) {
+        view.navigationItem.titleView = naviVerticalStackView
+        view.navigationItem.titleView = naviVerticalStackView
     }
 }
+
