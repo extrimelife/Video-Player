@@ -38,6 +38,7 @@ final class FavoriteViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search on the FavoritePage"
         searchBar.tintColor = .black
         searchBar.sizeToFit()
         searchBar.delegate = self
@@ -128,14 +129,14 @@ extension FavoriteViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
-        guard let videoURL = URL(string: video.sources) else { return }
-        let player = AVPlayer(url: videoURL)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        present(playerViewController, animated: true)
-        player.play()
-        tableView.deselectRow(at: indexPath, animated: true)
+//        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
+//        guard let videoURL = URL(string: video.sources) else { return }
+//        let player = AVPlayer(url: videoURL)
+//        let playerViewController = AVPlayerViewController()
+//        playerViewController.player = player
+//        present(playerViewController, animated: true)
+//        player.play()
+//        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
@@ -147,7 +148,6 @@ extension FavoriteViewController: UITableViewDelegate {
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(favoriteVideo)
-            tableView.reloadData()
         }
     }
     

@@ -35,6 +35,7 @@ final class HomeViewController: UIViewController {
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.showsCancelButton = true
+        searchBar.placeholder = "Search on the HomePage"
         searchBar.tintColor = .black
         searchBar.sizeToFit()
         searchBar.delegate = self
