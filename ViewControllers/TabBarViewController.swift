@@ -11,7 +11,8 @@ final class TabBarViewController: UITabBarController {
     
     // MARK: - Public Properties
     
-    weak var deleagteSearchBar: SearchBarHomeVCDelegate!
+    weak var deleagteSearchBarHomeVC: SearchBarHomeVCDelegate!
+    weak var delegateSearchBarFavoriteVC: SearchBarFavoriteVCDelegate!
     
     // MARK: - Private Properties
     
@@ -75,12 +76,14 @@ final class TabBarViewController: UITabBarController {
         let homeVC = UINavigationController(rootViewController: homeViewController)
         homeVC.tabBarItem.title = "Home"
         homeVC.tabBarItem.image = UIImage(named: "home2")
-        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
         homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
         
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
         favoriteVc.tabBarItem.image = UIImage(named: "heart")
+        favoriteViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonFVCPressed))
+        favoriteViewController.navigationItem.rightBarButtonItem?.tintColor = .black
         
         let thirdVC = UINavigationController(rootViewController: thirdVC)
         thirdVC.tabBarItem.title = "Info"
@@ -100,12 +103,13 @@ final class TabBarViewController: UITabBarController {
         }
     }
     
-    @objc private func searchButtonPressed() {
-        homeViewController.navigationItem.titleView = searchBar
-        homeViewController.navigationItem.rightBarButtonItem = nil
-        searchBar.becomeFirstResponder()
+    @objc private func searchButtonHVCPressed() {
+        setupNavigationVC(controller: homeViewController)
     }
     
+    @objc private func searchButtonFVCPressed() {
+        setupNavigationVC(controller: favoriteViewController)
+    }
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
@@ -121,13 +125,26 @@ final class TabBarViewController: UITabBarController {
 extension TabBarViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         homeViewController.navigationItem.titleView = naviVerticalStackView
-        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        homeViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
         homeViewController.navigationItem.rightBarButtonItem?.tintColor = .black
+        favoriteViewController.navigationItem.titleView = naviVerticalStackView
+        favoriteViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonFVCPressed))
+        favoriteViewController.navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        deleagteSearchBar.getSearchBar(searchText)
+        deleagteSearchBarHomeVC.getSearchBar(searchText)
+        delegateSearchBarFavoriteVC.getSearchBarFVC(searchText)
     }
 }
 
+// MARK: - TabBarViewController
+
+extension TabBarViewController {
+    private func setupNavigationVC(controller: UIViewController) {
+        controller.navigationItem.titleView = searchBar
+        controller.navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+    }
+}

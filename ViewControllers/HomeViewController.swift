@@ -58,7 +58,7 @@ final class HomeViewController: UIViewController {
     func setupNavigation() {
         guard let navigationBar = tabBarController?.viewControllers?.first as? UINavigationController else { return }
         guard let tabBar = navigationBar.tabBarController as? TabBarViewController else { return }
-        tabBar.deleagteSearchBar = self
+        tabBar.deleagteSearchBarHomeVC = self
     }
     
     // MARK: - Private Methods

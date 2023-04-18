@@ -8,6 +8,10 @@
 import UIKit
 import AVKit
 
+protocol SearchBarFavoriteVCDelegate: AnyObject {
+    func getSearchBarFVC(_ searchText: String)
+}
+
 protocol HomeViewControllerFBDeselectDelegate: AnyObject {
     func favoriteButtonDeselect()
 }
@@ -26,6 +30,15 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Private Properties
     
     private var videoPlayerData = [Category]()
+    private var filteredCharacters: [Mask] = []
+    private let searchBar = UISearchBar()
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return !searchBarIsEmpty
+    }
     
     lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -44,6 +57,7 @@ final class FavoriteViewController: UIViewController {
         setupNavigation()
         fetchVideoData()
         fetchData()
+        setupTabBar()
     }
     
     func fetchData() {
@@ -69,6 +83,11 @@ final class FavoriteViewController: UIViewController {
         homeVC.delegateFTVReloadData = self
         homeVC.delegateDeselectButton = self
     }
+    func setupTabBar() {
+        guard let navigationBar = tabBarController?.viewControllers?.first as? UINavigationController else { return }
+        guard let tabBar = navigationBar.tabBarController as? TabBarViewController else { return }
+        tabBar.delegateSearchBarFavoriteVC = self
+    }
     
     // MARK: - Private Methods
     
@@ -87,12 +106,12 @@ final class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        favoritesVideo.count
+        isFiltering ? filteredCharacters.count : favoritesVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        let favoriteVideo = favoritesVideo[indexPath.row]
+        let favoriteVideo = isFiltering ? filteredCharacters[indexPath.row] : favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
@@ -115,7 +134,7 @@ extension FavoriteViewController: UITableViewDataSource {
 extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
+            let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
             favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(favoriteVideo)
         }
@@ -141,4 +160,13 @@ extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
     }
 }
 
+extension FavoriteViewController: SearchBarFavoriteVCDelegate {
+    func getSearchBarFVC(_ searchText: String) {
+        searchBar.text = searchText
+        filteredCharacters = favoritesVideo.filter { mask in
+            mask.title?.lowercased().contains(searchText.lowercased()) ?? true
+        }
+        favoriteListTableView.reloadData()
+    }
+}
 
