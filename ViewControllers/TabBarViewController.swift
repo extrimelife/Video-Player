@@ -7,7 +7,7 @@
 
 import UIKit
 
-protocol NavigationItemDelegate {
+protocol NavigationItemDelegate: AnyObject {
     func getTitleView()
 }
 
@@ -71,6 +71,7 @@ final class TabBarViewController: UITabBarController {
         let favoriteVc = UINavigationController(rootViewController: favoriteViewController)
         favoriteVc.tabBarItem.title = "Favorite"
         favoriteVc.tabBarItem.image = UIImage(named: "heart")
+        favoriteViewController.delegateNavigationItem = self
     
         let thirdVC = UINavigationController(rootViewController: thirdVC)
         thirdVC.tabBarItem.title = "Info"
@@ -101,7 +102,7 @@ final class TabBarViewController: UITabBarController {
 
 extension TabBarViewController: NavigationItemDelegate {
     func getTitleView() {
-        let viewControllers = [homeViewController, favoriteViewController, thirdVC]
+        let viewControllers = [homeViewController, favoriteViewController]
         viewControllers .forEach { viewController in
             viewController.navigationItem.titleView = naviVerticalStackView
         }

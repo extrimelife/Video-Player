@@ -16,7 +16,7 @@ final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
     
-    var delegateNavigationItem: NavigationItemDelegate!
+    weak var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateDeselectButton: HomeViewControllerFBDeselectDelegate!
     weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
@@ -57,7 +57,7 @@ final class HomeViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         fetchData()
-        setupNavigationButton()
+        setupSearchButton()
     }
     
     // MARK: - Private Methods
@@ -68,12 +68,12 @@ final class HomeViewController: UIViewController {
         }
     }
     
-    private func setupNavigationButton() {
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
+    private func setupSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
         navigationItem.rightBarButtonItem?.tintColor = .black
     }
     
-    @objc private func searchButtonHVCPressed() {
+    @objc private func searchButtonPressed() {
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = nil
         searchBar.becomeFirstResponder()
@@ -163,15 +163,12 @@ extension HomeViewController: HomeCollectionViewCellDelegate {
     }
 }
 
-
 // MARK: - UISearchBarDelegate
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         delegateNavigationItem.getTitleView()
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonHVCPressed))
-        navigationItem.rightBarButtonItem?.tintColor = .black
-        
+        setupSearchButton()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

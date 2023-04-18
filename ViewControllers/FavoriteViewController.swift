@@ -18,14 +18,31 @@ protocol HomeViewControllerDelegate: AnyObject {
 
 final class FavoriteViewController: UIViewController {
     
-    
     //MARK: - Public Properties
-
+    
+    weak var delegateNavigationItem: NavigationItemDelegate!
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
     
     private var videoPlayerData = [Category]()
+    private var filteredCharacters: [Mask] = []
+    private var searchBarIsEmpty: Bool {
+        guard let text = searchBar.text else { return false }
+        return text.isEmpty
+    }
+    private var isFiltering: Bool {
+        return !searchBarIsEmpty
+    }
+    
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.showsCancelButton = true
+        searchBar.tintColor = .black
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        return searchBar
+    }()
     
     lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -44,9 +61,12 @@ final class FavoriteViewController: UIViewController {
         setupNavigation()
         fetchVideoData()
         fetchData()
+        setupSearchButton()
     }
     
-    func fetchData() {
+    // MARK: - Private Methods
+    
+    private func fetchData() {
         StorageManager.shared.fetchData { result in
             switch result {
             case .success(let data):
@@ -57,7 +77,7 @@ final class FavoriteViewController: UIViewController {
         }
     }
     
-    func fetchVideoData() {
+    private func fetchVideoData() {
         NetworkManager.shared.fetchData { [unowned self] result in
             videoPlayerData = result
         }
@@ -70,7 +90,16 @@ final class FavoriteViewController: UIViewController {
         homeVC.delegateDeselectButton = self
     }
     
-    // MARK: - Private Methods
+    private func setupSearchButton() {
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .search, target: self, action: #selector(searchButtonPressed))
+        navigationItem.rightBarButtonItem?.tintColor = .black
+    }
+    
+    @objc private func searchButtonPressed() {
+        navigationItem.titleView = searchBar
+        navigationItem.rightBarButtonItem = nil
+        searchBar.becomeFirstResponder()
+    }
     
     private func setupLayout() {
         view.addSubview(favoriteListTableView)
@@ -87,12 +116,12 @@ final class FavoriteViewController: UIViewController {
 
 extension FavoriteViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-         favoritesVideo.count
+        isFiltering ? filteredCharacters.count : favoritesVideo.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
-        let favoriteVideo = favoritesVideo[indexPath.row]
+        let favoriteVideo = isFiltering ? filteredCharacters[indexPath.row] : favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         return cell
@@ -138,5 +167,21 @@ extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
         let favoriteVideo = favoritesVideo.remove(at: indexPath.row)
         favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
         StorageManager.shared.delete(favoriteVideo)
+    }
+}
+
+// MARK: - UISearchBarDelegate
+
+extension FavoriteViewController: UISearchBarDelegate {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        delegateNavigationItem.getTitleView()
+        setupSearchButton()
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        filteredCharacters = favoritesVideo.filter { Mask in
+            Mask.title?.lowercased().contains(searchText.lowercased()) ?? Bool()
+        }
+        favoriteListTableView.reloadData()
     }
 }
