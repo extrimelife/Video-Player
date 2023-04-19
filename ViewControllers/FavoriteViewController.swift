@@ -45,7 +45,7 @@ final class FavoriteViewController: UIViewController {
         return searchBar
     }()
     
-    lazy var favoriteListTableView: UITableView = {
+    private lazy var favoriteListTableView: UITableView = {
         let favoriteListTableView = UITableView(frame: .zero, style: .insetGrouped)
         favoriteListTableView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListTableView.dataSource = self
@@ -146,7 +146,7 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(favoriteVideo)
         }
     }
