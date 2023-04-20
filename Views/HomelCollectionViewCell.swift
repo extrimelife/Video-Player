@@ -73,7 +73,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video) {
+    func configure(categories: Video, index: Int) {
+        favoriteButton.tag = index
         homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
@@ -89,7 +90,6 @@ class HomelCollectionViewCell: UICollectionViewCell {
             }
         }
     }
-    
     
     // MARK: - Private Methods
     
@@ -107,8 +107,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     private func getTintColor() {
         array .forEach { Mask in
             favoriteButton.tintColor = UIColor.tintColor.color(data: Mask.tintColor ?? Data())
+            favoriteButton.isSelected.toggle()
         }
     }
+    
     
     @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
@@ -117,7 +119,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             guard let buttonTintColor = favoriteButton.tintColor.encode() else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor)
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor, buttonTag: Int16(favoriteButton.tag))
         } else {
             favoriteButtonDeselect()
         }
