@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonPressed(image: Data, title: String)
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data)
 }
 
 final class HomeViewController: UIViewController {
@@ -153,11 +153,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - HomeCollectionViewCellDelegate
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonPressed(image: Data, title: String) {
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data) {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        StorageManager.shared.create(image, title) { mask in
+        StorageManager.shared.create(image, title, tintColor) { mask in
             favoriteVC.favoritesVideo.append(mask)
             delegateFTVReloadData?.reloadFavoriteTableView()
         }

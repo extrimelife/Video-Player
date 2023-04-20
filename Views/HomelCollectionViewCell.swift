@@ -16,7 +16,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private var favoriteStatus = false
+    private var array = [Mask]()
     
     private var imageUrl: URL? {
         didSet {
@@ -63,6 +63,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
+        fetchData()
+        getTintColor()
     }
     
     required init?(coder: NSCoder) {
@@ -91,13 +93,31 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
     
+    private func fetchData() {
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                array = data
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    private func getTintColor() {
+        array .forEach { Mask in
+            favoriteButton.tintColor = UIColor.tintColor.color(data: Mask.tintColor ?? Data())
+        }
+    }
+    
     @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
         favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
         if favoriteButton.isSelected {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text)
+            guard let buttonTintColor = favoriteButton.tintColor.encode() else { return }
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor)
         } else {
             favoriteButtonDeselect()
         }
