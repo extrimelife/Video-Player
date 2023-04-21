@@ -16,7 +16,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private var array = [Mask]()
+    private var coreDataModels = [Mask]()
     
     private var imageUrl: URL? {
         didSet {
@@ -97,7 +97,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         StorageManager.shared.fetchData { result in
             switch result {
             case .success(let data):
-                array = data
+                coreDataModels = data
             case .failure(let error):
                 print(error)
             }
@@ -105,11 +105,12 @@ class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     private func getTintColor() {
-        array .forEach { Mask in
+        coreDataModels .forEach { Mask in
                 favoriteButton.tintColor = UIColor.tintColor.color(data: Mask.tintColor ?? Data())
                 favoriteButton.isSelected.toggle()
+            }
         }
-    }
+    
     
     @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
