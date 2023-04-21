@@ -11,8 +11,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Private Properties
     
-    private var favoriteStatus = false
-    
     private let favoriteImageView: UIImageView = {
         let favoriteImage = UIImageView()
         favoriteImage.translatesAutoresizingMaskIntoConstraints = false
@@ -49,13 +47,10 @@ final class FavoriteTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    
-    
     // MARK: - Public Methods
     
     func configurateCell(categories: Mask) {
         favoriteButton.tintColor = UIColor.tintColor.color(data: categories.tintColor ?? Data())
-        favoriteButton.tag = Int(categories.buttonTag)
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
         
@@ -65,7 +60,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     @objc private func tapGesture() {
        
-        
     }
     
     private func setupLayout() {

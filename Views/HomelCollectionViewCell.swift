@@ -106,11 +106,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         array .forEach { Mask in
-            favoriteButton.tintColor = UIColor.tintColor.color(data: Mask.tintColor ?? Data())
-            favoriteButton.isSelected.toggle()
+                favoriteButton.tintColor = UIColor.tintColor.color(data: Mask.tintColor ?? Data())
+                favoriteButton.isSelected.toggle()
         }
     }
-    
     
     @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
@@ -119,7 +118,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             guard let buttonTintColor = favoriteButton.tintColor.encode() else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor, buttonTag: Int16(favoriteButton.tag))
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor)
         } else {
             favoriteButtonDeselect()
         }

@@ -29,12 +29,11 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
-    func create(_ image: Data, _ title: String, _ tintColor: Data, _ buttonTag: Int16,  completion: (Mask) -> Void) {
+    func create(_ image: Data, _ title: String, _ tintColor: Data, completion: (Mask) -> Void) {
         let task = Mask(context: viewContext)
         task.image = image
         task.title = title
         task.tintColor = tintColor
-        task.buttonTag = buttonTag
         completion(task)
         saveContext()
     }
