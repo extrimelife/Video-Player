@@ -58,19 +58,18 @@ final class TabBarViewController: UITabBarController {
         setupNavigation()
         setupNavigationBar()
         setupLayout()
-      
     }
     
     override func viewDidLayoutSubviews() {
-        setupTabBarHeight()
+        getTabBarHeight()
     }
     
     // MARK: - Private Methods
     
-    private func setupTabBarHeight() {
+    private func getTabBarHeight() {
             var frame = tabBar.frame
             frame.size.height = 80
-            frame.origin.y = view.frame.size.height - 73
+            frame.origin.y = view.frame.size.height - 68
             tabBar.frame = frame
     }
     

@@ -82,11 +82,10 @@ final class HomeViewController: UIViewController {
     
     private func setupLayout() {
         view.addSubview(homeCollectionView)
-        view.backgroundColor = UIColor(hexString: "#f7f0f0")
         NSLayoutConstraint.activate([
-            homeCollectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            homeCollectionView.topAnchor.constraint(equalTo: view.topAnchor),
             homeCollectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            homeCollectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            homeCollectionView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             homeCollectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
@@ -104,6 +103,7 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel, index: indexPath.row)
+        cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = {
             self.delegateDeselectButton.favoriteButtonDeselect()
