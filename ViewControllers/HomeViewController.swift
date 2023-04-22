@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonPressed(image: Data, title: String, tintColor: Data)
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, tag: Int16)
 }
 
 final class HomeViewController: UIViewController {
@@ -103,7 +103,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel, index: indexPath.item)
+        cell.configure(categories: categoryModel, index: indexPath.row)
         cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = {
             self.delegateDeselectButton.favoriteButtonDeselect()
@@ -153,11 +153,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - HomeCollectionViewCellDelegate
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonPressed(image: Data, title: String, tintColor: Data) {
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, tag: Int16) {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        StorageManager.shared.create(image, title, tintColor) { mask in
+        StorageManager.shared.create(image, title, tintColor, tag) { mask in
             favoriteVC.favoritesVideo.append(mask)
             delegateFTVReloadData?.reloadFavoriteTableView()
         }
