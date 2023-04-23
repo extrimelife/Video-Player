@@ -74,7 +74,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
     
     func configure(categories: Video, index: Int) {
-     //   favoriteButton.tag = index
+        favoriteButton.tag = index
         homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
@@ -106,14 +106,12 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-            if favoriteButton.tag == data.tag {
-                favoriteButton.tintColor = UIColor.tintColor.color(data: data.tintColor ?? Data())
-                favoriteButton.isSelected.toggle()
-            }
+            favoriteButton.tintColor = UIColor.tintColor.color(data: data.tintColor ?? Data())
+            favoriteButton.isSelected.toggle()
         }
     }
     
-    @objc private func tapGesture(sender: UIButton) {
+    @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
         favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
         if favoriteButton.isSelected {

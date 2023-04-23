@@ -50,6 +50,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Public Methods
     
     func configurateCell(categories: Mask) {
+        favoriteButton.tag = Int(categories.tag)
         favoriteButton.tintColor = UIColor.tintColor.color(data: categories.tintColor ?? Data())
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
@@ -59,7 +60,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-       
+        print("\(favoriteButton.tag)")
     }
     
     private func setupLayout() {
