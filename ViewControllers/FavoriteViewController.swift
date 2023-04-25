@@ -54,7 +54,7 @@ final class FavoriteViewController: UIViewController {
         return favoriteListTableView
     }()
     
-    let item = ["Red", "Blue", "Black"]
+    let item = ["♥️", "👁‍🗨", "📖"]
     
     private lazy var segmentedControl: UISegmentedControl = {
         let segmentedControl = UISegmentedControl(items: item)
