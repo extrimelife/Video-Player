@@ -25,7 +25,6 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private let favoriteVC = FavoriteViewController()
     private var videoPlayerData = [Category]()
     private var filteredCharacters: [Mask] = []
     private var searchBarIsEmpty: Bool {
@@ -58,12 +57,12 @@ final class FavoriteViewController: UIViewController {
     let item = ["Red", "Blue", "Black"]
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: [item])
+        let segmentedControl = UISegmentedControl(items: item)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.layer.borderWidth = 0.5
-        segmentedControl.layer.borderColor = UIColor.black.cgColor
-        segmentedControl.tintColor = .black
+        segmentedControl.layer.borderColor = UIColor.systemGray2.cgColor
+        segmentedControl.tintColor = .white
         segmentedControl.backgroundColor = .white
         return segmentedControl
     }()
