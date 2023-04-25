@@ -106,12 +106,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-            if favoriteButton.tag == data.tag {
                 favoriteButton.tintColor =  UIColor.tintColor.color(data: data.tintColor ?? Data())
                 favoriteButton.isSelected.toggle()
             }
         }
-    }
     
     @objc private func tapGesture() {
         favoriteButton.isSelected.toggle()
