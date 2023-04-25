@@ -25,6 +25,7 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
+    private let favoriteVC = FavoriteViewController()
     private var videoPlayerData = [Category]()
     private var filteredCharacters: [Mask] = []
     private var searchBarIsEmpty: Bool {
@@ -52,6 +53,19 @@ final class FavoriteViewController: UIViewController {
         favoriteListTableView.delegate = self
         favoriteListTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
         return favoriteListTableView
+    }()
+    
+    let item = ["Red", "Blue", "Black"]
+    
+    private lazy var segmentedControl: UISegmentedControl = {
+        let segmentedControl = UISegmentedControl(items: [item])
+        segmentedControl.translatesAutoresizingMaskIntoConstraints = false
+        segmentedControl.selectedSegmentIndex = 0
+        segmentedControl.layer.borderWidth = 0.5
+        segmentedControl.layer.borderColor = UIColor.black.cgColor
+        segmentedControl.tintColor = .black
+        segmentedControl.backgroundColor = .white
+        return segmentedControl
     }()
     
     // MARK: - Override Methods
@@ -103,12 +117,17 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(favoriteListTableView)
+        view.backgroundColor = UIColor(hexString: "#f7f0f0")
+        [favoriteListTableView, segmentedControl] .forEach {view.addSubview($0)}
         NSLayoutConstraint.activate([
-            favoriteListTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            favoriteListTableView.topAnchor.constraint(equalTo: segmentedControl.topAnchor, constant: 5),
             favoriteListTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             favoriteListTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             favoriteListTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            
+            segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 5),
+            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 18),
+            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -18)
         ])
     }
 }
