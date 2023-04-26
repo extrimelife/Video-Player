@@ -26,6 +26,7 @@
 		B7BABEC329BEDB3C00E4B7F8 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */; };
 		B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */; };
 		B7DFF31029BD9B9E00EAE036 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFF30F29BD9B9E00EAE036 /* Models.swift */; };
+		B7E0B1E529F8E5F1002C3637 /* ViewedVideoViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7E0B1E429F8E5F1002C3637 /* ViewedVideoViewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		B7BABEC229BEDB3C00E4B7F8 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B7DFF30F29BD9B9E00EAE036 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B7E0B1E429F8E5F1002C3637 /* ViewedVideoViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewedVideoViewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */,
 				B73ED2C029A5FFDF00DA2B37 /* InfoViewController.swift */,
 				B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */,
+				B7E0B1E429F8E5F1002C3637 /* ViewedVideoViewViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 				B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */,
 				B73ED2BF29A5FFDF00DA2B37 /* SceneDelegate.swift in Sources */,
 				B759959929D52BB300BB7C96 /* MeTubePet.xcdatamodeld in Sources */,
+				B7E0B1E529F8E5F1002C3637 /* ViewedVideoViewViewController.swift in Sources */,
 				B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */,
 				B718BEF129F0D2380015A9DB /* UIColor + Data Extension.swift in Sources */,
 				B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */,

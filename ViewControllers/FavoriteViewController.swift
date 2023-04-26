@@ -64,6 +64,7 @@ final class FavoriteViewController: UIViewController {
         segmentedControl.layer.borderColor = UIColor.systemGray2.cgColor
         segmentedControl.tintColor = .white
         segmentedControl.backgroundColor = .white
+        segmentedControl.addTarget(self, action: #selector(segmentedSlided), for: .valueChanged)
         return segmentedControl
     }()
     
@@ -113,6 +114,19 @@ final class FavoriteViewController: UIViewController {
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = nil
         searchBar.becomeFirstResponder()
+    }
+    
+    @objc private func segmentedSlided() {
+        switch segmentedControl.selectedSegmentIndex {
+        case 1:
+            let viewedVideoVC = ViewedVideoViewViewController()
+            present(viewedVideoVC, animated: true)
+        case 2:
+            let infoVC = InfoViewController()
+            present(infoVC, animated: true)
+        default:
+            break
+        }
     }
     
     private func setupLayout() {
@@ -186,6 +200,7 @@ extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
         let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
         favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
         StorageManager.shared.delete(favoriteVideo)
+        favoriteListTableView.reloadData()
     }
 }
 
@@ -195,6 +210,7 @@ extension FavoriteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
+        favoriteListTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
