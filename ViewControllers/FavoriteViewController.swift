@@ -54,10 +54,10 @@ final class FavoriteViewController: UIViewController {
         return favoriteListTableView
     }()
     
-    let item = ["♥️", "👁‍🗨", "📖"]
+    private let segmentedItems = ["Favorite", "Viewed", "Description"]
     
     private lazy var segmentedControl: UISegmentedControl = {
-        let segmentedControl = UISegmentedControl(items: item)
+        let segmentedControl = UISegmentedControl(items: segmentedItems)
         segmentedControl.translatesAutoresizingMaskIntoConstraints = false
         segmentedControl.selectedSegmentIndex = 0
         segmentedControl.layer.borderWidth = 0.5
@@ -120,7 +120,7 @@ final class FavoriteViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 1:
             let viewedVideoVC = ViewedVideoViewViewController()
-           present(viewedVideoVC, animated: true)
+            present(viewedVideoVC, animated: true)
         case 2:
             let descriptionVC = DescriptionViewController()
             present(descriptionVC, animated: true)
@@ -161,14 +161,14 @@ extension FavoriteViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
-//        guard let videoURL = URL(string: video.sources) else { return }
-//        let player = AVPlayer(url: videoURL)
-//        let playerViewController = AVPlayerViewController()
-//        playerViewController.player = player
-//        present(playerViewController, animated: true)
-//        player.play()
-//        tableView.deselectRow(at: indexPath, animated: true)
+        //        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
+        //        guard let videoURL = URL(string: video.sources) else { return }
+        //        let player = AVPlayer(url: videoURL)
+        //        let playerViewController = AVPlayerViewController()
+        //        playerViewController.player = player
+        //        present(playerViewController, animated: true)
+        //        player.play()
+        //        tableView.deselectRow(at: indexPath, animated: true)
     }
 }
 
