@@ -21,7 +21,7 @@ final class TabBarViewController: UITabBarController {
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
-        navigationLabel.text = "MeTube"
+        navigationLabel.text = "PlayMe"
         navigationLabel.font = UIFont.systemFont(ofSize: 20, weight: .bold)
         navigationLabel.textColor = .black
         navigationLabel.textAlignment = .left
@@ -39,7 +39,7 @@ final class TabBarViewController: UITabBarController {
         let stackView = UIStackView(arrangedSubviews: [navigationImageView, navigationLabel])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = -195
+        stackView.spacing = -185
         return stackView
     }()
     
@@ -106,7 +106,7 @@ final class TabBarViewController: UITabBarController {
         NSLayoutConstraint.activate([
             naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 20),
             naviHorizontalStackView.widthAnchor.constraint(equalToConstant: 190),
-            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 310)
+            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 315)
         ])
     }
 }

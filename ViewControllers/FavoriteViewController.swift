@@ -120,10 +120,10 @@ final class FavoriteViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 1:
             let viewedVideoVC = ViewedVideoViewViewController()
-            present(viewedVideoVC, animated: true)
+           present(viewedVideoVC, animated: true)
         case 2:
-            let infoVC = InfoViewController()
-            present(infoVC, animated: true)
+            let descriptionVC = DescriptionViewController()
+            present(descriptionVC, animated: true)
         default:
             break
         }
