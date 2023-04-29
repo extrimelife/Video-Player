@@ -10,7 +10,7 @@ import UIKit
 final class DescriptionViewController: UIViewController {
     
     private lazy var descriptionTableView: UITableView = {
-        let descriptionTableView = UITableView(frame: .zero, style: .insetGrouped)
+        let descriptionTableView = UITableView(frame: .zero, style: .grouped)
         descriptionTableView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTableView.delegate = self
         descriptionTableView.dataSource = self

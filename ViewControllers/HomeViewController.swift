@@ -9,7 +9,7 @@ import UIKit
 import AVKit
 
 protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, tag: Int16)
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, isCondition: Bool)
 }
 
 final class HomeViewController: UIViewController {
@@ -66,6 +66,7 @@ final class HomeViewController: UIViewController {
     private func fetchData() {
         NetworkManager.shared.fetchData { [unowned self] result in
             categoryModel = result
+            homeCollectionView.reloadData()
         }
     }
     
@@ -102,7 +103,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel, index: indexPath.row)
+        cell.configure(categories: categoryModel)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = {
@@ -153,11 +154,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - HomeCollectionViewCellDelegate
 
 extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, tag: Int16) {
+    func favoriteButtonPressed(image: Data, title: String, tintColor: Data, isCondition: Bool) {
         tabBarController?.selectedIndex = 1
         guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        StorageManager.shared.create(image, title, tintColor, tag) { mask in
+        StorageManager.shared.create(image, title, tintColor, isCondition) { mask in
             favoriteVC.favoritesVideo.append(mask)
             delegateFTVReloadData?.reloadFavoriteTableView()
         }

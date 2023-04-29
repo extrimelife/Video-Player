@@ -30,13 +30,13 @@ class StorageManager {
     }
     
     func create(_ image: Data, _ title: String,
-                _ tintColor: Data, _ buttonTag: Int16,
+                _ tintColor: Data, _ isSelected: Bool,
                 completion: (Mask) -> Void) {
         let task = Mask(context: viewContext)
         task.image = image
         task.title = title
         task.tintColor = tintColor
-        task.tag = buttonTag
+        task.isSelected = isSelected
         completion(task)
         saveContext()
     }

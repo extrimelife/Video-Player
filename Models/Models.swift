@@ -25,7 +25,7 @@ struct Video: Codable {
 }
 
 struct UserAction {
-    var view: Int
+    var isFavoriteStatus: Bool
 }
 
 

@@ -11,6 +11,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
     
+    var user = UserAction(isFavoriteStatus: false)
     var favoriteButtonDeselect: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
     
@@ -46,7 +47,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
+        favoriteButton.tintColor = user.isFavoriteStatus ? .red : .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -73,8 +74,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video, index: Int) {
-        favoriteButton.tag = index
+    func configure(categories: Video) {
         homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
@@ -106,19 +106,20 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-                favoriteButton.tintColor =  UIColor.tintColor.color(data: data.tintColor ?? Data())
-                favoriteButton.isSelected.toggle()
-            }
+            user.isFavoriteStatus.toggle()
+                favoriteButton.tintColor = data.isSelected ? .red : .systemGray4
         }
+    }
     
     @objc private func tapGesture() {
-        favoriteButton.isSelected.toggle()
-        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
-        if favoriteButton.isSelected {
+        user.isFavoriteStatus.toggle()
+        favoriteButton.tintColor = user.isFavoriteStatus ? .systemRed : .systemGray4
+        if user.isFavoriteStatus {
+            print(user.isFavoriteStatus)
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             guard let buttonTintColor = favoriteButton.tintColor.encode() else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor, tag: Int16(favoriteButton.tag))
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor, isCondition: user.isFavoriteStatus)
         } else {
             favoriteButtonDeselect()
         }
