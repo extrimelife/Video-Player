@@ -106,7 +106,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-           // user.isFavoriteStatus.toggle()
+            user.isFavoriteStatus.toggle()
             data.isFavoriteStatus.toggle()
             if data.isFavoriteStatus {
                 favoriteButton.tintColor = .red
