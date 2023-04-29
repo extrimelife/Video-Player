@@ -47,7 +47,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = user.isFavoriteStatus ? .red : .systemGray4
+        favoriteButton.tintColor = user.isFavoriteStatus ? .systemRed : .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -106,8 +106,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-            user.isFavoriteStatus.toggle()
-                favoriteButton.tintColor = data.isSelected ? .red : .systemGray4
+           // user.isFavoriteStatus.toggle()
+            data.isFavoriteStatus.toggle()
+            if data.isFavoriteStatus {
+                favoriteButton.tintColor = .red
+            } else {
+                favoriteButton.tintColor = .systemGray4
+            }
         }
     }
     
@@ -118,8 +123,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
             print(user.isFavoriteStatus)
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
-            guard let buttonTintColor = favoriteButton.tintColor.encode() else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, tintColor: buttonTintColor, isCondition: user.isFavoriteStatus)
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: user.isFavoriteStatus)
         } else {
             favoriteButtonDeselect()
         }

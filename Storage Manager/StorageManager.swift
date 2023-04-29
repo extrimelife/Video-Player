@@ -29,14 +29,12 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
-    func create(_ image: Data, _ title: String,
-                _ tintColor: Data, _ isSelected: Bool,
+    func create(_ image: Data, _ title: String, _ isFavoriteStatus: Bool,
                 completion: (Mask) -> Void) {
         let task = Mask(context: viewContext)
         task.image = image
         task.title = title
-        task.tintColor = tintColor
-        task.isSelected = isSelected
+        task.isFavoriteStatus = isFavoriteStatus
         completion(task)
         saveContext()
     }
