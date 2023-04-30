@@ -178,7 +178,7 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
-            favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
+            tableView.deleteRows(at: [indexPath], with: .automatic)
             StorageManager.shared.delete(favoriteVideo)
         }
     }
@@ -200,7 +200,6 @@ extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
         let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
         favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
         StorageManager.shared.delete(favoriteVideo)
-        favoriteListTableView.reloadData()
     }
 }
 
@@ -210,7 +209,6 @@ extension FavoriteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
-        favoriteListTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

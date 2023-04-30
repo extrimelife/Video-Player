@@ -47,7 +47,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = user.isFavoriteStatus ? .systemRed : .systemGray4
+        favoriteButton.tintColor = .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -106,12 +106,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-            user.isFavoriteStatus.toggle()
             data.isFavoriteStatus.toggle()
+            favoriteButton.tintColor = data.isFavoriteStatus ? .red  : .systemGray4
             if data.isFavoriteStatus {
-                favoriteButton.tintColor = .red
-            } else {
-                favoriteButton.tintColor = .systemGray4
+                favoriteButton.tintColor = user.isFavoriteStatus ? .red  : .systemGray4
             }
         }
     }
