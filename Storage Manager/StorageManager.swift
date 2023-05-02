@@ -30,11 +30,15 @@ class StorageManager {
     }
     
     func create(_ image: Data, _ title: String, _ isFavoriteStatus: Bool,
+                _ description: String, _ subtitle: String, _ sources: String,
                 completion: (Mask) -> Void) {
         let task = Mask(context: viewContext)
         task.image = image
         task.title = title
         task.isFavoriteStatus = isFavoriteStatus
+        task.descriptio = description
+        task.subtitle = subtitle
+        task.sources = sources
         completion(task)
         saveContext()
     }

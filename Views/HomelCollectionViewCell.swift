@@ -43,6 +43,32 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return homeLabel
     }()
     
+    private let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        descriptionLabel.textColor = .black
+        return descriptionLabel
+    }()
+    
+    private let subTitle: UILabel = {
+        let subTitle = UILabel()
+        subTitle.translatesAutoresizingMaskIntoConstraints = false
+        subTitle.numberOfLines = 0
+        subTitle.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        subTitle.textColor = .black
+        return subTitle
+    }()
+    
+    private let source: UILabel = {
+        let source = UILabel()
+        source.translatesAutoresizingMaskIntoConstraints = false
+        source.numberOfLines = 0
+        source.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        source.textColor = .black
+        return source
+    }()
+    
     private lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
@@ -75,6 +101,9 @@ class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Public Methods
     
     func configure(categories: Video) {
+        source.text = categories.sources
+        descriptionLabel.text = categories.description
+        subTitle.text = categories.subtitle
         homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
         guard let imageUrl = imageUrl else { return }
@@ -106,15 +135,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { data in
-//            data.isFavoriteStatus.toggle()
-//            favoriteButton.tintColor = data.isFavoriteStatus ? .red  : .systemGray4
-            user.isFavoriteStatus.toggle()
-            user.isFavoriteStatus = data.isFavoriteStatus
-            if user.isFavoriteStatus {
-                favoriteButton.tintColor = .red
-            } else if !user.isFavoriteStatus {
-                favoriteButton.tintColor = .systemGray4
-            }
+            
         }
     }
     
@@ -125,7 +146,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
             print(user.isFavoriteStatus)
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: user.isFavoriteStatus)
+            guard let description = descriptionLabel.text else { return }
+            guard let subTitle = subTitle.text else { return }
+            guard let source = source.text else { return }
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: user.isFavoriteStatus, description: description, subtitle: subTitle, sources: source)
         } else {
             favoriteButtonDeselect()
         }
