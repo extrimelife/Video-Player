@@ -8,6 +8,10 @@
 import UIKit
 import AVKit
 
+protocol AvPlayerDelegate: AnyObject {
+    func playedVideo()
+}
+
 protocol HomeCollectionViewCellDelegate: AnyObject {
     func favoriteButtonPressed(image: Data, title: String, isCondition: Bool,
                                description: String, subtitle: String, sources: String)
@@ -107,6 +111,7 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.configure(categories: categoryModel)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.delegateFBGesture = self
+        cell.delegatePlayer = self
         cell.favoriteButtonDeselect = {
             self.delegateDeselectButton.favoriteButtonDeselect()
         }
@@ -140,16 +145,16 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
         sizeInset
     }
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let video = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.row]
-        guard let videoURL = URL(string: video.sources) else {return}
-        let player = AVPlayer(url: videoURL)
-        let playerViewController = AVPlayerViewController()
-        playerViewController.player = player
-        present(playerViewController, animated: true) {
-            player.play()
-        }
-    }
+   // func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        let video = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.row]
+//        guard let videoURL = URL(string: video.sources) else {return}
+//        let player = AVPlayer(url: videoURL)
+//        let playerViewController = AVPlayerViewController()
+//        playerViewController.player = player
+//        present(playerViewController, animated: true) {
+//            player.play()
+//        }
+//    }
 }
 
 // MARK: - HomeCollectionViewCellDelegate
@@ -182,5 +187,19 @@ extension HomeViewController: UISearchBarDelegate {
             Video.title.lowercased().contains(searchText.lowercased())
         }
         homeCollectionView.reloadData()
+    }
+}
+
+extension HomeViewController: AvPlayerDelegate {
+    func playedVideo() {
+        let indexPath = IndexPath(item: categoryModel.count - 1, section: 0)
+        let video = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.row]
+        guard let videoURL = URL(string: video.sources) else {return}
+        let player = AVPlayer(url: videoURL)
+        let playerViewController = AVPlayerViewController()
+        playerViewController.player = player
+        present(playerViewController, animated: true) {
+            player.play()
+        }
     }
 }

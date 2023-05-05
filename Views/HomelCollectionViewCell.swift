@@ -14,6 +14,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     var user = UserAction(isFavoriteStatus: false, id: 0)
     var favoriteButtonDeselect: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
+    weak var delegatePlayer: AvPlayerDelegate!
     
     // MARK: - Private Properties
     
@@ -78,6 +79,15 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return favoriteButton
     }()
     
+    private lazy var playButton: UIButton = {
+        let playButton = UIButton(type: .system)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.setImage(UIImage(named: "Play"), for: .normal)
+        playButton.tintColor = .systemGray4
+        playButton.addTarget(self, action: #selector(playTapGesture), for: .touchUpInside)
+       return playButton
+    }()
+    
     private var activityIndicator: UIActivityIndicatorView = {
         let activityIndicator = UIActivityIndicatorView()
         activityIndicator.translatesAutoresizingMaskIntoConstraints = false
@@ -135,8 +145,14 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { mask in
+            mask.isFavoriteStatus.toggle()
+            user.isFavoriteStatus.toggle()
             if mask.isFavoriteStatus {
-                
+                favoriteButton.tintColor = .red
+                mask.isFavoriteStatus = false
+            } else {
+                favoriteButton.tintColor = .systemGray
+                mask.isFavoriteStatus = false
             }
         }
     }
@@ -156,8 +172,12 @@ class HomelCollectionViewCell: UICollectionViewCell {
         }
     }
     
+    @objc private func playTapGesture() {
+        delegatePlayer.playedVideo()
+    }
+    
     private func setupLayout() {
-        [homeImageview, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }
+        [homeImageview, playButton, homeLabel, favoriteButton, activityIndicator] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             homeImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
             homeImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -172,7 +192,11 @@ class HomelCollectionViewCell: UICollectionViewCell {
             favoriteButton.trailingAnchor.constraint(equalTo: homeImageview.trailingAnchor, constant: -5),
             
             activityIndicator.centerXAnchor.constraint(equalTo: homeImageview.centerXAnchor),
-            activityIndicator.centerYAnchor.constraint(equalTo: homeImageview.centerYAnchor)
+            activityIndicator.centerYAnchor.constraint(equalTo: homeImageview.centerYAnchor),
+            
+            playButton.centerYAnchor.constraint(equalTo: homeImageview.centerYAnchor),
+            playButton.centerXAnchor.constraint(equalTo: homeImageview.centerXAnchor)
+            
         ])
     }
 }
