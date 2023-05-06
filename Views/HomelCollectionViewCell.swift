@@ -13,8 +13,8 @@ class HomelCollectionViewCell: UICollectionViewCell {
     
     var user = UserAction(isFavoriteStatus: false, id: 0)
     var favoriteButtonDeselect: () -> () = {}
+    var getPlayButton: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
-    weak var delegatePlayer: AvPlayerDelegate!
     
     // MARK: - Private Properties
     
@@ -173,7 +173,7 @@ class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func playTapGesture() {
-        delegatePlayer.playedVideo()
+       getPlayButton()
     }
     
     private func setupLayout() {
