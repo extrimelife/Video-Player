@@ -79,11 +79,11 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return favoriteButton
     }()
     
-    private lazy var playButton: UIButton = {
+    lazy var playButton: UIButton = {
         let playButton = UIButton(type: .system)
         playButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.setImage(UIImage(named: "Play"), for: .normal)
-        playButton.tintColor = .systemGray4
+        playButton.tintColor = .white
         playButton.addTarget(self, action: #selector(playTapGesture), for: .touchUpInside)
        return playButton
     }()
@@ -173,7 +173,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func playTapGesture() {
-       getPlayButton()
+        if playButton.currentImage == UIImage(named: "Play")  {
+            playButton.setImage(UIImage(named: "Stop"), for: .normal)
+            getPlayButton()
+        }
     }
     
     private func setupLayout() {

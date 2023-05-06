@@ -117,6 +117,7 @@ extension HomeViewController: UICollectionViewDataSource {
             playerViewController.player = player
             present(playerViewController, animated: true) {
                 player.play()
+                cell.playButton.setImage(UIImage(named: "Play"), for: .normal)
             }
         }
         return cell
