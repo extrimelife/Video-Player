@@ -90,12 +90,6 @@ final class FavoriteViewController: UIViewController {
         }
     }
     
-//    private func fetchVideoData() {
-//        NetworkManager.shared.fetchData { [unowned self] result in
-//            videoPlayerData = result
-//        }
-//    }
-    
     private func setupNavigation() {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
         guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
@@ -155,19 +149,18 @@ extension FavoriteViewController: UITableViewDataSource {
         let favoriteVideo = isFiltering ? filteredCharacters[indexPath.row] : favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        favoritesVideo . forEach { mask in
-            guard let videoURL = URL(string: mask.sources ?? "") else { return }
+        cell.getPlayButton = { [unowned self] in
+            guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            present(playerViewController, animated: true)
-            player.play()
-            tableView.deselectRow(at: indexPath, animated: true)
+            present(playerViewController, animated: true) {
+                player.play()
+                tableView.deselectRow(at: indexPath, animated: true)
+                 cell.getButtonTittle()
+            }
         }
+        return cell
     }
 }
 

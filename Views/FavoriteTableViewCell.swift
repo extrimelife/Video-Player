@@ -9,6 +9,10 @@ import UIKit
 
 final class FavoriteTableViewCell: UITableViewCell {
     
+    // MARK: Public Properties
+    
+    var getPlayButton: () -> () = {}
+    
     // MARK: - Private Properties
     
     private let favoriteImageView: UIImageView = {
@@ -36,6 +40,15 @@ final class FavoriteTableViewCell: UITableViewCell {
         return favoriteButton
     }()
     
+    private lazy var playButton: UIButton = {
+        let playButton = UIButton(type: .system)
+        playButton.translatesAutoresizingMaskIntoConstraints = false
+        playButton.setImage(UIImage(named: "Play"), for: .normal)
+        playButton.tintColor = UIColor(hexString: "#f7f0f0")
+        playButton.addTarget(self, action: #selector(playTapGesture), for: .touchUpInside)
+        return playButton
+    }()
+    
     // MARK: - Override Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -59,14 +72,25 @@ final class FavoriteTableViewCell: UITableViewCell {
         
     }
     
+    func getButtonTittle() {
+        playButton.setImage(UIImage(named: "Play"), for: .normal)
+    }
+    
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
         print("\(favoriteButton.tag)")
     }
     
+    @objc private func playTapGesture() {
+        if playButton.currentImage == UIImage(named: "Play")  {
+            playButton.setImage(UIImage(named: "Stop"), for: .normal)
+            getPlayButton()
+        }
+    }
+    
     private func setupLayout() {
-        [favoriteImageView, favoriteLabel, favoriteButton] .forEach { contentView.addSubview($0) }
+        [favoriteImageView, favoriteLabel, favoriteButton, playButton] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             favoriteImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             favoriteImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
@@ -77,6 +101,9 @@ final class FavoriteTableViewCell: UITableViewCell {
             favoriteButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: -5),
             
             favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
+            
+            playButton.centerXAnchor.constraint(equalTo: favoriteImageView.centerXAnchor),
+            playButton.centerYAnchor.constraint(equalTo: favoriteImageView.centerYAnchor)
         ])
     }
 }
