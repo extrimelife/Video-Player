@@ -26,16 +26,6 @@ struct Video: Codable {
 
 struct UserAction {
     var isFavoriteStatus: Bool
-    var id: Int
-    
-//    static func getId() -> [UserAction] {
-//        var userActions: [UserAction] = []
-//        for i in 1...12 {
-//            let id = i
-//            userActions.append(UserAction(isFavoriteStatus: false, id: id))
-//        }
-//        return userActions
-//    }
 }
 
 

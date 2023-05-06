@@ -7,11 +7,11 @@
 
 import UIKit
 
-class HomelCollectionViewCell: UICollectionViewCell {
+final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
     
-    var user = UserAction(isFavoriteStatus: false, id: 0)
+    var user = UserAction(isFavoriteStatus: false)
     var favoriteButtonDeselect: () -> () = {}
     var getPlayButton: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
@@ -79,13 +79,13 @@ class HomelCollectionViewCell: UICollectionViewCell {
         return favoriteButton
     }()
     
-    lazy var playButton: UIButton = {
+    private lazy var playButton: UIButton = {
         let playButton = UIButton(type: .system)
         playButton.translatesAutoresizingMaskIntoConstraints = false
         playButton.setImage(UIImage(named: "Play"), for: .normal)
-        playButton.tintColor = .white
+        playButton.tintColor = UIColor(hexString: "#f7f0f0")
         playButton.addTarget(self, action: #selector(playTapGesture), for: .touchUpInside)
-       return playButton
+        return playButton
     }()
     
     private var activityIndicator: UIActivityIndicatorView = {
@@ -128,6 +128,10 @@ class HomelCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
+    }
+    
+    func getButtonTittle() {
+        playButton.setImage(UIImage(named: "Play"), for: .normal)
     }
     
     // MARK: - Private Methods
