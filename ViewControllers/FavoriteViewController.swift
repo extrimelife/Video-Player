@@ -25,7 +25,6 @@ final class FavoriteViewController: UIViewController {
     
     // MARK: - Private Properties
     
-    private var videoPlayerData = [Category]()
     private var filteredCharacters: [Mask] = []
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
@@ -74,7 +73,6 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupNavigation()
-        fetchVideoData()
         fetchData()
         setupSearchButton()
     }
@@ -92,11 +90,11 @@ final class FavoriteViewController: UIViewController {
         }
     }
     
-    private func fetchVideoData() {
-        NetworkManager.shared.fetchData { [unowned self] result in
-            videoPlayerData = result
-        }
-    }
+//    private func fetchVideoData() {
+//        NetworkManager.shared.fetchData { [unowned self] result in
+//            videoPlayerData = result
+//        }
+//    }
     
     private func setupNavigation() {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
@@ -161,14 +159,15 @@ extension FavoriteViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        //        let video = videoPlayerData[indexPath.section].videos[indexPath.row]
-        //        guard let videoURL = URL(string: video.sources) else { return }
-        //        let player = AVPlayer(url: videoURL)
-        //        let playerViewController = AVPlayerViewController()
-        //        playerViewController.player = player
-        //        present(playerViewController, animated: true)
-        //        player.play()
-        //        tableView.deselectRow(at: indexPath, animated: true)
+        favoritesVideo . forEach { mask in
+            guard let videoURL = URL(string: mask.sources ?? "") else { return }
+            let player = AVPlayer(url: videoURL)
+            let playerViewController = AVPlayerViewController()
+            playerViewController.player = player
+            present(playerViewController, animated: true)
+            player.play()
+            tableView.deselectRow(at: indexPath, animated: true)
+        }
     }
 }
 
