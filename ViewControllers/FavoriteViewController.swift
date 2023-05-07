@@ -149,6 +149,7 @@ extension FavoriteViewController: UITableViewDataSource {
         let favoriteVideo = isFiltering ? filteredCharacters[indexPath.row] : favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
+        cell.selectionStyle = .none
         cell.getPlayButton = { [unowned self] in
             guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
@@ -156,8 +157,7 @@ extension FavoriteViewController: UITableViewDataSource {
             playerViewController.player = player
             present(playerViewController, animated: true) {
                 player.play()
-                tableView.deselectRow(at: indexPath, animated: true)
-                 cell.getButtonTittle()
+                cell.getButtonTittle()
             }
         }
         return cell
