@@ -104,7 +104,7 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel)
+        cell.configure(categories: categoryModel, index: indexPath.item)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = { [unowned self] in

@@ -82,7 +82,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     private lazy var playButton: UIButton = {
         let playButton = UIButton(type: .system)
         playButton.translatesAutoresizingMaskIntoConstraints = false
-        playButton.setImage(UIImage(named: "Play"), for: .normal)
+        playButton.setImage(UIImage(named: "Play2"), for: .normal)
         playButton.tintColor = UIColor(hexString: "#f7f0f0")
         playButton.addTarget(self, action: #selector(playTapGesture), for: .touchUpInside)
         return playButton
@@ -110,7 +110,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video) {
+    func configure(categories: Video, index: Int) {
+        favoriteButton.tag = index
         source.text = categories.sources
         descriptionLabel.text = categories.description
         subTitle.text = categories.subtitle
@@ -131,7 +132,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     func getButtonTittle() {
-        playButton.setImage(UIImage(named: "Play"), for: .normal)
+        playButton.setImage(UIImage(named: "Play2"), for: .normal)
     }
     
     // MARK: - Private Methods
@@ -149,7 +150,15 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { mask in
-           
+            user.isFavoriteStatus.toggle()
+            favoriteButton.tintColor = user.isFavoriteStatus ? .red : .systemGray4
+            if mask.isFavoriteStatus {
+               favoriteButton.tintColor = .red
+                mask.isFavoriteStatus.toggle()
+            } else if !mask.isFavoriteStatus {
+                favoriteButton.tintColor = .systemGray4
+                mask.isFavoriteStatus = false
+            }
         }
     }
     
@@ -169,8 +178,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func playTapGesture() {
-        if playButton.currentImage == UIImage(named: "Play")  {
-            playButton.setImage(UIImage(named: "Stop"), for: .normal)
+        if playButton.currentImage == UIImage(named: "Play2")  {
+            playButton.setImage(UIImage(named: "Pause"), for: .normal)
             getPlayButton()
         }
     }
