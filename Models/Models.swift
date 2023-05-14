@@ -24,9 +24,7 @@ struct Video: Codable {
     let title: String
 }
 
-struct UserAction {
-    var isFavoriteStatus: Bool
-}
+
 
 
 

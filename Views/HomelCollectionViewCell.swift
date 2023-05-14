@@ -11,7 +11,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
     
-    var user = UserAction(isFavoriteStatus: false)
     var favoriteButtonDeselect: () -> () = {}
     var getPlayButton: () -> () = {}
     weak var delegateFBGesture: HomeCollectionViewCellDelegate!
@@ -74,7 +73,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = .systemGray4
+        favoriteButton.tintColor = favoriteButton.isSelected ? .red : .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -150,6 +149,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { mask in
+            mask.isFavoriteStatus.toggle()
+            favoriteButton.tintColor = mask.isFavoriteStatus ? .systemRed : .systemGray4
             if mask.isFavoriteStatus {
                favoriteButton.tintColor = .red
             } else if !mask.isFavoriteStatus {
@@ -159,15 +160,15 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     @objc private func tapGesture() {
-        user.isFavoriteStatus.toggle()
-        favoriteButton.tintColor = user.isFavoriteStatus ? .systemRed : .systemGray4
-        if user.isFavoriteStatus {
+        favoriteButton.isSelected.toggle()
+        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
+        if favoriteButton.isSelected {
             guard let imageData = homeImageview.image?.pngData() else { return }
             guard let text = homeLabel.text else {return}
             guard let description = descriptionLabel.text else { return }
             guard let subTitle = subTitle.text else { return }
             guard let source = source.text else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: user.isFavoriteStatus, description: description, subtitle: subTitle, sources: source)
+            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: favoriteButton.isSelected, description: description, subtitle: subTitle, sources: source)
         } else {
             favoriteButtonDeselect()
         }

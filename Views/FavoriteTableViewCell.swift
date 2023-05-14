@@ -63,10 +63,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Public Methods
     
     func configurateCell(categories: Mask) {
-//        favoriteButton.isSelected = categories.isFavoriteStatus
-//        if favoriteButton.isSelected {
-//            favoriteButton.tintColor = .red
-//        }
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
         
