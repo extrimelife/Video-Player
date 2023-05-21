@@ -24,7 +24,9 @@ struct Video: Codable {
     let title: String
 }
 
-
+struct UserAction {
+    let id: Int
+}
 
 
 
