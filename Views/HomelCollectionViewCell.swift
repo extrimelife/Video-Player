@@ -149,12 +149,12 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     private func getTintColor() {
         coreDataModels .forEach { mask in
+            favoriteButton.isSelected.toggle()
+            mask.isFavoriteStatus.toggle()
             if mask.isFavoriteStatus {
                 favoriteButton.tintColor = .red
-                mask.isFavoriteStatus = false
             } else {
-                favoriteButton.tintColor = .systemGray
-                mask.isFavoriteStatus = true
+                favoriteButton.tintColor = .systemGray4
             }
         }
     }
@@ -170,7 +170,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             guard let source = source.text else { return }
             delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: favoriteButton.isSelected, description: description, subtitle: subTitle, sources: source)
         } else {
-            favoriteButton.isSelected = true
             favoriteButtonDeselect()
         }
     }

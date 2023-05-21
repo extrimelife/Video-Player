@@ -23,23 +23,3 @@ struct Video: Codable {
     let thumb: String
     let title: String
 }
-
-struct UserAction {
-    let id: Int
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
