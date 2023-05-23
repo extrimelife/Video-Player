@@ -89,7 +89,7 @@ final class FavoriteViewController: UIViewController {
             }
         }
     }
-    
+
     private func setupNavigation() {
         guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
         guard let homeVC = naviVC.topViewController as? HomeViewController else {return}

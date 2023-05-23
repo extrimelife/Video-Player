@@ -15,6 +15,7 @@
 		B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */; };
 		B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */; };
 		B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */; };
+		B749C5AA2A1C436A00ABD8A8 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */; };
 		B759959929D52BB300BB7C96 /* MeTubePet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B759959729D52BB300BB7C96 /* MeTubePet.xcdatamodeld */; };
 		B75B18EC29CE911A0041F48B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75B18EB29CE911A0041F48B /* StorageManager.swift */; };
 		B767A39A29C14AB5003ADAC7 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B767A39929C14AB5003ADAC7 /* simple.json */; };
@@ -40,6 +41,7 @@
 		B73ED2D029A5FFFC00DA2B37 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		B73ED2D229A6000E00DA2B37 /* FavoriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteViewController.swift; sourceTree = "<group>"; };
 		B73ED2D429A6006700DA2B37 /* TabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarViewController.swift; sourceTree = "<group>"; };
+		B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B759959829D52BB300BB7C96 /* MeTubePet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MeTubePet.xcdatamodel; sourceTree = "<group>"; };
 		B75B18EB29CE911A0041F48B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		B767A39929C14AB5003ADAC7 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			isa = PBXGroup;
 			children = (
 				B77B2E4C29A7279A002B807E /* ViewControllers */,
+				B749C5A82A1C433100ABD8A8 /* Components */,
 				B77B2E4E29A73922002B807E /* Views */,
 				B7DFF30E29BD9B7200EAE036 /* Models */,
 				B7BABEC129BEDB0300E4B7F8 /* Services */,
@@ -87,6 +90,14 @@
 				B73ED2B929A5FFDF00DA2B37 /* MeTube Pet.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B749C5A82A1C433100ABD8A8 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		B75B18EA29CE90D70041F48B /* Storage Manager */ = {
@@ -241,6 +252,7 @@
 				B73ED2C129A5FFDF00DA2B37 /* InfoViewController.swift in Sources */,
 				B7DFF31029BD9B9E00EAE036 /* Models.swift in Sources */,
 				B73ED2BD29A5FFDF00DA2B37 /* AppDelegate.swift in Sources */,
+				B749C5AA2A1C436A00ABD8A8 /* EmptyView.swift in Sources */,
 				B77B2E5029A73969002B807E /* HomelCollectionViewCell.swift in Sources */,
 				B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */,
 				B73ED2BF29A5FFDF00DA2B37 /* SceneDelegate.swift in Sources */,
