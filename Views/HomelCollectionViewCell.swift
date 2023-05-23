@@ -17,7 +17,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private var coreDataModels = [Mask]()
+    private var video: Video!
     
     private var imageUrl: URL? {
         didSet {
@@ -99,8 +99,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupLayout()
-        fetchData()
-        getTintColor()
     }
     
     required init?(coder: NSCoder) {
@@ -128,6 +126,22 @@ final class HomelCollectionViewCell: UICollectionViewCell {
                 }
             }
         }
+        video = categories
+        
+        guard let categoriesURL = URL(string: categories.sources) else { return }
+        
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                for mask in data {
+                    if categoriesURL.lastPathComponent == mask.id {
+                        favoriteButton.tintColor = .red
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func getButtonTittle() {
@@ -136,42 +150,10 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Methods
     
-    private func fetchData() {
-        StorageManager.shared.fetchData { result in
-            switch result {
-            case .success(let data):
-                coreDataModels = data
-            case .failure(let error):
-                print(error)
-            }
-        }
-    }
-    
-    private func getTintColor() {
-        coreDataModels .forEach { mask in
-            favoriteButton.isSelected.toggle()
-            mask.isFavoriteStatus.toggle()
-            if mask.isFavoriteStatus {
-                favoriteButton.tintColor = .red
-            } else {
-                favoriteButton.tintColor = .systemGray4
-            }
-        }
-    }
-    
     @objc private func tapGesture() {
-        favoriteButton.isSelected.toggle()
-        favoriteButton.tintColor = favoriteButton.isSelected ? .systemRed : .systemGray4
-        if favoriteButton.isSelected {
-            guard let imageData = homeImageview.image?.pngData() else { return }
-            guard let text = homeLabel.text else {return}
-            guard let description = descriptionLabel.text else { return }
-            guard let subTitle = subTitle.text else { return }
-            guard let source = source.text else { return }
-            delegateFBGesture.favoriteButtonPressed(image: imageData, title: text, isCondition: favoriteButton.isSelected, description: description, subtitle: subTitle, sources: source)
-        } else {
-            favoriteButtonDeselect()
-        }
+            favoriteButton.isSelected.toggle()
+            favoriteButton.tintColor = .red
+            StorageManager.shared.save(video: video)
     }
     
     @objc private func playTapGesture() {

@@ -29,6 +29,19 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
+    func save(video: Video) {
+        guard let url = URL(string: video.sources) else { return }
+        let task = Mask(context: viewContext)
+        task.id = url.lastPathComponent
+       // task.image = video.thumb
+        task.title = video.title
+        task.isFavoriteStatus = video.isFavoriteStatus
+        task.descriptio = video.description
+        task.subtitle = video.subtitle
+        task.sources = video.sources
+        saveContext()
+    }
+    
     func create(_ image: Data, _ title: String, _ isFavoriteStatus: Bool,
                 _ description: String, _ subtitle: String, _ sources: String,
                 completion: (Mask) -> Void) {
