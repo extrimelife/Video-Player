@@ -13,7 +13,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     var favoriteButtonDeselect: () -> () = {}
     var getPlayButton: () -> () = {}
-    weak var delegateFBGesture: HomeCollectionViewCellDelegate!
     
     // MARK: - Private Properties
     
@@ -107,8 +106,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Methods
     
-    func configure(categories: Video, index: Int) {
-        favoriteButton.tag = index
+    func configure(categories: Video) {
         source.text = categories.sources
         descriptionLabel.text = categories.description
         subTitle.text = categories.subtitle
@@ -127,9 +125,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             }
         }
         video = categories
-        
         guard let categoriesURL = URL(string: categories.sources) else { return }
-        
         StorageManager.shared.fetchData { result in
             switch result {
             case .success(let data):
@@ -151,9 +147,9 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-            favoriteButton.isSelected.toggle()
-            favoriteButton.tintColor = .red
-            StorageManager.shared.save(video: video)
+        video.isFavoriteStatus?.toggle()
+        favoriteButton.tintColor = video.isFavoriteStatus ?? true ? .red : .systemGray4
+        StorageManager.shared.save(video: video, image: homeImageview.image?.pngData() ?? Data())
     }
     
     @objc private func playTapGesture() {

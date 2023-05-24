@@ -17,7 +17,7 @@ struct Category: Codable {
 }
 
 struct Video: Codable {
-    let isFavoriteStatus = false
+    var isFavoriteStatus: Bool?
     let description: String
     let sources: String
     let subtitle: String

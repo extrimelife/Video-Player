@@ -3,7 +3,7 @@
     <entity name="Mask" representedClassName="Mask" syncable="YES" codeGenerationType="class">
         <attribute name="descriptio" optional="YES" attributeType="String"/>
         <attribute name="id" optional="YES" attributeType="String"/>
-        <attribute name="image" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES"/>
+        <attribute name="image" optional="YES" attributeType="Binary"/>
         <attribute name="isFavoriteStatus" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="sources" optional="YES" attributeType="String"/>
         <attribute name="subtitle" optional="YES" attributeType="String"/>

@@ -8,11 +8,6 @@
 import UIKit
 import AVKit
 
-protocol HomeCollectionViewCellDelegate: AnyObject {
-    func favoriteButtonPressed(image: Data, title: String, isCondition: Bool,
-                               description: String, subtitle: String, sources: String)
-}
-
 final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
@@ -104,9 +99,9 @@ extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
-        cell.configure(categories: categoryModel, index: indexPath.item)
+        cell.configure(categories: categoryModel)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
-        cell.delegateFBGesture = self
+       // cell.delegateFBGesture = self
         cell.favoriteButtonDeselect = { [unowned self] in
             self.delegateDeselectButton.favoriteButtonDeselect()
         }
@@ -148,22 +143,6 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
         sizeInset
-    }
-}
-
-// MARK: - HomeCollectionViewCellDelegate
-
-extension HomeViewController: HomeCollectionViewCellDelegate {
-    func favoriteButtonPressed(image: Data, title: String,
-                               isCondition: Bool, description: String,
-                               subtitle: String, sources: String) {
-        tabBarController?.selectedIndex = 1
-        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-        guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        StorageManager.shared.create(image, title, isCondition, description, subtitle, sources) { mask in
-            favoriteVC.favoritesVideo.append(mask)
-            delegateFTVReloadData?.reloadFavoriteTableView()
-        }
     }
 }
 
