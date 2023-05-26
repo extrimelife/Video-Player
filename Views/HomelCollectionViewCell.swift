@@ -136,7 +136,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             case .success(let data):
                 for mask in data {
                     if categoriesURL.lastPathComponent == mask.id {
-                        favoriteButton.tintColor = .red
+                        movieIsFavorite.toggle()
+                        favoriteButton.tintColor = movieIsFavorite ? .red : .systemGray4
                     }
                 }
             case .failure(let error):
@@ -152,8 +153,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-       // movieIsFavorite.toggle()
-       // favoriteButton.tintColor = movieIsFavorite ? .red : .systemGray4
         if movieIsFavorite {
             StorageManager.shared.removeFavoriteMovie(video: video)
             movieIsFavorite = false

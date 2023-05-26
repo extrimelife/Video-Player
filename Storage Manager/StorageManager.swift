@@ -35,7 +35,7 @@ class StorageManager {
         task.id = url.lastPathComponent
         task.image = image
         task.title = video.title
-       // task.isFavoriteStatus = video.isFavoriteStatus
+        // task.isFavoriteStatus = video.isFavoriteStatus
         task.descriptio = video.description
         task.subtitle = video.subtitle
         task.sources = video.sources
@@ -63,20 +63,6 @@ class StorageManager {
             print("Failed delete")
         }
     }
-
-//    func create(_ image: Data, _ title: String, _ isFavoriteStatus: Bool,
-//                _ description: String, _ subtitle: String, _ sources: String,
-//                completion: (Mask) -> Void) {
-//        let task = Mask(context: viewContext)
-//        task.image = image
-//        task.title = title
-//        task.isFavoriteStatus = isFavoriteStatus
-//        task.descriptio = description
-//        task.subtitle = subtitle
-//        task.sources = sources
-//        completion(task)
-//        saveContext()
-//    }
     
     // Get data from Storage
     func fetchData(completion: (Result<[Mask], Error>) -> Void) {
