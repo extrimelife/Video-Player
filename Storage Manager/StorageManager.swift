@@ -35,7 +35,6 @@ class StorageManager {
         task.id = url.lastPathComponent
         task.image = image
         task.title = video.title
-        // task.isFavoriteStatus = video.isFavoriteStatus
         task.descriptio = video.description
         task.subtitle = video.subtitle
         task.sources = video.sources
@@ -49,16 +48,14 @@ class StorageManager {
         
         do {
             let data = try viewContext.fetch(requestDel)
-            
-            let video = data as! [Mask]
-            guard let videoToBeRemoved = video.first(where: { $0.id == url.lastPathComponent}) else { return }
+            let mask = data as! [Mask]
+            guard let videoToBeRemoved = mask.first(where: { $0.id == url.lastPathComponent}) else { return }
             viewContext.delete(videoToBeRemoved)
         } catch {
             print("Failed")
         }
         do {
             try viewContext.save()
-            
         } catch {
             print("Failed delete")
         }
