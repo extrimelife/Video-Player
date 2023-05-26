@@ -11,10 +11,15 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Public Properties
     
-    var favoriteButtonDeselect: () -> () = {}
     var getPlayButton: () -> () = {}
     
     // MARK: - Private Properties
+    
+    private var movieIsFavorite = false {
+        didSet {
+            updateButtonState(isSelected: movieIsFavorite)
+        }
+    }
     
     private var video: Video!
     
@@ -72,7 +77,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = favoriteButton.isSelected ? .red : .systemGray4
+        favoriteButton.tintColor = .systemGray4
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -147,10 +152,26 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-        video.isFavoriteStatus?.toggle()
-        favoriteButton.tintColor = video.isFavoriteStatus ?? true ? .red : .systemGray4
-        StorageManager.shared.save(video: video, image: homeImageview.image?.pngData() ?? Data())
+       // movieIsFavorite.toggle()
+       // favoriteButton.tintColor = movieIsFavorite ? .red : .systemGray4
+        if movieIsFavorite {
+            StorageManager.shared.removeFavoriteMovie(video: video)
+            movieIsFavorite = false
+            updateButtonState(isSelected: false)
+        } else {
+            StorageManager.shared.save(video: video, image: homeImageview.image?.pngData() ?? Data())
+            movieIsFavorite = true
+            updateButtonState(isSelected: true)
+        }
     }
+        
+        func updateButtonState(isSelected: Bool) {
+            if isSelected {
+                favoriteButton.tintColor = .red
+            } else {
+                favoriteButton.tintColor = .systemGray4
+            }
+        }
     
     @objc private func playTapGesture() {
         if playButton.currentImage == UIImage(named: "Play2")  {

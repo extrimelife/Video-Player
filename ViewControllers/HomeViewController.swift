@@ -13,8 +13,6 @@ final class HomeViewController: UIViewController {
     // MARK: - Public Properties
     
     weak var delegateNavigationItem: NavigationItemDelegate!
-    weak var delegateDeselectButton: HomeViewControllerFBDeselectDelegate!
-    weak var delegateFTVReloadData: HomeViewControllerDelegate!
     
     // MARK: - Private properties
     
@@ -101,10 +99,6 @@ extension HomeViewController: UICollectionViewDataSource {
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
-       // cell.delegateFBGesture = self
-        cell.favoriteButtonDeselect = { [unowned self] in
-            self.delegateDeselectButton.favoriteButtonDeselect()
-        }
         cell.getPlayButton = { [unowned self] in
             guard let videoURL = URL(string: categoryModel.sources) else {return}
             let player = AVPlayer(url: videoURL)

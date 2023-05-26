@@ -8,14 +8,6 @@
 import UIKit
 import AVKit
 
-protocol HomeViewControllerFBDeselectDelegate: AnyObject {
-    func favoriteButtonDeselect()
-}
-
-protocol HomeViewControllerDelegate: AnyObject {
-    func reloadFavoriteTableView()
-}
-
 final class FavoriteViewController: UIViewController {
     
     //MARK: - Public Properties
@@ -72,9 +64,12 @@ final class FavoriteViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        setupNavigation()
-        fetchData()
         setupSearchButton()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        fetchData()
     }
     
     // MARK: - Private Methods
@@ -84,17 +79,11 @@ final class FavoriteViewController: UIViewController {
             switch result {
             case .success(let data):
                 favoritesVideo = data
+                favoriteListTableView.reloadData()
             case .failure(let error):
                 print(error)
             }
         }
-    }
-
-    private func setupNavigation() {
-        guard let naviVC = tabBarController?.viewControllers?[0] as? UINavigationController else {return}
-        guard let homeVC = naviVC.topViewController as? HomeViewController else {return}
-        homeVC.delegateFTVReloadData = self
-        homeVC.delegateDeselectButton = self
     }
     
     private func setupSearchButton() {
@@ -177,21 +166,6 @@ extension FavoriteViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         200
-    }
-}
-
-extension FavoriteViewController: HomeViewControllerDelegate {
-    func reloadFavoriteTableView() {
-        favoriteListTableView.reloadData()
-    }
-}
-
-extension FavoriteViewController: HomeViewControllerFBDeselectDelegate {
-    func favoriteButtonDeselect() {
-        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
-        let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
-        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
-        StorageManager.shared.delete(favoriteVideo)
     }
 }
 

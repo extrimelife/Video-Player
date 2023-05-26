@@ -65,7 +65,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
-        
     }
     
     func getButtonTittle() {

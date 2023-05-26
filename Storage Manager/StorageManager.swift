@@ -35,28 +35,24 @@ class StorageManager {
         task.id = url.lastPathComponent
         task.image = image
         task.title = video.title
-        task.isFavoriteStatus = video.isFavoriteStatus ?? false
+       // task.isFavoriteStatus = video.isFavoriteStatus
         task.descriptio = video.description
         task.subtitle = video.subtitle
         task.sources = video.sources
         saveContext()
     }
     
-    func removeFavoriteMovie(id: String) {
+    func removeFavoriteMovie(video: Video) {
         let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
         requestDel.returnsObjectsAsFaults = false
+        guard let url = URL(string: video.sources) else { return }
         
         do {
             let data = try viewContext.fetch(requestDel)
             
             let video = data as! [Mask]
-            
-            let videoToBeRemoved = video.first(where: { $0.id == id })
-            
-            if let videoToBeRemoved = videoToBeRemoved {
-                viewContext.delete(videoToBeRemoved)
-            }
-            
+            guard let videoToBeRemoved = video.first(where: { $0.id == url.lastPathComponent}) else { return }
+            viewContext.delete(videoToBeRemoved)
         } catch {
             print("Failed")
         }
