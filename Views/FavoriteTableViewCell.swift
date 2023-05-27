@@ -15,6 +15,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     // MARK: - Private Properties
     
+    private var video: Mask!
+    
     private let favoriteImageView: UIImageView = {
         let favoriteImage = UIImageView()
         favoriteImage.translatesAutoresizingMaskIntoConstraints = false
@@ -65,7 +67,23 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
-        favoriteButton.tintColor = .red
+        video = categories
+//        video = categories
+//        guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
+//        StorageManager.shared.fetchData { result in
+//            switch result {
+//            case .success(let data):
+//                for mask in data {
+//                    if categoriesURL.lastPathComponent == mask.id {
+//                        favoriteButton.tintColor = .red
+//                    } else {
+//                        favoriteButton.tintColor = .systemGray4
+//                    }
+//                }
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
     }
     
     func getButtonTittle() {
@@ -75,7 +93,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-        print("\(favoriteButton.tag)")
+        StorageManager.shared.delete(video)
+        //favoriteButton.tintColor = .systemGray4
     }
     
     @objc private func playTapGesture() {
