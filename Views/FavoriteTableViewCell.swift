@@ -68,22 +68,22 @@ final class FavoriteTableViewCell: UITableViewCell {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
         video = categories
-//        video = categories
-//        guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
-//        StorageManager.shared.fetchData { result in
-//            switch result {
-//            case .success(let data):
-//                for mask in data {
-//                    if categoriesURL.lastPathComponent == mask.id {
-//                        favoriteButton.tintColor = .red
-//                    } else {
-//                        favoriteButton.tintColor = .systemGray4
-//                    }
-//                }
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
+        video = categories
+        guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
+        StorageManager.shared.fetchData { result in
+            switch result {
+            case .success(let data):
+                for mask in data {
+                    if categoriesURL.lastPathComponent == mask.id {
+                        favoriteButton.tintColor = .red
+                    } else {
+                        favoriteButton.tintColor = .systemGray4
+                    }
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
     func getButtonTittle() {
