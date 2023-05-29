@@ -12,6 +12,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: Public Properties
     
     var getPlayButton: () -> () = {}
+    weak var delegateReloadData: ReloadFavoriteTableViewCellDelegate!
     
     // MARK: - Private Properties
     
@@ -76,8 +77,6 @@ final class FavoriteTableViewCell: UITableViewCell {
                 for mask in data {
                     if categoriesURL.lastPathComponent == mask.id {
                         favoriteButton.tintColor = .red
-                    } else {
-                        favoriteButton.tintColor = .systemGray4
                     }
                 }
             case .failure(let error):
@@ -94,7 +93,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     @objc private func tapGesture() {
         StorageManager.shared.delete(video)
-        //favoriteButton.tintColor = .systemGray4
+        favoriteButton.tintColor = .systemGray4
+        delegateReloadData.reloadData()
     }
     
     @objc private func playTapGesture() {
