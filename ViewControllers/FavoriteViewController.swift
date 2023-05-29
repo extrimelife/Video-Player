@@ -22,6 +22,7 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Private Properties
     
     private var filteredCharacters: [Mask] = []
+    
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -193,5 +194,7 @@ extension FavoriteViewController: UISearchBarDelegate {
 extension FavoriteViewController: ReloadFavoriteTableViewCellDelegate {
     func reloadData() {
         favoriteListTableView.reloadData()
+        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
+        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
     }
 }

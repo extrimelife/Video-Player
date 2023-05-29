@@ -94,7 +94,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     @objc private func tapGesture() {
         StorageManager.shared.delete(video)
         favoriteButton.tintColor = .systemGray4
-        delegateReloadData.reloadData()
     }
     
     @objc private func playTapGesture() {
