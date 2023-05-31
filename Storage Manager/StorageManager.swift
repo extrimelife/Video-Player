@@ -29,6 +29,8 @@ class StorageManager {
         viewContext = persistentContainer.viewContext
     }
     
+    // MARK: - Save FavoriteMovie To CoreData
+    
     func save(video: Video, image: Data) {
         guard let url = URL(string: video.sources) else { return }
         let task = Mask(context: viewContext)
@@ -40,6 +42,8 @@ class StorageManager {
         task.sources = video.sources
         saveContext()
     }
+    
+    // MARK: - Remove FavoriteMovie from CoreData
     
     func removeFavoriteMovie(video: Video) {
         let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
@@ -61,7 +65,21 @@ class StorageManager {
         }
     }
     
-    // Get data from Storage
+    // MARK: Search if the movie is already in coredata
+    
+    func checkMovieInCoreDataFor(video: Mask) -> Bool {
+        let url = URL(string: video.sources ?? "")
+        let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
+        requestDel.returnsObjectsAsFaults = false
+        let data = try? viewContext.fetch(requestDel)
+
+        let movies = data as? [Mask]
+
+        return movies?.contains(where: { $0.id == url?.lastPathComponent ?? ""}) ?? false
+    }
+    
+    // MARK: - Get All Data From Storage
+    
     func fetchData(completion: (Result<[Mask], Error>) -> Void) {
         let fetchRequest = Mask.fetchRequest()
         
@@ -72,6 +90,8 @@ class StorageManager {
             completion(.failure(error))
         }
     }
+    
+    // MARK: Delete All Data From CoreData
     
     func delete(_ task: Mask) {
         viewContext.delete(task)

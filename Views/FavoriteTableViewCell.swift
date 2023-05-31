@@ -13,6 +13,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     var getPlayButton: () -> () = {}
     weak var delegateReloadData: ReloadFavoriteTableViewCellDelegate!
+    private var isFavorite = false
     
     // MARK: - Private Properties
     
@@ -57,6 +58,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setupLayout()
+        isFavorite = StorageManager.shared.checkMovieInCoreDataFor(video: video ?? Mask())
+        updateButtonState(isSelected: isFavorite)
     }
     
     required init?(coder: NSCoder) {
@@ -68,7 +71,6 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
-        video = categories
         video = categories
         guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
         StorageManager.shared.fetchData { result in
@@ -92,8 +94,23 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-        StorageManager.shared.delete(video)
-        favoriteButton.tintColor = .systemGray4
+        if isFavorite {
+            StorageManager.shared.delete(video)
+            isFavorite = false
+            updateButtonState(isSelected: false)
+//        } else {
+//            StorageManager.shared.save(video: video, image: favoriteImageView.image?.pngData() ?? Data())
+//            isFavorite = true
+//            updateButtonState(isSelected: true)
+        }
+    }
+    
+    private func updateButtonState(isSelected: Bool) {
+        if isSelected {
+            favoriteButton.tintColor = .red
+        } else {
+            favoriteButton.tintColor = .systemGray4
+        }
     }
     
     @objc private func playTapGesture() {
