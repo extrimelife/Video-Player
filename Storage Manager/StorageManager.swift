@@ -65,19 +65,6 @@ class StorageManager {
         }
     }
     
-    // MARK: Search if the movie is already in coredata
-    
-    func checkMovieInCoreDataFor(video: Mask) -> Bool {
-        let url = URL(string: video.sources ?? "")
-        let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
-        requestDel.returnsObjectsAsFaults = false
-        let data = try? viewContext.fetch(requestDel)
-
-        let movies = data as? [Mask]
-
-        return movies?.contains(where: { $0.id == url?.lastPathComponent ?? ""}) ?? false
-    }
-    
     // MARK: - Get All Data From Storage
     
     func fetchData(completion: (Result<[Mask], Error>) -> Void) {

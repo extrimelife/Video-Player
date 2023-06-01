@@ -8,10 +8,6 @@
 import UIKit
 import AVKit
 
-protocol ReloadFavoriteTableViewCellDelegate: AnyObject {
-    func reloadData()
-}
-
 final class FavoriteViewController: UIViewController {
     
     //MARK: - Public Properties
@@ -144,7 +140,6 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.selectionStyle = .none
-        cell.delegateReloadData = self
         cell.getPlayButton = { [unowned self] in
             guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
@@ -191,10 +186,3 @@ extension FavoriteViewController: UISearchBarDelegate {
     }
 }
 
-extension FavoriteViewController: ReloadFavoriteTableViewCellDelegate {
-    func reloadData() {
-        favoriteListTableView.reloadData()
-        let indexPath = IndexPath(row: favoritesVideo.count - 1, section: 0)
-        favoriteListTableView.deleteRows(at: [indexPath], with: .automatic)
-    }
-}
