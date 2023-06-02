@@ -37,7 +37,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     private lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.tintColor = .systemGray4
+        favoriteButton.tintColor = .systemGray2
         favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
@@ -92,27 +92,25 @@ final class FavoriteTableViewCell: UITableViewCell {
     
     @objc private func tapGesture() {
         if isFavorite {
-            StorageManager.shared.removeFavoriteMovie(id: video.id ?? "")
-            updateButtonState(isSelected: false)
+            guard let url = URL(string: video.sources ?? "") else { return }
+            StorageManager.shared.removeFavoriteMovie(id: url.lastPathComponent)
             isFavorite = false
-
+            updateButtonState(isSelected: false)
         } else {
-            updateButtonState(isSelected: true)
             isFavorite = true
+            updateButtonState(isSelected: true)
         }
     }
-
-    // MARK: - Aux
-    func updateButtonState(isSelected: Bool) {
+    
+    private func updateButtonState(isSelected: Bool) {
         if isSelected {
             favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             favoriteButton.tintColor = .red
         } else {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            favoriteButton.tintColor = .systemGray4
+            favoriteButton.tintColor = .white
         }
     }
-    
     
     @objc private func playTapGesture() {
         if playButton.currentImage == UIImage(named: "Play")  {

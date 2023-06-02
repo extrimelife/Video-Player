@@ -15,11 +15,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private var isFavorite = false {
-        didSet {
-            updateButtonState(isSelected: isFavorite)
-        }
-    }
+    private var isFavorite = false
     
     private var video: Video!
     
@@ -77,7 +73,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
         favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-        favoriteButton.tintColor = .systemGray2
+        favoriteButton.tintColor = .white
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -137,7 +133,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
                 for mask in data {
                     if categoriesURL.lastPathComponent == mask.id {
                         isFavorite.toggle()
-                        favoriteButton.tintColor = isFavorite ? .red : .systemGray4
+                        favoriteButton.tintColor = isFavorite ? .red : .white
                     }
                 }
             case .failure(let error):
@@ -171,7 +167,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
             favoriteButton.tintColor = .red
         } else {
             favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
-            favoriteButton.tintColor = .systemGray4
+            favoriteButton.tintColor = .white
         }
     }
     
