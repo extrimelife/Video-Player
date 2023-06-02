@@ -16,6 +16,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Properties
     
     private var video: Mask!
+    private var isFavorite = false
     
     private let favoriteImageView: UIImageView = {
         let favoriteImage = UIImageView()
@@ -90,9 +91,28 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Methods
     
     @objc private func tapGesture() {
-        StorageManager.shared.delete(video)
-        favoriteButton.tintColor = .systemGray4
+        if isFavorite {
+            StorageManager.shared.removeFavoriteMovie(id: video.id ?? "")
+            updateButtonState(isSelected: false)
+            isFavorite = false
+
+        } else {
+            updateButtonState(isSelected: true)
+            isFavorite = true
+        }
     }
+
+    // MARK: - Aux
+    func updateButtonState(isSelected: Bool) {
+        if isSelected {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
+            favoriteButton.tintColor = .red
+        } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+            favoriteButton.tintColor = .systemGray4
+        }
+    }
+    
     
     @objc private func playTapGesture() {
         if playButton.currentImage == UIImage(named: "Play")  {

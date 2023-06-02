@@ -45,15 +45,13 @@ class StorageManager {
     
     // MARK: - Remove FavoriteMovie from CoreData
     
-    func removeFavoriteMovie(video: Video) {
+    func removeFavoriteMovie(id: String) {
         let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
         requestDel.returnsObjectsAsFaults = false
-        guard let url = URL(string: video.sources) else { return }
-        
         do {
             let data = try viewContext.fetch(requestDel)
             let mask = data as! [Mask]
-            guard let videoToBeRemoved = mask.first(where: { $0.id == url.lastPathComponent}) else { return }
+            guard let videoToBeRemoved = mask.first(where: { $0.id == id }) else { return }
             viewContext.delete(videoToBeRemoved)
         } catch {
             print("Failed")
@@ -63,6 +61,17 @@ class StorageManager {
         } catch {
             print("Failed delete")
         }
+    }
+    
+    // MARK: - Search if the movie is already in coredata
+    
+    func checkMovieInCoreDataFor(id: String) -> Bool {
+        let requestDel = NSFetchRequest<NSFetchRequestResult>(entityName: "Mask")
+        requestDel.returnsObjectsAsFaults = false
+        let data = try? viewContext.fetch(requestDel)
+        let video = data as? [Mask]
+        
+        return video?.contains(where: { $0.id == id }) ?? false
     }
     
     // MARK: - Get All Data From Storage

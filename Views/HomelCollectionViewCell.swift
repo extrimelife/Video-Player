@@ -76,8 +76,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     private lazy var favoriteButton: UIButton = {
         let favoriteButton = UIButton(type: .custom)
         favoriteButton.translatesAutoresizingMaskIntoConstraints = false
-        favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
-        favoriteButton.tintColor = .systemGray4
+        favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
+        favoriteButton.tintColor = .systemGray2
         favoriteButton.addTarget(self, action: #selector(tapGesture), for: .touchUpInside)
         return favoriteButton
     }()
@@ -154,7 +154,8 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     @objc private func tapGesture() {
         if isFavorite {
-            StorageManager.shared.removeFavoriteMovie(video: video)
+            guard let url = URL(string: video.sources) else { return }
+            StorageManager.shared.removeFavoriteMovie(id: url.lastPathComponent)
             isFavorite = false
             updateButtonState(isSelected: false)
         } else {
@@ -166,8 +167,10 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     private func updateButtonState(isSelected: Bool) {
         if isSelected {
+            favoriteButton.setImage(UIImage(systemName: "heart.fill"), for: .normal)
             favoriteButton.tintColor = .red
         } else {
+            favoriteButton.setImage(UIImage(systemName: "heart"), for: .normal)
             favoriteButton.tintColor = .systemGray4
         }
     }

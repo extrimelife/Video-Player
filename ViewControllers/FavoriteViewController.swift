@@ -160,8 +160,9 @@ extension FavoriteViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
+            StorageManager.shared.removeFavoriteMovie(id: favoriteVideo.id ?? "")
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            StorageManager.shared.delete(favoriteVideo)
+            
         }
     }
     
