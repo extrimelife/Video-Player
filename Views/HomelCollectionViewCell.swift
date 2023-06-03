@@ -22,7 +22,6 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     }
     
     private var video: Video!
-    
     private var imageUrl: URL? {
         didSet {
             homeImageview.image = nil

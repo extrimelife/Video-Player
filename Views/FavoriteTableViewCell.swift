@@ -100,9 +100,6 @@ final class FavoriteTableViewCell: UITableViewCell {
             isFavorite = false
             updateButtonState(isSelected: false)
             getReloadHomeVC()
-        } else {
-            isFavorite = true
-            updateButtonState(isSelected: true)
         }
     }
     

@@ -18,6 +18,7 @@
 		B749C5AA2A1C436A00ABD8A8 /* EmptyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */; };
 		B759959929D52BB300BB7C96 /* MeTubePet.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = B759959729D52BB300BB7C96 /* MeTubePet.xcdatamodeld */; };
 		B75B18EC29CE911A0041F48B /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75B18EB29CE911A0041F48B /* StorageManager.swift */; };
+		B75CC8432A2BEF4300F6C55C /* UIView + ShadowColor Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75CC8422A2BEF4300F6C55C /* UIView + ShadowColor Extension.swift */; };
 		B767A39A29C14AB5003ADAC7 /* simple.json in Resources */ = {isa = PBXBuildFile; fileRef = B767A39929C14AB5003ADAC7 /* simple.json */; };
 		B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */; };
 		B77840E929AB325500899D3D /* UIColor + Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77840E829AB325500899D3D /* UIColor + Extention.swift */; };
@@ -44,6 +45,7 @@
 		B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyView.swift; sourceTree = "<group>"; };
 		B759959829D52BB300BB7C96 /* MeTubePet.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MeTubePet.xcdatamodel; sourceTree = "<group>"; };
 		B75B18EB29CE911A0041F48B /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
+		B75CC8422A2BEF4300F6C55C /* UIView + ShadowColor Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView + ShadowColor Extension.swift"; sourceTree = "<group>"; };
 		B767A39929C14AB5003ADAC7 /* simple.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = simple.json; sourceTree = "<group>"; };
 		B767A39C29C18EEE003ADAC7 /* ImageCatchManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCatchManager.swift; sourceTree = "<group>"; };
 		B77840E829AB325500899D3D /* UIColor + Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor + Extention.swift"; sourceTree = "<group>"; };
@@ -121,6 +123,7 @@
 			children = (
 				B77840E829AB325500899D3D /* UIColor + Extention.swift */,
 				B77B2E5129A73B52002B807E /* UIView + cell.swift */,
+				B75CC8422A2BEF4300F6C55C /* UIView + ShadowColor Extension.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				B75B18EC29CE911A0041F48B /* StorageManager.swift in Sources */,
 				B7C599F629FA11A50006EE19 /* DescriptionViewController.swift in Sources */,
 				B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */,
+				B75CC8432A2BEF4300F6C55C /* UIView + ShadowColor Extension.swift in Sources */,
 				B767A39D29C18EEE003ADAC7 /* ImageCatchManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

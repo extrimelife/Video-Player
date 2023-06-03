@@ -108,6 +108,7 @@ extension HomeViewController: UICollectionViewDataSource {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: HomelCollectionViewCell.identifier, for: indexPath) as? HomelCollectionViewCell else { return HomelCollectionViewCell() }
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
+        cell.addShadow()
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.getPlayButton = { [unowned self] in
             guard let videoURL = URL(string: categoryModel.sources) else {return}

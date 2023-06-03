@@ -43,6 +43,7 @@ final class FavoriteViewController: UIViewController {
         favoriteListTableView.translatesAutoresizingMaskIntoConstraints = false
         favoriteListTableView.dataSource = self
         favoriteListTableView.delegate = self
+        favoriteListTableView.rowHeight = 200
         favoriteListTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
         return favoriteListTableView
     }()
@@ -169,10 +170,10 @@ extension FavoriteViewController: UITableViewDelegate {
             delegateReloadHomeView.reloadData()
         }
     }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        200
-    }
+//
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        200
+//    }
 }
 
 // MARK: - UISearchBarDelegate
