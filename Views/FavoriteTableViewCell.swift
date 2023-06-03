@@ -16,7 +16,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: - Private Properties
     
     private var video: Mask!
-    private var isFavorite = false
+    private lazy var isFavorite = false
     
     private let favoriteImageView: UIImageView = {
         let favoriteImage = UIImageView()
@@ -68,6 +68,8 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
+        isFavorite = StorageManager.shared.checkMovieInCoreDataFor(id: categories.id ?? "")
+        updateButtonState(isSelected: isFavorite)
         video = categories
         guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
         StorageManager.shared.fetchData { result in

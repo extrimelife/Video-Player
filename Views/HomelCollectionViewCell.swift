@@ -15,7 +15,11 @@ final class HomelCollectionViewCell: UICollectionViewCell {
     
     // MARK: - Private Properties
     
-    private var isFavorite = false
+    private var isFavorite = false {
+        didSet {
+            updateButtonState(isSelected: isFavorite)
+        }
+    }
     
     private var video: Video!
     
@@ -113,6 +117,7 @@ final class HomelCollectionViewCell: UICollectionViewCell {
         subTitle.text = categories.subtitle
         homeLabel.text = categories.title
         imageUrl = URL(string: categories.thumb)
+        isFavorite = StorageManager.shared.checkMovieInCoreDataFor(id: categories.sources)
         guard let imageUrl = imageUrl else { return }
         NetworkManager.shared.fetchImage(from: imageUrl) { [unowned self] result in
             if imageUrl == imageUrl {
