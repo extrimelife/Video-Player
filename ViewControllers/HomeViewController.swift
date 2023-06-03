@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 
-protocol ReloadHomeView {
+protocol ReloadHomeTableView: AnyObject {
     func reloadData()
 }
 
@@ -57,14 +57,14 @@ final class HomeViewController: UIViewController {
         setupLayout()
         fetchData()
         setupSearchButton()
-        navigation()
+        setupNavigation()
     }
     
     // MARK: - Private Methods
     
-    private func navigation() {
-        guard let tabBar = tabBarController?.viewControllers?[0] as? TabBarViewController else { return }
-        guard let favoriteVC = tabBar.viewControllers?[1] as? FavoriteViewController else { return }
+    private func setupNavigation() {
+        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         favoriteVC.delegateReloadHomeView = self
     }
     
@@ -167,8 +167,8 @@ extension HomeViewController: UISearchBarDelegate {
     }
 }
 
-extension HomeViewController: ReloadHomeView {
+extension HomeViewController: ReloadHomeTableView {
     func reloadData() {
-        homeCollectionView.backgroundColor = .black
+        homeCollectionView.reloadData()
     }
 }

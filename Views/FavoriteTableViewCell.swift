@@ -12,6 +12,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     // MARK: Public Properties
     
     var getPlayButton: () -> () = {}
+    var getReloadHomeVC: () -> () = {}
     
     // MARK: - Private Properties
     
@@ -98,6 +99,7 @@ final class FavoriteTableViewCell: UITableViewCell {
             StorageManager.shared.removeFavoriteMovie(id: url.lastPathComponent)
             isFavorite = false
             updateButtonState(isSelected: false)
+            getReloadHomeVC()
         } else {
             isFavorite = true
             updateButtonState(isSelected: true)

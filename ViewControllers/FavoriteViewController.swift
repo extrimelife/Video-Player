@@ -13,7 +13,7 @@ final class FavoriteViewController: UIViewController {
     //MARK: - Public Properties
     
     weak var delegateNavigationItem: NavigationItemDelegate!
-    var delegateReloadHomeView: ReloadHomeView!
+    weak var delegateReloadHomeView: ReloadHomeTableView!
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -141,6 +141,9 @@ extension FavoriteViewController: UITableViewDataSource {
         cell.configurateCell(categories: favoriteVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.selectionStyle = .none
+        cell.getReloadHomeVC = { [unowned self] in
+            delegateReloadHomeView.reloadData()
+        }
         cell.getPlayButton = { [unowned self] in
             guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
