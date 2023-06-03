@@ -68,9 +68,9 @@ final class FavoriteTableViewCell: UITableViewCell {
     func configurateCell(categories: Mask) {
         favoriteLabel.text = categories.title
         favoriteImageView.image = UIImage(data: categories.image ?? Data())
+        video = categories
         isFavorite = StorageManager.shared.checkMovieInCoreDataFor(id: categories.id ?? "")
         updateButtonState(isSelected: isFavorite)
-        video = categories
         guard let categoriesURL = URL(string: categories.sources ?? "") else { return }
         StorageManager.shared.fetchData { result in
             switch result {

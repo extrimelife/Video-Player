@@ -8,6 +8,10 @@
 import UIKit
 import AVKit
 
+protocol ReloadHomeView {
+    func reloadData()
+}
+
 final class HomeViewController: UIViewController {
     
     // MARK: - Public Properties
@@ -53,9 +57,16 @@ final class HomeViewController: UIViewController {
         setupLayout()
         fetchData()
         setupSearchButton()
+        navigation()
     }
     
     // MARK: - Private Methods
+    
+    private func navigation() {
+        guard let tabBar = tabBarController?.viewControllers?[0] as? TabBarViewController else { return }
+        guard let favoriteVC = tabBar.viewControllers?[1] as? FavoriteViewController else { return }
+        favoriteVC.delegateReloadHomeView = self
+    }
     
     private func fetchData() {
         NetworkManager.shared.fetchData { [unowned self] result in
@@ -153,5 +164,11 @@ extension HomeViewController: UISearchBarDelegate {
             Video.title.lowercased().contains(searchText.lowercased())
         }
         homeCollectionView.reloadData()
+    }
+}
+
+extension HomeViewController: ReloadHomeView {
+    func reloadData() {
+        homeCollectionView.backgroundColor = .black
     }
 }

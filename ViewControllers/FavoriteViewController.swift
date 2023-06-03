@@ -13,6 +13,7 @@ final class FavoriteViewController: UIViewController {
     //MARK: - Public Properties
     
     weak var delegateNavigationItem: NavigationItemDelegate!
+    var delegateReloadHomeView: ReloadHomeView!
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -162,7 +163,7 @@ extension FavoriteViewController: UITableViewDelegate {
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
             StorageManager.shared.removeFavoriteMovie(id: favoriteVideo.id ?? "")
             tableView.deleteRows(at: [indexPath], with: .automatic)
-            
+            delegateReloadHomeView.reloadData()
         }
     }
     
