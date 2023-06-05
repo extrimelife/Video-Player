@@ -19,7 +19,6 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Private Properties
     
     private var filteredCharacters: [Mask] = []
-    private let emptyView = EmptyView(frame: .zero)
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -27,6 +26,7 @@ final class FavoriteViewController: UIViewController {
     private var isFiltering: Bool {
         return !searchBarIsEmpty
     }
+    private let emptyView = EmptyView()
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -77,20 +77,6 @@ final class FavoriteViewController: UIViewController {
         showEmptyView()
     }
     
-   private func layoutEmptyView() {
-       emptyView.frame = view.bounds
-        view.addSubview(emptyView)
-    }
-    
-   private func showEmptyView() {
-        if favoritesVideo.isEmpty {
-            emptyView.show(title: "You haven't\nfavorite movies yet",
-                           image: UIImage(named: "notFavorite") ?? UIImage())
-        } else {
-            emptyView.hide()
-        }
-    }
-    
     // MARK: - Private Methods
     
     private func fetchData() {
@@ -127,6 +113,22 @@ final class FavoriteViewController: UIViewController {
         default:
             break
         }
+    }
+    
+    private func showEmptyView() {
+        if favoritesVideo.isEmpty {
+            segmentedControl.isHidden = true
+            emptyView.show(title: "You haven't\nfavorite movies yet",
+                           image: UIImage(named: "notFavorite") ?? UIImage())
+        } else {
+            emptyView.hide()
+            segmentedControl.isHidden = false
+        }
+    }
+    
+    private func layoutEmptyView() {
+        emptyView.frame = view.bounds
+        view.addSubview(emptyView)
     }
     
     private func setupLayout() {
