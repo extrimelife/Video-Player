@@ -19,7 +19,7 @@ final class FavoriteViewController: UIViewController {
     // MARK: - Private Properties
     
     private var filteredCharacters: [Mask] = []
-    
+    private let emptyView = EmptyView(frame: .zero)
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -68,11 +68,27 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupSearchButton()
+        layoutEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        showEmptyView()
+    }
+    
+   private func layoutEmptyView() {
+       emptyView.frame = view.bounds
+        view.addSubview(emptyView)
+    }
+    
+   private func showEmptyView() {
+        if favoritesVideo.isEmpty {
+            emptyView.show(title: "You haven't\nfavorite movies yet",
+                           image: UIImage(named: "notFavorite") ?? UIImage())
+        } else {
+            emptyView.hide()
+        }
     }
     
     // MARK: - Private Methods
@@ -170,10 +186,6 @@ extension FavoriteViewController: UITableViewDelegate {
             delegateReloadHomeView.reloadData()
         }
     }
-//
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        200
-//    }
 }
 
 // MARK: - UISearchBarDelegate

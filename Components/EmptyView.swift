@@ -22,7 +22,7 @@ final class EmptyView: UIView {
     private var emptyImage: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.setContentHuggingPriority(.required, for: .vertical)
         return imageView
     }()
@@ -36,6 +36,29 @@ final class EmptyView: UIView {
         return label
     }()
     
+    // MARK: - LifeCicle Override
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        configureSubviews()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - Private Methods
+    
+    private func configureSubviews() {
+        addSubview(totalStackView)
+        [emptyImage, titleLabel] .forEach { totalStackView.addArrangedSubview($0) }
+    }
+    
+    private func setupLayout() {
+        totalStackView.frame = CGRect(x: 0, y: 0, width: 20, height: 20)
+        totalStackView.center = self.center
+    }
+    
     // MARK: - Public Methods
     
     func show(title: String, image: UIImage) {
@@ -46,10 +69,5 @@ final class EmptyView: UIView {
     
     func hide() {
         isHidden = true
-    }
-    
-    // MARK: - Private Methods
-    
-    private func setupLayout() {
     }
 }
