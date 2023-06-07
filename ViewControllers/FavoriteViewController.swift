@@ -13,7 +13,7 @@ final class FavoriteViewController: UIViewController {
     //MARK: - Public Properties
     
     weak var delegateNavigationItem: NavigationItemDelegate!
-    weak var delegateReloadHomeView: ReloadHomeTableView!
+    weak var delegateReloadHomeView: ReloadHomeTableViewDelegate!
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -196,13 +196,20 @@ extension FavoriteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
+       // showEmptyView()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredCharacters = favoritesVideo.filter { Mask in
             Mask.title?.lowercased().contains(searchText.lowercased()) ?? Bool()
         }
+        if filteredCharacters.isEmpty {
+            emptyView.show(title: "There aren't video\n this genre here!",
+                           image: UIImage(named: "WrongSearch") ?? UIImage())
+        } else {
+            emptyView.hide()
+        }
+        
         favoriteListTableView.reloadData()
     }
 }
-

@@ -8,7 +8,7 @@
 import UIKit
 import AVKit
 
-protocol ReloadHomeTableView: AnyObject {
+protocol ReloadHomeTableViewDelegate: AnyObject {
     func reloadData()
 }
 
@@ -168,7 +168,9 @@ extension HomeViewController: UISearchBarDelegate {
     }
 }
 
-extension HomeViewController: ReloadHomeTableView {
+// MARK: - ReloadHomeTableViewDelegate
+
+extension HomeViewController: ReloadHomeTableViewDelegate {
     func reloadData() {
         homeCollectionView.reloadData()
     }
