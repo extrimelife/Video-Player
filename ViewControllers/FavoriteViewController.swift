@@ -33,7 +33,6 @@ final class FavoriteViewController: UIViewController {
         searchBar.showsCancelButton = true
         searchBar.placeholder = "Search on the FavoritePage"
         searchBar.tintColor = .black
-        searchBar.sizeToFit()
         searchBar.delegate = self
         return searchBar
     }()
@@ -196,7 +195,7 @@ extension FavoriteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
-       // showEmptyView()
+        showEmptyView()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -209,7 +208,6 @@ extension FavoriteViewController: UISearchBarDelegate {
         } else {
             emptyView.hide()
         }
-        
         favoriteListTableView.reloadData()
     }
 }
