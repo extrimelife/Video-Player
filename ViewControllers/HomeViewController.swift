@@ -29,6 +29,7 @@ final class HomeViewController: UIViewController {
     private var isFiltering: Bool {
         return !searchBarIsEmpty
     }
+    private let emptyView = EmptyView()
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
@@ -163,6 +164,12 @@ extension HomeViewController: UISearchBarDelegate {
         let indexPath = IndexPath(row: categoryModel.count - 1, section: 0)
         filteredCharacters = categoryModel[indexPath.row].videos.filter { Video in
             Video.title.lowercased().contains(searchText.lowercased())
+        }
+        if filteredCharacters.isEmpty && isFiltering {
+            emptyView.show(title: "There aren't video\n this genre here!",
+                           image:  UIImage(named: "WrongSearch") ?? UIImage())
+        } else {
+            emptyView.hide()
         }
         homeCollectionView.reloadData()
     }

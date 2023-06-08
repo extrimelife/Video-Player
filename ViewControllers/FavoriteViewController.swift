@@ -202,11 +202,11 @@ extension FavoriteViewController: UISearchBarDelegate {
         filteredCharacters = favoritesVideo.filter { Mask in
             Mask.title?.lowercased().contains(searchText.lowercased()) ?? Bool()
         }
-        if filteredCharacters.isEmpty {
+        if filteredCharacters.isEmpty && isFiltering {
             emptyView.show(title: "There aren't video\n this genre here!",
                            image: UIImage(named: "WrongSearch") ?? UIImage())
         } else {
-            emptyView.hide()
+            showEmptyView()
         }
         favoriteListTableView.reloadData()
     }
