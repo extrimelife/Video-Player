@@ -193,8 +193,10 @@ extension FavoriteViewController: UITableViewDelegate {
 
 extension FavoriteViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.searchTextField.text = ""
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
+        favoriteListTableView.reloadData()
         showEmptyView()
     }
     
