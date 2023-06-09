@@ -61,6 +61,16 @@ final class HomeViewController: UIViewController {
         setupNavigation()
     }
     
+    private func showEmptyView() {
+        if filteredCharacters.isEmpty {
+            emptyView.show(title: "There aren't video\n this genre here!",
+                           image: UIImage(named: "WrongSearch") ?? UIImage())
+            layoutEmptyView()
+        } else {
+            emptyView.hide()
+        }
+    }
+    
     // MARK: - Private Methods
     
     private func setupNavigation() {
@@ -84,6 +94,11 @@ final class HomeViewController: UIViewController {
         navigationItem.titleView = searchBar
         navigationItem.rightBarButtonItem = nil
         searchBar.becomeFirstResponder()
+    }
+    
+    private func layoutEmptyView() {
+        emptyView.frame = view.bounds
+        view.addSubview(emptyView)
     }
     
     private func setupLayout() {
@@ -156,8 +171,11 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 
 extension HomeViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.searchTextField.text = ""
+        homeCollectionView.reloadData()
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
+        emptyView.hide()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
@@ -165,9 +183,8 @@ extension HomeViewController: UISearchBarDelegate {
         filteredCharacters = categoryModel[indexPath.row].videos.filter { Video in
             Video.title.lowercased().contains(searchText.lowercased())
         }
-        if filteredCharacters.isEmpty && isFiltering {
-            emptyView.show(title: "There aren't video\n this genre here!",
-                           image:  UIImage(named: "WrongSearch") ?? UIImage())
+        if isFiltering {
+            showEmptyView()
         } else {
             emptyView.hide()
         }

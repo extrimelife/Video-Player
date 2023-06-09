@@ -125,6 +125,18 @@ final class FavoriteViewController: UIViewController {
         }
     }
     
+    private func showEmptyViewWrongSearch() {
+        if filteredCharacters.isEmpty {
+            emptyView.show(title: "There aren't video\n this genre here!",
+                           image: UIImage(named: "WrongSearch") ?? UIImage())
+            segmentedControl.isHidden = true
+            layoutEmptyView()
+        } else {
+            emptyView.hide()
+            segmentedControl.isHidden = false
+        }
+    }
+    
     private func layoutEmptyView() {
         emptyView.frame = view.bounds
         view.addSubview(emptyView)
@@ -196,17 +208,16 @@ extension FavoriteViewController: UISearchBarDelegate {
         searchBar.searchTextField.text = ""
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
-        favoriteListTableView.reloadData()
         showEmptyView()
+        favoriteListTableView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         filteredCharacters = favoritesVideo.filter { Mask in
             Mask.title?.lowercased().contains(searchText.lowercased()) ?? Bool()
         }
-        if filteredCharacters.isEmpty && isFiltering {
-            emptyView.show(title: "There aren't video\n this genre here!",
-                           image: UIImage(named: "WrongSearch") ?? UIImage())
+        if isFiltering {
+            showEmptyViewWrongSearch()
         } else {
             showEmptyView()
         }
