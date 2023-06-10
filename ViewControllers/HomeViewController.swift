@@ -172,10 +172,10 @@ extension HomeViewController: UICollectionViewDelegateFlowLayout {
 extension HomeViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.searchTextField.text = ""
-        homeCollectionView.reloadData()
         delegateNavigationItem.getTitleView(self)
         setupSearchButton()
         emptyView.hide()
+        homeCollectionView.reloadData()
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

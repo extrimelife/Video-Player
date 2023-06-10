@@ -67,13 +67,11 @@ final class FavoriteViewController: UIViewController {
         super.viewDidLoad()
         setupLayout()
         setupSearchButton()
-        layoutEmptyView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
-        showEmptyView()
     }
     
     // MARK: - Private Methods
@@ -127,9 +125,9 @@ final class FavoriteViewController: UIViewController {
     
     private func showEmptyViewWrongSearch() {
         if filteredCharacters.isEmpty {
+            segmentedControl.isHidden = true
             emptyView.show(title: "There aren't video\n this genre here!",
                            image: UIImage(named: "WrongSearch") ?? UIImage())
-            segmentedControl.isHidden = true
             layoutEmptyView()
         } else {
             emptyView.hide()
@@ -219,7 +217,7 @@ extension FavoriteViewController: UISearchBarDelegate {
         if isFiltering {
             showEmptyViewWrongSearch()
         } else {
-            showEmptyView()
+            emptyView.hide()
         }
         favoriteListTableView.reloadData()
     }
