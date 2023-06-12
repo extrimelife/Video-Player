@@ -126,7 +126,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func showEmptyViewWrongSearch() {
-        if filteredCharacters.isEmpty && isFiltering {
+        if filteredCharacters.isEmpty {
             segmentedControl.isHidden = true
             emptyView.show(title: "There aren't video\n this genre here!",
                            image: UIImage(named: "WrongSearch") ?? UIImage())
