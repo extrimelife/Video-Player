@@ -72,6 +72,7 @@ final class FavoriteViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchData()
+        showEmptyView()
     }
     
     // MARK: - Private Methods
@@ -117,6 +118,7 @@ final class FavoriteViewController: UIViewController {
             segmentedControl.isHidden = true
             emptyView.show(title: "You haven't\nfavorite movies yet",
                            image: UIImage(named: "notFavorite") ?? UIImage())
+            layoutEmptyView()
         } else {
             emptyView.hide()
             segmentedControl.isHidden = false
@@ -124,7 +126,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func showEmptyViewWrongSearch() {
-        if filteredCharacters.isEmpty {
+        if filteredCharacters.isEmpty && isFiltering {
             segmentedControl.isHidden = true
             emptyView.show(title: "There aren't video\n this genre here!",
                            image: UIImage(named: "WrongSearch") ?? UIImage())
@@ -195,6 +197,7 @@ extension FavoriteViewController: UITableViewDelegate {
             StorageManager.shared.removeFavoriteMovie(id: favoriteVideo.id ?? "")
             tableView.deleteRows(at: [indexPath], with: .automatic)
             delegateReloadHomeView.reloadData()
+            showEmptyView()
         }
     }
 }
