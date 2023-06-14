@@ -21,7 +21,7 @@ final class HomeViewController: UIViewController {
     // MARK: - Private properties
     
     private var categoryModel = [Category]()
-    private var filteredCharacters: [Video] = []
+    private var filteredCharacters = [Video]()
     private var searchBarIsEmpty: Bool {
         guard let text = searchBar.text else { return false }
         return text.isEmpty
@@ -127,6 +127,7 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.addShadow()
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.getPlayButton = { [unowned self] in
+            
             guard let videoURL = URL(string: categoryModel.sources) else {return}
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
