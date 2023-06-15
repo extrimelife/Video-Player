@@ -17,8 +17,8 @@ final class TabBarViewController: UITabBarController {
     
     private let homeViewController = HomeViewController()
     private let favoriteViewController = FavoriteViewController()
-    private let viewedVC = ViewedVideoViewViewController()
     private let thirdVC = InfoViewController()
+    private let settingVC = SettingViewController()
     
     private let navigationLabel: UILabel = {
         let navigationLabel = UILabel()
@@ -89,13 +89,17 @@ final class TabBarViewController: UITabBarController {
         thirdVC.tabBarItem.title = "Info"
         thirdVC.tabBarItem.image = UIImage(systemName: "info")
         
-        viewControllers = [homeVC, favoriteVc, thirdVC]
+        let settingVC = UINavigationController(rootViewController: settingVC)
+        settingVC.tabBarItem.title = "Setting"
+        settingVC.tabBarItem.image = UIImage(systemName: "gear")
+        
+        viewControllers = [homeVC, favoriteVc, thirdVC, settingVC]
     }
     
     private func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
         navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
-        let viewControllers = [homeViewController, favoriteViewController, thirdVC]
+        let viewControllers = [homeViewController, favoriteViewController, thirdVC, settingVC]
         viewControllers .forEach { viewController in
             viewController.navigationItem.titleView = naviVerticalStackView
             viewController.navigationController?.navigationBar.standardAppearance = navBarAppearance

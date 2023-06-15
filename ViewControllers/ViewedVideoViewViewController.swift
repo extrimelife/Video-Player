@@ -11,7 +11,7 @@ protocol GetViewedVideoDelegate: AnyObject {
     func getVideo()
 }
 
-class ViewedVideoViewViewController: UIViewController {
+final class ViewedVideoViewViewController: UIViewController {
     
     private var viewedVideo = [Mask]()
     private let emptyView = EmptyView()
@@ -19,6 +19,7 @@ class ViewedVideoViewViewController: UIViewController {
     private let imageView: UIImageView = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.backgroundColor = .brown
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 10
         imageView.clipsToBounds = true
@@ -27,14 +28,15 @@ class ViewedVideoViewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .yellow
         setupLayout()
-        showEmptyView()
+      //  showEmptyView()
         setupNavigation()
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func setupNavigation() {
-        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let navigationVC = tabBarController?.viewControllers?.last as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         favoriteVC.delegateGetViewedVideo = self
     }
@@ -55,12 +57,12 @@ class ViewedVideoViewViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.addSubview(imageView)
+        //view.addSubview(imageView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+//            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+//            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+//            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+//            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
