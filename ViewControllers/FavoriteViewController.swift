@@ -105,7 +105,8 @@ final class FavoriteViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 1:
             let viewedVideoVC = ViewedVideoViewViewController()
-            present(viewedVideoVC, animated: true)
+            //delegateGetViewedVideo.getVideo()
+            navigationController?.pushViewController(viewedVideoVC, animated: true)
         case 2:
             let descriptionVC = DescriptionViewController()
             present(descriptionVC, animated: true)

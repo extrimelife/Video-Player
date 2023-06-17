@@ -15,6 +15,7 @@ final class ViewedVideoViewViewController: UIViewController {
     
     private var viewedVideo = [Mask]()
     private let emptyView = EmptyView()
+    private let favoriteViewController = FavoriteViewController()
     
     private let imageView: UIImageView = {
         let imageView = UIImageView()
@@ -32,18 +33,18 @@ final class ViewedVideoViewViewController: UIViewController {
         setupLayout()
         showEmptyView()
         setupNavigation()
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.title = "fefeef"
     }
     
     private func setupNavigation() {
-        guard let navigationVC = tabBarController?.viewControllers?.last as? UINavigationController else { return }
+        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
         guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
         favoriteVC.delegateGetViewedVideo = self
     }
     
     private func showEmptyView() {
         if viewedVideo.isEmpty {
-            emptyView.show(title: "No videos viewed yet",
+            emptyView.show(title: "No viewed video yet",
                            image: UIImage(named: "notFavorite") ?? UIImage())
             layoutEmptyView()
         } else {
@@ -69,6 +70,6 @@ final class ViewedVideoViewViewController: UIViewController {
 
 extension ViewedVideoViewViewController: GetViewedVideoDelegate {
     func getVideo() {
-        view.backgroundColor = .brown
+        imageView.backgroundColor = .blue
     }
 }
