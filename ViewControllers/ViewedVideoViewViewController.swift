@@ -30,7 +30,7 @@ final class ViewedVideoViewViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         setupLayout()
-      //  showEmptyView()
+        showEmptyView()
         setupNavigation()
         navigationController?.navigationBar.prefersLargeTitles = true
     }
@@ -57,12 +57,12 @@ final class ViewedVideoViewViewController: UIViewController {
     }
     
     private func setupLayout() {
-        //view.addSubview(imageView)
+        view.addSubview(imageView)
         NSLayoutConstraint.activate([
-//            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-//            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-//            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-//            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
 }
