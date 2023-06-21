@@ -14,6 +14,7 @@ final class FavoriteViewController: UIViewController {
     
     weak var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateReloadHomeView: ReloadHomeTableViewDelegate!
+    weak var delegateViewed: GetViewedDelegate!
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -104,6 +105,7 @@ final class FavoriteViewController: UIViewController {
         switch segmentedControl.selectedSegmentIndex {
         case 1:
             let viewedVideoVC = ViewedVideoViewViewController()
+            delegateViewed.getVideo()
             viewedVideoVC.navigationItem.title = segmentedControl.titleForSegment(at: 1)
             navigationController?.pushViewController(viewedVideoVC, animated: true)
         case 2:

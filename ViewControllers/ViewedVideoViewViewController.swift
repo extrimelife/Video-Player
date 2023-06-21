@@ -7,9 +7,13 @@
 
 import UIKit
 
+protocol GetViewedDelegate: AnyObject {
+    func getVideo()
+}
+
 final class ViewedVideoViewViewController: UIViewController {
     
-    var viewedVideo = [Mask]()
+    private var viewedVideo = [Mask]()
     private let emptyView = EmptyView()
     
      let imageView: UIImageView = {
@@ -25,6 +29,9 @@ final class ViewedVideoViewViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .yellow
         setupLayout()
+        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+        guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
+        favoriteVC.delegateViewed = self
     }
     
     private func showEmptyView() {
@@ -50,5 +57,11 @@ final class ViewedVideoViewViewController: UIViewController {
             imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
             imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+}
+
+extension ViewedVideoViewViewController: GetViewedDelegate {
+    func getVideo() {
+        view.backgroundColor = .brown
     }
 }
