@@ -7,61 +7,47 @@
 
 import UIKit
 
-protocol GetViewedDelegate: AnyObject {
-    func getVideo()
-}
-
-final class ViewedVideoViewViewController: UIViewController {
+class ViewedVideoViewViewController: UIViewController {
     
     private var viewedVideo = [Mask]()
-    private let emptyView = EmptyView()
     
-     let imageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFill
-        imageView.layer.cornerRadius = 10
-        imageView.clipsToBounds = true
-        return imageView
+    private lazy var viewedTableView: UITableView = {
+        let viewedTableView = UITableView(frame: .zero, style: .insetGrouped)
+        viewedTableView.translatesAutoresizingMaskIntoConstraints = false
+        viewedTableView.dataSource = self
+        viewedTableView.delegate = self
+        viewedTableView.rowHeight = 200
+        viewedTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+        return viewedTableView
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .yellow
         setupLayout()
-        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-        guard let favoriteVC = navigationVC.topViewController as? FavoriteViewController else { return }
-        favoriteVC.delegateViewed = self
-    }
-    
-    private func showEmptyView() {
-        if viewedVideo.isEmpty {
-            emptyView.show(title: "No viewed video yet",
-                           image: UIImage(named: "notFavorite") ?? UIImage())
-            layoutEmptyView()
-        } else {
-            emptyView.hide()
-        }
-    }
-    
-    private func layoutEmptyView() {
-        emptyView.frame = view.bounds
-        view.addSubview(emptyView)
     }
     
     private func setupLayout() {
-        view.addSubview(imageView)
+        view.addSubview(viewedTableView)
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: view.topAnchor, constant: 300),
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            imageView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -300),
-            imageView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            viewedTableView.topAnchor.constraint(equalTo: view.topAnchor),
+            viewedTableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            viewedTableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            viewedTableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
+    }
+    
+}
+
+extension ViewedVideoViewViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        10
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        UITableViewCell()
     }
 }
 
-extension ViewedVideoViewViewController: GetViewedDelegate {
-    func getVideo() {
-        view.backgroundColor = .brown
-    }
+extension ViewedVideoViewViewController: UITableViewDelegate {
+    
 }
