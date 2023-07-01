@@ -16,7 +16,6 @@ final class DescriptionViewController: UIViewController {
         descriptionTableView.translatesAutoresizingMaskIntoConstraints = false
         descriptionTableView.delegate = self
         descriptionTableView.dataSource = self
-        //descriptionTableView.rowHeight = 200
         descriptionTableView.register(DescriptionTableViewCell.self, forCellReuseIdentifier: DescriptionTableViewCell.identifier)
         return descriptionTableView
     }()

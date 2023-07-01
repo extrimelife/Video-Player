@@ -9,6 +9,14 @@ import UIKit
 
 class DescriptionTableViewCell: UITableViewCell {
     
+    private lazy var detailsStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.axis = .vertical
+       // stackView.spacing = 100
+        return stackView
+    }()
+    
     let descriptionImage: UIImageView = {
         let descriptionImage = UIImageView()
         descriptionImage.translatesAutoresizingMaskIntoConstraints = false
@@ -22,6 +30,13 @@ class DescriptionTableViewCell: UITableViewCell {
         let titleLabel = UILabel()
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
+    }()
+    
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     let descriptionLabel: UILabel = {
@@ -47,16 +62,19 @@ class DescriptionTableViewCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        [descriptionImage, titleLabel, descriptionLabel] .forEach { contentView.addSubview($0) }
+        contentView.addSubview(detailsStackView)
+        [descriptionImage, titleLabel, separator, descriptionLabel] .forEach { detailsStackView.addArrangedSubview($0) }
         NSLayoutConstraint.activate([
             descriptionImage.topAnchor.constraint(equalTo: contentView.topAnchor),
             descriptionImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            descriptionImage.heightAnchor.constraint(equalToConstant: 200),
+            descriptionImage.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -16),
             descriptionImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            titleLabel.topAnchor.constraint(equalTo: descriptionImage.bottomAnchor),
+            //titleLabel.topAnchor.constraint(equalTo: descriptionImage.bottomAnchor, constant: 30),
             
-            descriptionLabel.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            separator.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100),
+            
+            descriptionLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 20),
             descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
             descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
