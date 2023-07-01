@@ -7,11 +7,7 @@
 
 import UIKit
 
-protocol FavoriteViewedVideoDelegate: AnyObject {
-    func getViewedVideo(video: Mask)
-}
-
-class ViewedVideoViewViewController: UIViewController {
+class ViewedVideoViewController: UIViewController {
     
     var viewedVideo = [Mask]()
     
@@ -28,12 +24,6 @@ class ViewedVideoViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        setupNavigation()
-    }
-    
-    private func setupNavigation() {
-        let vc = FavoriteViewController()
-        vc.delegateFavoriteViewedVideo = self
     }
     
     private func setupLayout() {
@@ -48,7 +38,7 @@ class ViewedVideoViewViewController: UIViewController {
     
 }
 
-extension ViewedVideoViewViewController: UITableViewDataSource {
+extension ViewedVideoViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         viewedVideo.count
     }
@@ -61,12 +51,6 @@ extension ViewedVideoViewViewController: UITableViewDataSource {
     }
 }
 
-extension ViewedVideoViewViewController: UITableViewDelegate {
+extension ViewedVideoViewController: UITableViewDelegate {
     
-}
-
-extension ViewedVideoViewViewController: FavoriteViewedVideoDelegate {
-    func getViewedVideo(video: Mask) {
-        viewedVideo.append(video)
-    }
 }
