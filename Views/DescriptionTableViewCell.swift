@@ -7,17 +7,19 @@
 
 import UIKit
 
-class DescriptionTableViewCell: UITableViewCell {
+final class DescriptionTableViewCell: UITableViewCell {
+    
+    // MARK: - Private Properties
     
     private lazy var detailsStackView: UIStackView = {
         let stackView = UIStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
-       // stackView.spacing = 100
+        stackView.spacing = 12
         return stackView
     }()
     
-    let descriptionImage: UIImageView = {
+    private let descriptionImage: UIImageView = {
         let descriptionImage = UIImageView()
         descriptionImage.translatesAutoresizingMaskIntoConstraints = false
         descriptionImage.contentMode = .scaleAspectFill
@@ -26,8 +28,9 @@ class DescriptionTableViewCell: UITableViewCell {
         return descriptionImage
     }()
     
-    let titleLabel: UILabel = {
+    private let titleLabel: UILabel = {
         let titleLabel = UILabel()
+        titleLabel.font = UIFont.systemFont(ofSize: 22, weight: .semibold)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         return titleLabel
     }()
@@ -39,12 +42,15 @@ class DescriptionTableViewCell: UITableViewCell {
         return view
     }()
     
-    let descriptionLabel: UILabel = {
+    private let descriptionLabel: UILabel = {
         let descriptionLabel = UILabel()
         descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         descriptionLabel.numberOfLines = 0
+        descriptionLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
         return descriptionLabel
     }()
+    
+    //MARK: - Override Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -55,29 +61,34 @@ class DescriptionTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    //MARK: - Public Methods
+    
     func configureCell(video: Mask) {
         descriptionImage.image = UIImage(data: video.image ?? Data())
         titleLabel.text = video.title
         descriptionLabel.text = video.descriptio
     }
     
+    //MARK: - Private Methods
+    
     private func setupLayout() {
         contentView.addSubview(detailsStackView)
         [descriptionImage, titleLabel, separator, descriptionLabel] .forEach { detailsStackView.addArrangedSubview($0) }
         NSLayoutConstraint.activate([
-            descriptionImage.topAnchor.constraint(equalTo: contentView.topAnchor),
-            descriptionImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            descriptionImage.bottomAnchor.constraint(equalTo: titleLabel.topAnchor, constant: -16),
-            descriptionImage.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            //titleLabel.topAnchor.constraint(equalTo: descriptionImage.bottomAnchor, constant: 30),
+            detailsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
+            detailsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            detailsStackView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
+            detailsStackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
             
-            separator.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 100),
+            descriptionImage.heightAnchor.constraint(equalToConstant: 200),
             
-            descriptionLabel.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 20),
-            descriptionLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor),
-            descriptionLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor)
+            separator.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 8),
+            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -120),
+            separator.heightAnchor.constraint(equalToConstant: 1),
+            
+            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16)
         ])
     }
 }

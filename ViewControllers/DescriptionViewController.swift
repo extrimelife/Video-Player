@@ -58,6 +58,8 @@ extension DescriptionViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: DescriptionTableViewCell.identifier, for: indexPath) as? DescriptionTableViewCell else { return DescriptionTableViewCell() }
         let descriptionVideo = descriptionVideo[indexPath.row]
         cell.configureCell(video: descriptionVideo)
+        cell.backgroundColor = UIColor(hexString: "#f7f0f0")
+        cell.selectionStyle = .none
         return cell
     }
 }
