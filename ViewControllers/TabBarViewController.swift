@@ -98,7 +98,7 @@ final class TabBarViewController: UITabBarController {
     
     private func setupNavigationBar() {
         let navBarAppearance = UINavigationBarAppearance()
-        navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
+        navBarAppearance.backgroundColor = UIColor(hexString: "#e3e3c1")
         let viewControllers = [homeViewController, favoriteViewController, thirdVC, settingVC]
         viewControllers .forEach { viewController in
             viewController.navigationItem.titleView = naviVerticalStackView

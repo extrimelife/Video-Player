@@ -48,6 +48,7 @@ final class HomeViewController: UIViewController {
         homeVollectionView.register(HomelCollectionViewCell.self, forCellWithReuseIdentifier: HomelCollectionViewCell.identifier)
         homeVollectionView.dataSource = self
         homeVollectionView.delegate = self
+        homeVollectionView.backgroundColor = UIColor(hexString: "#e3e3c1")
         return homeVollectionView
     }()
     
@@ -125,7 +126,6 @@ extension HomeViewController: UICollectionViewDataSource {
         let categoryModel = isFiltering ? filteredCharacters[indexPath.item] : categoryModel[indexPath.section].videos[indexPath.item]
         cell.configure(categories: categoryModel)
         cell.addShadow()
-        cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.getPlayButton = { [unowned self] in
             
             guard let videoURL = URL(string: categoryModel.sources) else {return}

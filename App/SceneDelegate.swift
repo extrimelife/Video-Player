@@ -13,12 +13,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
-        
         let tabBarViewController = TabBarViewController()
-        let appearance = UITabBarAppearance()
-        tabBarViewController.tabBar.scrollEdgeAppearance = appearance
+        tabBarViewController.tabBar.scrollEdgeAppearance = UITabBarAppearance().self
+        tabBarViewController.tabBar.scrollEdgeAppearance?.backgroundColor = UIColor(hexString: "#e3e3c1")
+        tabBarViewController.tabBar.standardAppearance.backgroundColor =  UIColor(hexString: "#e3e3c1")
         tabBarViewController.tabBar.tintColor = .black
-        tabBarViewController.tabBar.barTintColor = UIColor(hexString: "#f7f0f0")
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = tabBarViewController
         self.window = window

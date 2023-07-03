@@ -45,6 +45,7 @@ final class FavoriteViewController: UIViewController {
         favoriteListTableView.delegate = self
         favoriteListTableView.rowHeight = 200
         favoriteListTableView.register(FavoriteTableViewCell.self, forCellReuseIdentifier: FavoriteTableViewCell.identifier)
+        favoriteListTableView.backgroundColor = UIColor(hexString: "#e3e3c1")
         return favoriteListTableView
     }()
     
@@ -145,7 +146,7 @@ final class FavoriteViewController: UIViewController {
     }
     
     private func setupLayout() {
-        view.backgroundColor = UIColor(hexString: "#f7f0f0")
+        view.backgroundColor = UIColor(hexString: "#e3e3c1")
         [favoriteListTableView, segmentedControl] .forEach {view.addSubview($0)}
         NSLayoutConstraint.activate([
             favoriteListTableView.topAnchor.constraint(equalTo: segmentedControl.topAnchor, constant: 5),
@@ -171,7 +172,7 @@ extension FavoriteViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: FavoriteTableViewCell.identifier, for: indexPath) as? FavoriteTableViewCell else { return FavoriteTableViewCell() }
         let favoriteVideo = isFiltering ? filteredCharacters[indexPath.row] : favoritesVideo[indexPath.row]
         cell.configurateCell(categories: favoriteVideo)
-        cell.backgroundColor = UIColor(hexString: "#f7f0f0")
+        cell.backgroundColor = UIColor(hexString: "#e3e3c1")
         cell.selectionStyle = .none
         cell.getReloadHomeVC = { [unowned self] in
             delegateReloadHomeView.reloadData()
