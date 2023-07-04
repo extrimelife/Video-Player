@@ -38,7 +38,6 @@ class StorageManager {
         task.image = image
         task.title = video.title
         task.descriptio = video.description
-        task.subtitle = video.subtitle
         task.sources = video.sources
         saveContext()
     }

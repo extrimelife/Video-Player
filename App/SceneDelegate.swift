@@ -15,8 +15,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let tabBarViewController = TabBarViewController()
         tabBarViewController.tabBar.scrollEdgeAppearance = UITabBarAppearance().self
-        tabBarViewController.tabBar.scrollEdgeAppearance?.backgroundColor = UIColor(hexString: "#e3e3c1")
-        tabBarViewController.tabBar.standardAppearance.backgroundColor =  UIColor(hexString: "#e3e3c1")
+        tabBarViewController.tabBar.scrollEdgeAppearance?.backgroundColor = UIColor(hexString: "#f7f0f0")
+        tabBarViewController.tabBar.standardAppearance.backgroundColor =  UIColor(hexString: "#f7f0f0")
         tabBarViewController.tabBar.tintColor = .black
         let window = UIWindow(windowScene: windowScene)
         window.rootViewController = tabBarViewController

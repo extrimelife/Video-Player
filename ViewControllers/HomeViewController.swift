@@ -48,7 +48,7 @@ final class HomeViewController: UIViewController {
         homeVollectionView.register(HomelCollectionViewCell.self, forCellWithReuseIdentifier: HomelCollectionViewCell.identifier)
         homeVollectionView.dataSource = self
         homeVollectionView.delegate = self
-        homeVollectionView.backgroundColor = UIColor(hexString: "#e3e3c1")
+        homeVollectionView.backgroundColor = UIColor(hexString: "#f7f0f0")
         return homeVollectionView
     }()
     
