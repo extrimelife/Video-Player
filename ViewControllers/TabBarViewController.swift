@@ -20,26 +20,33 @@ final class TabBarViewController: UITabBarController {
     private let thirdVC = InfoViewController()
     private let settingVC = SettingViewController()
     
-    private let navigationPopImage: UIImageView = {
-        let navigationPopImage = UIImageView()
-        navigationPopImage.image = UIImage(named: "PopMovies naviBar")
-        navigationPopImage.contentMode = .scaleAspectFit
-        return navigationPopImage
+    private let navigationLabel: UILabel = {
+        let navigationLabel = UILabel()
+        navigationLabel.text = "PopMovi"
+        navigationLabel.contentMode = .scaleAspectFit
+        return navigationLabel
+    }()
+    
+    private let ImageView: UIImageView = {
+        let ImageView = UIImageView()
+        ImageView.image = UIImage(named: "")
+        ImageView.contentMode = .scaleAspectFill
+        return ImageView
     }()
     
     
     private let navigationImageView: UIImageView = {
         let naviImageView = UIImageView()
-       // naviImageView.image = UIImage(named: "PopMovies naviBar")
-        naviImageView.contentMode = .scaleAspectFit
+        naviImageView.image = UIImage(named: "MyImage")
+        naviImageView.contentMode = .scaleAspectFill
         return naviImageView
     }()
     
     private lazy var naviHorizontalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [navigationPopImage])
+        let stackView = UIStackView(arrangedSubviews: [navigationImageView, ImageView])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
-        stackView.spacing = -185
+        stackView.spacing = 10
         return stackView
     }()
     
@@ -100,7 +107,7 @@ final class TabBarViewController: UITabBarController {
         navBarAppearance.backgroundColor = UIColor(hexString: "#f7f0f0")
         let viewControllers = [homeViewController, favoriteViewController, thirdVC, settingVC]
         viewControllers .forEach { viewController in
-            viewController.navigationItem.titleView = navigationPopImage
+            viewController.navigationItem.titleView = naviVerticalStackView
             viewController.navigationController?.navigationBar.standardAppearance = navBarAppearance
             viewController.navigationController?.navigationBar.scrollEdgeAppearance = navBarAppearance
         }
