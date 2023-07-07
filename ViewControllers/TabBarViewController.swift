@@ -20,30 +20,22 @@ final class TabBarViewController: UITabBarController {
     private let thirdVC = InfoViewController()
     private let settingVC = SettingViewController()
     
-    private let navigationLabel: UILabel = {
-        let navigationLabel = UILabel()
-        navigationLabel.text = "PopMovi"
-        navigationLabel.contentMode = .scaleAspectFit
-        return navigationLabel
+    private let ImageCameraView: UIImageView = {
+        let ImageCameraView = UIImageView()
+        ImageCameraView.image = UIImage(named: "video-camera")
+        ImageCameraView.contentMode = .scaleAspectFit
+        return ImageCameraView
     }()
     
-    private let ImageView: UIImageView = {
-        let ImageView = UIImageView()
-        ImageView.image = UIImage(named: "")
-        ImageView.contentMode = .scaleAspectFill
-        return ImageView
-    }()
-    
-    
-    private let navigationImageView: UIImageView = {
-        let naviImageView = UIImageView()
-        naviImageView.image = UIImage(named: "MyImage")
-        naviImageView.contentMode = .scaleAspectFill
-        return naviImageView
+    private let popMoviImageView: UIImageView = {
+        let popMoviImageView = UIImageView()
+        popMoviImageView.image = UIImage(named: "MyImage")
+        popMoviImageView.contentMode = .scaleAspectFill
+        return popMoviImageView
     }()
     
     private lazy var naviHorizontalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [navigationImageView, ImageView])
+        let stackView = UIStackView(arrangedSubviews: [popMoviImageView, ImageCameraView])
         stackView.axis = .horizontal
         stackView.distribution = .fillEqually
         stackView.spacing = 10
@@ -115,9 +107,9 @@ final class TabBarViewController: UITabBarController {
     
     private func setupLayout() {
         NSLayoutConstraint.activate([
-            naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 20),
-            naviHorizontalStackView.widthAnchor.constraint(equalToConstant: 190),
-            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 315)
+            naviHorizontalStackView.heightAnchor.constraint(equalToConstant: 35),
+            naviHorizontalStackView.widthAnchor.constraint(equalToConstant: 125),
+            naviVerticalStackView.widthAnchor.constraint(equalToConstant: 300),
         ])
     }
 }
