@@ -35,6 +35,7 @@ final class FavoriteViewController: UIViewController {
         searchBar.placeholder = "Search on the FavoritePage"
         searchBar.tintColor = .black
         searchBar.delegate = self
+        searchBar.searchTextField.clearButtonMode = .never
         return searchBar
     }()
     
