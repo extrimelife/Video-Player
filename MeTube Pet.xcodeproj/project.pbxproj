@@ -32,6 +32,7 @@
 		B7C599F629FA11A50006EE19 /* DescriptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7C599F529FA11A50006EE19 /* DescriptionViewController.swift */; };
 		B7CD4AF829B41FF8000B5BA7 /* FavoriteTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */; };
 		B7DFF31029BD9B9E00EAE036 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7DFF30F29BD9B9E00EAE036 /* Models.swift */; };
+		B7EFF0092A5D2E3E00CE416C /* DescriprionHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7EFF0082A5D2E3E00CE416C /* DescriprionHeaderView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,6 +63,7 @@
 		B7C599F529FA11A50006EE19 /* DescriptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionViewController.swift; sourceTree = "<group>"; };
 		B7CD4AF729B41FF8000B5BA7 /* FavoriteTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteTableViewCell.swift; sourceTree = "<group>"; };
 		B7DFF30F29BD9B9E00EAE036 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		B7EFF0082A5D2E3E00CE416C /* DescriprionHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriprionHeaderView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				B749C5A92A1C436A00ABD8A8 /* EmptyView.swift */,
+				B7EFF0082A5D2E3E00CE416C /* DescriprionHeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				B73ED2BF29A5FFDF00DA2B37 /* SceneDelegate.swift in Sources */,
 				B759959929D52BB300BB7C96 /* MeTubePet.xcdatamodeld in Sources */,
 				B7BA25BA2A43FDB500173E8B /* ViewedTableViewCell.swift in Sources */,
+				B7EFF0092A5D2E3E00CE416C /* DescriprionHeaderView.swift in Sources */,
 				B73ED2D329A6000E00DA2B37 /* FavoriteViewController.swift in Sources */,
 				B73ED2D529A6006700DA2B37 /* TabBarViewController.swift in Sources */,
 				B73ED2D129A5FFFD00DA2B37 /* HomeViewController.swift in Sources */,

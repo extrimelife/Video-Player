@@ -53,6 +53,13 @@ final class FavoriteTableViewCell: UITableViewCell {
         return playButton
     }()
     
+    private let separator: UIView = {
+        let view = UIView()
+        view.backgroundColor = .black
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     // MARK: - Override Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -121,7 +128,7 @@ final class FavoriteTableViewCell: UITableViewCell {
     }
     
     private func setupLayout() {
-        [favoriteImageView, favoriteLabel, favoriteButton, playButton] .forEach { contentView.addSubview($0) }
+        [favoriteImageView, favoriteLabel, favoriteButton, playButton, separator] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
             favoriteImageView.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
             favoriteImageView.leadingAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.leadingAnchor),
@@ -132,6 +139,11 @@ final class FavoriteTableViewCell: UITableViewCell {
             favoriteButton.trailingAnchor.constraint(equalTo: favoriteImageView.trailingAnchor, constant: -5),
             
             favoriteLabel.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor),
+            
+            separator.topAnchor.constraint(equalTo: favoriteImageView.bottomAnchor, constant: 25),
+            separator.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
+            separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -120),
+            separator.heightAnchor.constraint(equalToConstant: 1),
             
             playButton.centerXAnchor.constraint(equalTo: favoriteImageView.centerXAnchor),
             playButton.centerYAnchor.constraint(equalTo: favoriteImageView.centerYAnchor)
