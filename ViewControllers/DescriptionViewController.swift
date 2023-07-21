@@ -10,6 +10,7 @@ import UIKit
 final class DescriptionViewController: UIViewController {
     
     private var descriptionVideo: [Mask] = []
+    private var expandedcell: IndexSet = []
     
     private lazy var descriptionTableView: UITableView = {
         let descriptionTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -60,6 +61,22 @@ extension DescriptionViewController: UITableViewDataSource {
         cell.configureCell(video: descriptionVideo)
         cell.backgroundColor = UIColor(hexString: "#f7f0f0")
         cell.selectionStyle = .none
+        if expandedcell.contains(indexPath.row) {
+            cell.descriptionLabel.numberOfLines = 0
+            cell.wholeDescriptionButton.setTitle("See Less", for: .normal)
+        } else {
+            cell.descriptionLabel.numberOfLines = 3
+        }
+        cell.butttonClicked = { [unowned self] in
+            if expandedcell.contains(indexPath.row) {
+                expandedcell.remove(indexPath.row)
+            } else {
+                expandedcell.insert(indexPath.row)
+            }
+            
+            tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.automatic)
+            
+        }
         return cell
     }
 }

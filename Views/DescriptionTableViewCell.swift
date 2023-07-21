@@ -9,6 +9,26 @@ import UIKit
 
 final class DescriptionTableViewCell: UITableViewCell {
     
+    //MARK: - Public Properties
+    
+    var butttonClicked: (() -> (Void))!
+    
+    lazy var wholeDescriptionButton: UIButton = {
+        let wholeDescriptionButton = UIButton()
+        wholeDescriptionButton.translatesAutoresizingMaskIntoConstraints = false
+        wholeDescriptionButton.setTitleColor(UIColor(hexString: "#6134eb"), for: .normal)
+        wholeDescriptionButton.setTitle("See More", for: .normal)
+        wholeDescriptionButton.addTarget(self, action: #selector(tappedButton), for: .touchUpInside)
+        return wholeDescriptionButton
+    }()
+    
+    let descriptionLabel: UILabel = {
+        let descriptionLabel = UILabel()
+        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+        descriptionLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
+        return descriptionLabel
+    }()
+    
     // MARK: - Private Properties
     
     private lazy var detailsStackView: UIStackView = {
@@ -42,15 +62,6 @@ final class DescriptionTableViewCell: UITableViewCell {
         return view
     }()
     
-    private let descriptionLabel: UILabel = {
-        let descriptionLabel = UILabel()
-        descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
-        descriptionLabel.numberOfLines = 0
-        descriptionLabel.font = UIFont.systemFont(ofSize: 20, weight: .regular)
-        return descriptionLabel
-    }()
-    
-    
     //MARK: - Override Methods
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -72,9 +83,13 @@ final class DescriptionTableViewCell: UITableViewCell {
     
     //MARK: - Private Methods
     
+    @objc private func tappedButton() {
+        butttonClicked()
+    }
+    
     private func setupLayout() {
         contentView.addSubview(detailsStackView)
-        [descriptionImage, titleLabel, separator, descriptionLabel] .forEach { detailsStackView.addArrangedSubview($0) }
+        [descriptionImage, titleLabel, separator, descriptionLabel, wholeDescriptionButton] .forEach { detailsStackView.addArrangedSubview($0) }
         NSLayoutConstraint.activate([
             detailsStackView.topAnchor.constraint(equalTo: contentView.topAnchor),
             detailsStackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
@@ -86,9 +101,11 @@ final class DescriptionTableViewCell: UITableViewCell {
             separator.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -120),
             separator.heightAnchor.constraint(equalToConstant: 1),
             
-            descriptionLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
-            
             descriptionImage.heightAnchor.constraint(equalToConstant: 200),
+            
+            wholeDescriptionButton.topAnchor.constraint(equalTo: descriptionLabel.bottomAnchor, constant: 20),
+            wholeDescriptionButton.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: 250)
+           
         ])
     }
 }
