@@ -197,20 +197,9 @@ extension FavoriteViewController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension FavoriteViewController: UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
- //           StorageManager.shared.removeFavoriteMovie(id: favoriteVideo.id ?? "")
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            delegateReloadHomeView.reloadData()
-//            showEmptyView()
-//        }
-//    }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let trashAction = UIContextualAction(style: .normal, title: "Delete") { [unowned self] action, view, completion in
-            print("Delete Button Tapped")
-            //  Delete Functionality
             let favoriteVideo = isFiltering ? filteredCharacters.remove(at: indexPath.row) : favoritesVideo.remove(at: indexPath.row)
             StorageManager.shared.removeFavoriteMovie(id: favoriteVideo.id ?? "")
             favoriteListTableView.deleteRows(at: [indexPath], with: .fade)
@@ -218,8 +207,8 @@ extension FavoriteViewController: UITableViewDelegate {
             delegateReloadHomeView.reloadData()
             showEmptyView()
         }
-        trashAction.backgroundColor = #colorLiteral(red: 0.1294117719, green: 0.2156862766, blue: 0.06666667014, alpha: 1)
-        trashAction.image = UIImage(named: "Delete_Red_Icon")
+        trashAction.backgroundColor = .red
+        trashAction.image = UIImage(named: "Trash")
         let configuration = UISwipeActionsConfiguration(actions: [trashAction])
         return configuration
     }

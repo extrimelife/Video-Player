@@ -9,6 +9,8 @@ import UIKit
 
 final class DescriptionViewController: UIViewController {
     
+    // MARK: - Private Properties
+    
     private var descriptionVideo: [Mask] = []
     private var expandedcell: IndexSet = []
     
@@ -21,11 +23,15 @@ final class DescriptionViewController: UIViewController {
         return descriptionTableView
     }()
     
+    // MARK: - Override Methods
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
         fetchData()
     }
+    
+    // MARK: - Private Methods
     
     private func fetchData() {
         StorageManager.shared.fetchData { result in
@@ -49,6 +55,8 @@ final class DescriptionViewController: UIViewController {
         ])
     }
 }
+
+// MARK: - UITableViewDataSource
 
 extension DescriptionViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -81,6 +89,8 @@ extension DescriptionViewController: UITableViewDataSource {
     }
 }
 
+// MARK: - UITableViewDelegate
+
 extension DescriptionViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -88,8 +98,8 @@ extension DescriptionViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-       let descriptionHeaderView = DescriprionHeaderView()
-        return descriptionHeaderView 
+        let descriptionHeaderView = DescriprionHeaderView()
+        return descriptionHeaderView
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
