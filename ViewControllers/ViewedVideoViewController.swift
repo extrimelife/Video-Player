@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol ViewedFavoriteMovieDelegate: AnyObject {
+    func getMovie()
+}
+
 class ViewedVideoViewController: UIViewController {
     
     var viewedVideo = [Mask]()
@@ -53,4 +57,10 @@ extension ViewedVideoViewController: UITableViewDataSource {
 
 extension ViewedVideoViewController: UITableViewDelegate {
     
+}
+
+extension ViewedVideoViewController: ViewedFavoriteMovieDelegate {
+    func getMovie() {
+        view.backgroundColor = .red
+    }
 }
