@@ -16,7 +16,7 @@ final class DescriptionTableViewCell: UITableViewCell {
     lazy var wholeDescriptionButton: UIButton = {
         let wholeDescriptionButton = UIButton()
         wholeDescriptionButton.translatesAutoresizingMaskIntoConstraints = false
-        wholeDescriptionButton.setTitleColor(UIColor(hexString: "#6134eb"), for: .normal)
+        wholeDescriptionButton.setTitleColor(UIColor(hexString: "#fc0303"), for: .normal)
         wholeDescriptionButton.setTitle("See More", for: .normal)
         wholeDescriptionButton.addTarget(self, action: #selector(tappedButton), for: .touchUpInside)
         return wholeDescriptionButton

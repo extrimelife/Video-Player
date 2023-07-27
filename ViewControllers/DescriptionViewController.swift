@@ -74,6 +74,7 @@ extension DescriptionViewController: UITableViewDataSource {
             cell.wholeDescriptionButton.setTitle("See Less", for: .normal)
         } else {
             cell.descriptionLabel.numberOfLines = 3
+            cell.wholeDescriptionButton.setTitle("See More", for: .normal)
         }
         cell.butttonClicked = { [unowned self] in
             if expandedcell.contains(indexPath.row) {

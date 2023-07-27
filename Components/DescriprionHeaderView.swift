@@ -13,6 +13,7 @@ final class DescriprionHeaderView: UIView {
         let descriptionImage = UIImageView()
         descriptionImage.translatesAutoresizingMaskIntoConstraints = false
         descriptionImage.image = UIImage(named: "HeaderImage")
+        descriptionImage.contentMode = .scaleAspectFit
        return descriptionImage
     }()
     

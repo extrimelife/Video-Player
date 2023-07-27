@@ -28,6 +28,9 @@ class ViewedVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
+        let vc = FavoriteViewController()
+        vc.delegateViewedFavoriteMovie = self
+        vc.navigationController?.pushViewController(vc, animated: true)
     }
     
     private func setupLayout() {
@@ -62,5 +65,6 @@ extension ViewedVideoViewController: UITableViewDelegate {
 extension ViewedVideoViewController: ViewedFavoriteMovieDelegate {
     func getMovie() {
         view.backgroundColor = .red
+        print("fefefef")
     }
 }
