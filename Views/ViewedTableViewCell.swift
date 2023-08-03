@@ -15,6 +15,7 @@ class ViewedTableViewCell: UITableViewCell {
         viewedImageview.contentMode = .scaleAspectFill
         viewedImageview.layer.cornerRadius = 10
         viewedImageview.clipsToBounds = true
+        viewedImageview.backgroundColor = .red
         return viewedImageview
     }()
     
@@ -39,12 +40,13 @@ class ViewedTableViewCell: UITableViewCell {
     func configureCell(video: Mask) {
         viewedImageview.image = UIImage(data: video.image ?? Data())
         nameLabel.text = video.title
+        
     }
     
     private func setupLayout() {
         [viewedImageview, nameLabel] .forEach { contentView.addSubview($0) }
         NSLayoutConstraint.activate([
-            viewedImageview.topAnchor.constraint(equalTo: contentView.safeAreaLayoutGuide.topAnchor),
+            viewedImageview.topAnchor.constraint(equalTo: contentView.topAnchor),
             viewedImageview.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
             viewedImageview.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -30),
             viewedImageview.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),

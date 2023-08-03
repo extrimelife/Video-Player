@@ -14,8 +14,7 @@ final class FavoriteViewController: UIViewController {
     
     weak var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateReloadHomeView: ReloadHomeTableViewDelegate!
-    weak var delegateViewedFavoriteMovie: ViewedFavoriteMovieDelegate!
-    
+   
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -111,7 +110,6 @@ final class FavoriteViewController: UIViewController {
             let viewedVideoVC = ViewedVideoViewController()
             viewedVideoVC.navigationItem.title = segmentedControl.titleForSegment(at: 1)
             navigationController?.pushViewController(viewedVideoVC, animated: true)
-            //delegateViewedFavoriteMovie.getMovie()
         case 2:
             let descriptionVC = DescriptionViewController()
             present(descriptionVC, animated: true)
@@ -186,7 +184,6 @@ extension FavoriteViewController: UITableViewDataSource {
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
             playerViewController.player = player
-            
             present(playerViewController, animated: true) {
                 player.play()
                 cell.getButtonTittle()
