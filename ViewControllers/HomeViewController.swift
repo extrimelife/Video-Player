@@ -128,7 +128,6 @@ extension HomeViewController: UICollectionViewDataSource {
         cell.configure(categories: categoryModel)
         cell.addShadow()
         cell.getPlayButton = { [unowned self] in
-            
             guard let videoURL = URL(string: categoryModel.sources) else {return}
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
