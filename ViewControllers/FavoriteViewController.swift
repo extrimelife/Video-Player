@@ -16,7 +16,8 @@ final class FavoriteViewController: UIViewController {
     
     weak var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateReloadHomeView: ReloadHomeTableViewDelegate!
-   
+    weak var delegateTransferViewedVCData: ViewedTransferDataDelegate!
+    
     var favoritesVideo: [Mask] = []
     
     // MARK: - Private Properties
@@ -181,9 +182,7 @@ extension FavoriteViewController: UITableViewDataSource {
             delegateReloadHomeView.reloadData()
         }
         cell.getPlayButton = { [unowned self] in
-            
-            viewedVideoVC.viewedVideo.append(favoriteVideo)
-            viewedVideoVC.viewedTableView.reloadData()
+                delegateTransferViewedVCData.getViewedVideo(video: favoriteVideo)
             guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
