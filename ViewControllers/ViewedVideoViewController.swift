@@ -11,7 +11,7 @@ class ViewedVideoViewController: UIViewController {
     
     var viewedVideo = [Mask]()
     
-    private lazy var viewedTableView: UITableView = {
+    lazy var viewedTableView: UITableView = {
         let viewedTableView = UITableView(frame: .zero, style: .insetGrouped)
         viewedTableView.translatesAutoresizingMaskIntoConstraints = false
         viewedTableView.dataSource = self

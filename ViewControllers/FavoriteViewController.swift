@@ -12,6 +12,8 @@ final class FavoriteViewController: UIViewController {
     
     //MARK: - Public Properties
     
+    let viewedVideoVC = ViewedVideoViewController()
+    
     weak var delegateNavigationItem: NavigationItemDelegate!
     weak var delegateReloadHomeView: ReloadHomeTableViewDelegate!
    
@@ -107,7 +109,6 @@ final class FavoriteViewController: UIViewController {
     @objc private func segmentedSlided() {
         switch segmentedControl.selectedSegmentIndex {
         case 1:
-            let viewedVideoVC = ViewedVideoViewController()
             viewedVideoVC.navigationItem.title = segmentedControl.titleForSegment(at: 1)
             navigationController?.pushViewController(viewedVideoVC, animated: true)
         case 2:
@@ -180,6 +181,9 @@ extension FavoriteViewController: UITableViewDataSource {
             delegateReloadHomeView.reloadData()
         }
         cell.getPlayButton = { [unowned self] in
+            
+            viewedVideoVC.viewedVideo.append(favoriteVideo)
+            viewedVideoVC.viewedTableView.reloadData()
             guard let videoURL = URL(string: favoriteVideo.sources ?? "") else { return }
             let player = AVPlayer(url: videoURL)
             let playerViewController = AVPlayerViewController()
