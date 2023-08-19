@@ -7,13 +7,9 @@
 
 import UIKit
 
-protocol ViewedTransferDataDelegate: AnyObject {
-    func getViewedVideo(video: Mask)
-}
-
 class ViewedVideoViewController: UIViewController {
     
-   var viewedVideo = [Mask]()
+    var viewedVideo = [Mask]()
     
     lazy var viewedTableView: UITableView = {
         let viewedTableView = UITableView(frame: .zero, style: .insetGrouped)
@@ -28,9 +24,15 @@ class ViewedVideoViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayout()
-        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
-        guard let favoriteVC = navigationVC.viewControllers[0] as? FavoriteViewController else { return }
-        favoriteVC.delegateTransferViewedVCData = self
+        
+//        guard let navigationVC = tabBarController?.viewControllers?[1] as? UINavigationController else { return }
+//        guard let favoriteVC = navigationVC.viewControllers[0] as? FavoriteViewController else { return }
+//        favoriteVC.delegateReloadViewedVC = self
+    }
+    
+    func getVideo(video: Mask) {
+        viewedVideo.append(video)
+        viewedTableView.reloadData()
     }
     
     private func setupLayout() {
@@ -60,11 +62,4 @@ extension ViewedVideoViewController: UITableViewDataSource {
 
 extension ViewedVideoViewController: UITableViewDelegate {
     
-}
-
-extension ViewedVideoViewController: ViewedTransferDataDelegate {
-    func getViewedVideo(video: Mask) {
-        viewedVideo.append(video)
-        viewedTableView.reloadData()
-    }
 }

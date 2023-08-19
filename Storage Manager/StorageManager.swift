@@ -42,6 +42,17 @@ class StorageManager {
         saveContext()
     }
     
+    func saveMask(video: Mask, image: Data) {
+        guard let url = URL(string: video.sources ?? "") else { return }
+        let task = Mask(context: viewContext)
+        task.id = url.lastPathComponent
+        task.image = image
+        task.title = video.title
+        task.descriptio = video.description
+        task.sources = video.sources
+        saveContext()
+    }
+    
     // MARK: - Remove FavoriteMovie from CoreData
     
     func removeFavoriteMovie(id: String) {
